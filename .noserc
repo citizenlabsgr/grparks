@@ -7,7 +7,7 @@ with-doctest=1
 with-coverage=1
 cover-package=parks
 cover-erase=1
-cover-min-percentage=100
+cover-min-percentage=37
 
 verbosity=1
 logging-level=DEBUG
