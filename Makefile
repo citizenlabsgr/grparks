@@ -84,6 +84,7 @@ ci: check test tests
 .PHONY: run
 run: env
 	$(PYTHON) $(PACKAGE)/finder.py
+	cp *.csv pages/
 
 # Development Installation ###################################################
 
@@ -190,18 +191,19 @@ tests-nose: .depends-ci
 .PHONY: test-pytest
 test-pytest: .depends-ci
 	$(COVERAGE) run --source $(PACKAGE) -m py.test $(PACKAGE) --doctest-modules
-	$(COVERAGE) report --show-missing --fail-under=37
+	$(COVERAGE) report --show-missing --fail-under=31
 
 .PHONY: tests-pytest
 tests-pytest: .depends-ci
 	TEST_INTEGRATION=1 $(MAKE) test
-	$(COVERAGE) report --show-missing --fail-under=37
+	$(COVERAGE) report --show-missing --fail-under=31
 
 # Cleanup ####################################################################
 
 .PHONY: clean
 clean: .clean-dist .clean-test .clean-doc .clean-build
 	rm -rf $(ALL)
+	rm -rf *.csv
 
 .PHONY: clean-env
 clean-env: clean

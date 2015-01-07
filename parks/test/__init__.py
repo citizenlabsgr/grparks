@@ -1,3 +1,3 @@
 #!/usr/bin/env python
 
-"""Tests for the parks package."""
+"""Tests for the `parks` package."""

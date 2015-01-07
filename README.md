@@ -17,6 +17,7 @@ Requirements
 ------------
 
 * Python 3.3+
+* GEOS (`brew install geos`)
 
 
 Installation

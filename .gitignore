@@ -36,3 +36,6 @@ dist
 
 # Eclipse
 .settings
+
+# Generated files
+/*.csv

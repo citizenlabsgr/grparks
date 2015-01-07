@@ -1,2 +1,2 @@
-osmapi >= 0.4.1, < 0.5
-
+osmapi == 0.4.1
+shapely == 1.5.2
