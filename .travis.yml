@@ -3,11 +3,39 @@ python:
 - 3.4
 install:
 - pip install coveralls scrutinizer-ocular
-script: make ci
+script:
+- make ci
 after_success:
 - coveralls
 - ocular
+after_script: >
+  echo $TRAVIS_BRANCH; echo $TRAVIS_PULL_REQUEST; echo $TRAVIS_PYTHON_VERSION;
+  if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' && $TRAVIS_PYTHON_VERSION == '3.4' ]]; then
+
+    # Generate output files
+    make run ;
+
+    # Configure Git with Travis CI information
+    git config --global user.email "travis@travis-ci.org" ;
+    git config --global user.name "travis-ci" ;
+
+    # Delete the current repository
+    rm -rf .git ;
+
+    # Rebuild the repository from the generated files and push to GitHub pages
+    cd pages ;
+    touch .nojekyll ;
+    git init ;
+    git add . ;
+    git commit -m "Deploy Travis CI build $TRAVIS_BUILD_NUMBER to GitHub pages" ;
+    git push -f https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} master:gh-pages ;
+
+  fi
+env:
+  global:
+    # Encrypted GH_TOKEN token: http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci
+    secure: "MCacO70G3rRe07HzmoXlNNnF18k9qO7+gV6+1nQQj6zFtB/x/crHEJU/UyEEP2RAF3nVtMEZm5Aj1I4fTbFtFWQFVru2+p/Y7ZV/g0tBuVGeuj8k94wDPSyC+dpa5n7Qgq8q918GqybNw0jO/T24r0QjmffJq2/q6h6do3qaQO4="
 notifications:
   email:
     on_success: never
-    on_failure: always
+    on_failure: change
