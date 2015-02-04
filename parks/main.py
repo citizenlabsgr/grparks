@@ -22,7 +22,8 @@ def main(args=None):
     input_csv_path = args[1]
 
     # Configure logging
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.INFO,
+                        format="%(levelname)s: %(name)s: %(message)s")
 
     # Run the program
     success = run(input_csv_path, OUTPUT_CSV)
