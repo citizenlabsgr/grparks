@@ -25,7 +25,10 @@ def main(args=None):
     logging.basicConfig(level=logging.DEBUG)
 
     # Run the program
-    run(input_csv_path, OUTPUT_CSV)
+    success = run(input_csv_path, OUTPUT_CSV)
+
+    if not success:
+        sys.exit(1)
 
 
 def run(input_csv_path, output_csv_path):
@@ -49,12 +52,16 @@ def run(input_csv_path, output_csv_path):
             csvwriter.writerow([park['id'], park['tag'].get('name')])
 
     # Compare the park names
+    success = True
     for name in millage_parks.keys():
         if name not in osm_parks:
-            log.warning("missing OSM park: %s", name)
+            log.error("missing OSM park: %s", name)
+            success = False
     for name in osm_parks.keys():
         if name not in millage_parks:
             log.warning("missing millage park: %s", name)
+
+    return success
 
 
 if __name__ == '__main__':
