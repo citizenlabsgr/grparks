@@ -22,7 +22,7 @@ def main(args=None):
     input_csv_path = args[1]
 
     # Configure logging
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     # Run the program
     success = run(input_csv_path, OUTPUT_CSV)
@@ -59,7 +59,8 @@ def run(input_csv_path, output_csv_path):
             success = False
     for name in osm_parks.keys():
         if name not in millage_parks:
-            log.warning("missing millage park: %s", name)
+            log.warning("missing CSV park: %s", name)
+            success = False
 
     return success
 
