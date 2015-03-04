@@ -64,7 +64,5 @@ def find(debug=False):
                         data.append(point)
                         parks += 1
 
-
-
     log.info("found %s parks", parks)
     return data
