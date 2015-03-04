@@ -20,9 +20,10 @@ SECTIONS = 5  # step size to avoid limits:
 log = common.logger(__name__)
 
 
-def find():
+def find(debug=False):
     """Display park data in the bounding box."""
-    parks = {}
+    data = []
+    parks = 0
 
     # Create an API connection
     log.info("connecting to OSM...")
@@ -33,7 +34,12 @@ def find():
     height = (BBOX['max_lat'] - BBOX['min_lat']) / SECTIONS
     width = (BBOX['max_lon'] - BBOX['min_lon']) / SECTIONS
     for row in range(SECTIONS):
+        if debug and row != int(SECTIONS / 2):
+            continue
         for col in range(SECTIONS):
+            if debug and col != int(SECTIONS / 2):
+                continue
+
             log.info("loading region (%s, %s) of (%s, %s) ...",
                      row, col, SECTIONS - 1, SECTIONS - 1)
 
@@ -50,11 +56,15 @@ def find():
 
             # find all parks in the list of points
             for point in points:
+                if point['type'] == 'node':
+                    data.append(point)
                 if point['type'] == 'way':
                     if point['data']['tag'].get('leisure') == 'park':
-                        data = point['data']
-                        log.debug("found park: %s", data)
-                        parks[point['data']['id']] = data
+                        log.debug("found park: %s", point['data'])
+                        data.append(point)
+                        parks += 1
 
-    log.info("found %s parks", len(parks))
-    return parks
+
+
+    log.info("found %s parks", parks)
+    return data

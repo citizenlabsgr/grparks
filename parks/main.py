@@ -2,6 +2,7 @@
 
 import sys
 import csv
+import json
 import logging
 
 from parks import common
@@ -9,6 +10,7 @@ from parks import reader
 from parks import finder
 
 OUTPUT_CSV = "parks.csv"
+OUTPUT_GEOJSON = "parks.osm_json"
 
 log = common.logger(__name__)
 
@@ -18,39 +20,68 @@ def main(args=None):
 
     # Parse arguments
     args = args or sys.argv  # TODO: replace this with an `argparse` CLI
-    assert len(args) == 2
+    assert len(args) in (2, 3)
+    if '--debug' in args:
+        debug = True
+        args.remove('--debug')
+    else:
+        debug = False
     input_csv_path = args[1]
 
     # Configure logging
-    logging.basicConfig(level=logging.INFO,
+    logging.basicConfig(level=logging.DEBUG if debug else logging.INFO,
                         format="%(levelname)s: %(name)s: %(message)s")
 
     # Run the program
-    success = run(input_csv_path, OUTPUT_CSV)
+    success = run(input_csv_path, OUTPUT_CSV, OUTPUT_GEOJSON, debug=debug)
 
     if not success:
         sys.exit(1)
 
 
-def run(input_csv_path, output_csv_path):
+def run(input_csv_path, output_csv_path, output_geojson_path, debug=False):
     """Merge the input data with OpenStreetMap data."""
 
     # Read the input millage data
     millage_parks = reader.read(input_csv_path)
 
     # Find all parks on OSM
-    osm_geojson = finder.find()
+    osm_points = finder.find(debug=debug)
     osm_parks = {}
-    for data in osm_geojson.values():
-        name = data['tag'].get('name', '<unknown>')
-        osm_parks[name] = data
+    for point in osm_points:
+        if point['type'] == 'way':
+            data = point['data']
+            name = data['tag'].get('name', '<unknown>')
+            osm_parks[name] = data
 
     # Write the relevant OSM data to a flat file
     log.info("writing %s...", output_csv_path)
     with open(output_csv_path, 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        for park in osm_geojson.values():
+        for park in osm_parks.values():
             csvwriter.writerow([park['id'], park['tag'].get('name')])
+
+    # Generate new OSM JSON parks data with millage information
+    modified_osm_points = []
+    for point in osm_points:
+        if point['type'] == 'way':
+            name = point['data']['tag'].get('name')
+            try:
+                millage_park_data = millage_parks[name]
+            except KeyError:
+                log.debug("no tags added to park: %s", name)
+            else:
+                point['data']['tag']['foo'] = 'bar'
+                for key, value in millage_park_data.items():
+                    point['data']['tag'][key] = value
+                log.debug("tags added to park: %s", name)
+        modified_osm_points.append(point)
+
+    # Write the modified OSM data to a GeoJSON file
+    log.info("writing %s...", output_geojson_path)
+    with open(output_geojson_path, 'w') as geojson_file:
+        modified_osm_json = json.dumps(modified_osm_points, indent='  ')
+        geojson_file.write(modified_osm_json)
 
     # Compare the park names
     success = True

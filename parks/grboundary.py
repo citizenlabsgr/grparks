@@ -5,7 +5,7 @@ import json
 from shapely.geometry import shape
 
 # http://data.grcity.us/dataset/city-limits/resource/4f2ad2ce-c0fb-4de1-b02d-774405a0cf7d
-JSON = """
+GEOJSON = """
 {
 "type": "FeatureCollection",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -17,6 +17,6 @@ JSON = """
 
 """
 
-DATA = json.loads(JSON)
+DATA = json.loads(GEOJSON)
 FEATURE = DATA['features'][0]
 POLYGON = shape(FEATURE['geometry'])
