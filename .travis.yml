@@ -13,6 +13,10 @@ after_script: >
   echo $TRAVIS_BRANCH; echo $TRAVIS_PULL_REQUEST; echo $TRAVIS_PYTHON_VERSION;
   if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' && $TRAVIS_PYTHON_VERSION == '3.4' ]]; then
 
+    # Copy the generated files
+    cp *.csv pages/
+    cp *.osm_json pages/
+
     # Configure Git with Travis CI information
     git config --global user.email "travis@travis-ci.org" ;
     git config --global user.name "travis-ci" ;

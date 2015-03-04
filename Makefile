@@ -80,8 +80,6 @@ ci: check test tests
 .PHONY: run
 run: env
 	$(PYTHON) $(PACKAGE)/main.py data/millage.csv
-	cp *.csv pages/
-	cp *.osm_json pages/
 
 # Development Installation ###################################################
 
