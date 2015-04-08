@@ -75,8 +75,6 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
                 for key, value in millage_park_data.items():
                     point['data']['tag'][key] = value
                 log.debug("tags added to park: %s", name)
-        else:
-            point['data']['visible'] = False
         point2 = {}
         point2['type'] = point['type']
         point2.update(point['data'])

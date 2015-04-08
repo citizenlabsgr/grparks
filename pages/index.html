@@ -10,7 +10,7 @@
 <body>
 
 
-<div id="map" style="height: 500px; width: 500px;"></div>
+<div id="map" style="height: 100vh; width: 100%vw"></div>
 
 <!--<a href="parks.csv">parks.csv</a>-->
 
@@ -49,8 +49,8 @@
         var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
 
-        // start the map in South-East England
-        map.setView(new L.LatLng(42.9714, -85.6434), 13);
+        // start the map centered on Grand Rapids, MI
+        map.setView(new L.LatLng(42.956, -85.667), 13);
         map.addLayer(osm);
         L.geoJson(geoJson).addTo(map);
     }
