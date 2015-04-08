@@ -10,7 +10,7 @@ from parks import reader
 from parks import finder
 
 OUTPUT_CSV = "parks.csv"
-OUTPUT_GEOJSON = "parks.osm_json"
+OUTPUT_OSM_JSON = "parks.osm_json"
 
 log = common.logger(__name__)
 
@@ -33,13 +33,13 @@ def main(args=None):
                         format="%(levelname)s: %(name)s: %(message)s")
 
     # Run the program
-    success = run(input_csv_path, OUTPUT_CSV, OUTPUT_GEOJSON, debug=debug)
+    success = run(input_csv_path, OUTPUT_CSV, OUTPUT_OSM_JSON, debug=debug)
 
     if not success:
         sys.exit(1)
 
 
-def run(input_csv_path, output_csv_path, output_geojson_path, debug=False):
+def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     """Merge the input data with OpenStreetMap data."""
 
     # Read the input millage data
@@ -75,13 +75,21 @@ def run(input_csv_path, output_csv_path, output_geojson_path, debug=False):
                 for key, value in millage_park_data.items():
                     point['data']['tag'][key] = value
                 log.debug("tags added to park: %s", name)
-        modified_osm_points.append(point)
+        else:
+            point['data']['visible'] = False
+        point2 = {}
+        point2['type'] = point['type']
+        point2.update(point['data'])
+        point2['nodes'] = point2.pop('nd', {})
+        point2['tags'] = point2.pop('tag', {})
+        modified_osm_points.append(point2)
 
-    # Write the modified OSM data to a GeoJSON file
-    log.info("writing %s...", output_geojson_path)
-    with open(output_geojson_path, 'w') as geojson_file:
-        modified_osm_json = json.dumps(modified_osm_points, indent='  ')
-        geojson_file.write(modified_osm_json)
+    # Write the modified OSM data to an OSM JSON file
+    log.info("writing %s...", output_osm_json_path)
+    with open(output_osm_json_path, 'w') as osm_json_file:
+        modified_osm_data = {'elements': modified_osm_points}
+        modified_osm_json = json.dumps(modified_osm_data, indent='  ')
+        osm_json_file.write(modified_osm_json)
 
     # Compare the park names
     success = True
@@ -94,7 +102,7 @@ def run(input_csv_path, output_csv_path, output_geojson_path, debug=False):
             log.warning("missing CSV park: %s", name)
             success = False
 
-    return success
+    return success or debug
 
 
 if __name__ == '__main__':

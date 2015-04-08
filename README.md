@@ -20,6 +20,7 @@ Requirements
 * Python 3.3+: https://www.python.org/downloads
 * virtualenv: https://pypi.python.org/pypi/virtualenv#installation
 * GEOS (`brew install geos`)
+* Node 0.12+
 
 Installation
 ------------

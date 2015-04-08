@@ -78,7 +78,16 @@ $(ALL): $(SOURCES)
 ci: check test tests
 
 .PHONY: run
-run: env
+run: geojson
+
+.PHONY: geojson
+geojson: parks.geojson
+parks.geojson: depends parks.osm_json
+	osmtogeojson -v parks.osm_json -f json > parks.geojson
+
+.PHONY: osm_json
+osm_json: parks.osm_json
+parks.osm_json: depends data/millage.csv
 	$(PYTHON) $(PACKAGE)/main.py data/millage.csv
 
 # Development Installation ###################################################
@@ -100,12 +109,15 @@ depends: .depends-ci .depends-dev
 .PHONY: .depends-ci
 .depends-ci: env Makefile $(DEPENDS_CI)
 $(DEPENDS_CI): Makefile
+	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8 pep257 $(TEST_RUNNER) coverage
+	npm install -g osmtogeojson
 	touch $(DEPENDS_CI)  # flag to indicate dependencies are installed
 
 .PHONY: .depends-dev
 .depends-dev: env Makefile $(DEPENDS_DEV)
 $(DEPENDS_DEV): Makefile
+	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8radius pygments docutils pdoc pylint wheel
 	touch $(DEPENDS_DEV)  # flag to indicate dependencies are installed
 
@@ -198,7 +210,7 @@ tests-pytest: .depends-ci
 .PHONY: clean
 clean: .clean-dist .clean-test .clean-doc .clean-build
 	rm -rf $(ALL)
-	rm -rf *.csv
+	rm -rf *.csv *.osm_json *.geojson
 
 .PHONY: clean-env
 clean-env: clean
