@@ -198,12 +198,12 @@ tests-nose: .depends-ci
 .PHONY: test-pytest
 test-pytest: .depends-ci
 	$(COVERAGE) run --source $(PACKAGE) -m py.test $(PACKAGE) --doctest-modules
-	$(COVERAGE) report --show-missing --fail-under=21
+	$(COVERAGE) report --show-missing --fail-under=20
 
 .PHONY: tests-pytest
 tests-pytest: .depends-ci
 	TEST_INTEGRATION=1 $(MAKE) test
-	$(COVERAGE) report --show-missing --fail-under=21
+	$(COVERAGE) report --show-missing --fail-under=20
 
 # Cleanup ####################################################################
 
