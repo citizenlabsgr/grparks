@@ -17,6 +17,11 @@ BBOX = {'min_lat': POLYGON.bounds[1],
 # http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities
 SECTIONS = 5  # step size to avoid limits:
 
+# list of non-parks that should be collected
+PARK_NAMES = (
+    "Indian Trails Golf Course",
+)
+
 log = common.logger(__name__)
 
 
@@ -59,7 +64,8 @@ def find(debug=False):
                 if point['type'] == 'node':
                     data.append(point)
                 if point['type'] == 'way':
-                    if point['data']['tag'].get('leisure') == 'park':
+                    if any(((point['data']['tag'].get('leisure') == 'park'),
+                            (point['data']['tag'].get('name') in PARK_NAMES))):
                         log.debug("found park: %s", point['data'])
                         data.append(point)
                         parks += 1
