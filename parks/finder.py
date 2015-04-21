@@ -6,6 +6,10 @@ from parks import common
 from parks.grboundary import POLYGON
 
 
+43.028114, -85.622108
+
+43.028679, -85.622118
+
 # list of bounding boxes and the number of slices to split the box into
 # bounding boxes must stay within the API limits:
 # http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities
@@ -15,10 +19,10 @@ BBOXES = (
     # polygon.bounds => (minx, miny, maxx, maxy)
     # http://toblerity.org/shapely/manual.html#Polygon
     ({
-        'min_lat': POLYGON.bounds[1],
-        'min_lon': POLYGON.bounds[0],
-        'max_lat': POLYGON.bounds[3],
-        'max_lon': POLYGON.bounds[2],
+        'min_lat': POLYGON.bounds[1] - .001,
+        'min_lon': POLYGON.bounds[0] - .001,
+        'max_lat': POLYGON.bounds[3] + .001,
+        'max_lon': POLYGON.bounds[2] + .001,
     }, 5),
 
     # a secondary bounding box to pick up Aman Park
