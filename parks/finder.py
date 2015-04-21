@@ -5,17 +5,30 @@ import osmapi
 from parks import common
 from parks.grboundary import POLYGON
 
-# outer bounding box for the city
-# polygon.bounds => (minx, miny, maxx, maxy)
-# http://toblerity.org/shapely/manual.html#Polygon
-BBOX = {'min_lat': POLYGON.bounds[1],
+
+# list of bounding boxes and the number of slices to split the box into
+# bounding boxes must stay within the API limits:
+# http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities
+BBOXES = (
+
+    # outer bounding box for the city
+    # polygon.bounds => (minx, miny, maxx, maxy)
+    # http://toblerity.org/shapely/manual.html#Polygon
+    ({
+        'min_lat': POLYGON.bounds[1],
         'min_lon': POLYGON.bounds[0],
         'max_lat': POLYGON.bounds[3],
-        'max_lon': POLYGON.bounds[2]}
+        'max_lon': POLYGON.bounds[2],
+    }, 5),
 
-# number of divisions to keep the inner bounding boxes within the API limits
-# http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities
-SECTIONS = 5  # step size to avoid limits:
+    # a secondary bounding box to pick up Aman Park
+    ({
+        'min_lat': 42.970904,
+        'min_lon': -85.842360,
+        'max_lat': 42.988047,
+        'max_lon': -85.822018,
+    }, 1),
+)
 
 # list of non-parks that should be collected
 PARK_NAMES = (
@@ -34,41 +47,43 @@ def find(debug=False):
     log.info("connecting to OSM...")
     api = osmapi.OsmApi()
 
-    # Iterate through each section of the bounding box
-    log.debug("outer bounding box: %s", BBOX)
-    height = (BBOX['max_lat'] - BBOX['min_lat']) / SECTIONS
-    width = (BBOX['max_lon'] - BBOX['min_lon']) / SECTIONS
-    for row in range(SECTIONS):
-        if debug and row != int(SECTIONS / 2):
-            continue
-        for col in range(SECTIONS):
-            if debug and col != int(SECTIONS / 2):
+    for out_bbox, sections in BBOXES:
+
+        # Iterate through each section of the bounding box
+        log.debug("outer bounding box: %s", out_bbox)
+        height = (out_bbox['max_lat'] - out_bbox['min_lat']) / sections
+        width = (out_bbox['max_lon'] - out_bbox['min_lon']) / sections
+        for row in range(sections):
+            if debug and row != int(sections / 2):
                 continue
+            for col in range(sections):
+                if debug and col != int(sections / 2):
+                    continue
 
-            log.info("loading region (%s, %s) of (%s, %s) ...",
-                     row, col, SECTIONS - 1, SECTIONS - 1)
+                log.info("loading region (%s, %s) of (%s, %s) ...",
+                         row, col, sections - 1, sections - 1)
 
-            # define an inner bounding box
-            bbox = {'min_lat': BBOX['min_lat'] + row * height,
-                    'min_lon': BBOX['min_lon'] + col * width,
-                    'max_lat': BBOX['min_lat'] + (row + 1) * height,
-                    'max_lon': BBOX['min_lon'] + (col + 1) * width}
-            log.debug("inner bounding box: %s", bbox)
+                # define an inner bounding box
+                bbox = {'min_lat': out_bbox['min_lat'] + row * height,
+                        'min_lon': out_bbox['min_lon'] + col * width,
+                        'max_lat': out_bbox['min_lat'] + (row + 1) * height,
+                        'max_lon': out_bbox['min_lon'] + (col + 1) * width}
+                log.debug("inner bounding box: %s", bbox)
 
-            # get a list of points in a given bounding box
-            # http://osmapi.divshot.io/#OsmApi.OsmApi.Map
-            points = api.Map(**bbox)
+                # get a list of points in a given bounding box
+                # http://osmapi.divshot.io/#OsmApi.OsmApi.Map
+                points = api.Map(**bbox)
 
-            # find all parks in the list of points
-            for point in points:
-                if point['type'] == 'node':
-                    data.append(point)
-                if point['type'] == 'way':
-                    if any(((point['data']['tag'].get('leisure') == 'park'),
-                            (point['data']['tag'].get('name') in PARK_NAMES))):
-                        log.debug("found park: %s", point['data'])
+                # find all parks in the list of points
+                for point in points:
+                    if point['type'] == 'node':
                         data.append(point)
-                        parks += 1
+                    if point['type'] == 'way':
+                        if any(((point['data']['tag'].get('leisure') == 'park'),
+                                (point['data']['tag'].get('name') in PARK_NAMES))):
+                            log.debug("found park: %s", point['data'])
+                            data.append(point)
+                            parks += 1
 
     log.info("found %s parks", parks)
     return data
