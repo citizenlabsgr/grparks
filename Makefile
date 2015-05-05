@@ -84,6 +84,7 @@ run: geojson
 geojson: parks.geojson
 parks.geojson: depends parks.osm_json
 	osmtogeojson -v parks.osm_json -f json > parks.geojson
+	sh -x strip_geojson_points.sh
 
 .PHONY: osm_json
 osm_json: parks.osm_json

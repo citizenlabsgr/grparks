@@ -1,0 +1,2885 @@
+{
+"type": "FeatureCollection",
+"features": [
+{
+  "type": "Feature",
+  "id": "way/162741606",
+  "properties": {
+    "timestamp": "2012-05-08T22:27:09Z",
+    "version": 3,
+    "changeset": 11544626,
+    "user": "nivardus",
+    "uid": 521692,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Veterans Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "3",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "1.61",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "source": "knowledge",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Veterans Park",
+    "foo": "bar",
+    "id": "way/162741606"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6667053,
+          42.9633171
+        ],
+        [
+          -85.6664715,
+          42.9633122
+        ],
+        [
+          -85.6661552,
+          42.9633053
+        ],
+        [
+          -85.6661278,
+          42.9633246
+        ],
+        [
+          -85.6661054,
+          42.9633405
+        ],
+        [
+          -85.6660726,
+          42.9642334
+        ],
+        [
+          -85.666097,
+          42.9642504
+        ],
+        [
+          -85.6664257,
+          42.964254
+        ],
+        [
+          -85.6667957,
+          42.964261
+        ],
+        [
+          -85.6668068,
+          42.9642503
+        ],
+        [
+          -85.6668191,
+          42.9642385
+        ],
+        [
+          -85.6668498,
+          42.9634213
+        ],
+        [
+          -85.6668205,
+          42.9634001
+        ],
+        [
+          -85.6667053,
+          42.9633171
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/162742699",
+  "properties": {
+    "timestamp": "2012-05-11T04:46:34Z",
+    "version": 2,
+    "changeset": 11564637,
+    "user": "nivardus",
+    "uid": 521692,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Rosa Parks Circle",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "X",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.59",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "source": "Bing",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Rosa Parks Circle",
+    "foo": "bar",
+    "id": "way/162742699"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6719959,
+          42.9661374
+        ],
+        [
+          -85.672005,
+          42.9661275
+        ],
+        [
+          -85.6720123,
+          42.9661093
+        ],
+        [
+          -85.6719802,
+          42.9650445
+        ],
+        [
+          -85.6719688,
+          42.9650298
+        ],
+        [
+          -85.6719533,
+          42.9650161
+        ],
+        [
+          -85.6718962,
+          42.9650017
+        ],
+        [
+          -85.6718501,
+          42.9649901
+        ],
+        [
+          -85.6718279,
+          42.9649896
+        ],
+        [
+          -85.6718095,
+          42.9649999
+        ],
+        [
+          -85.6716869,
+          42.9650812
+        ],
+        [
+          -85.6716563,
+          42.9651015
+        ],
+        [
+          -85.6713277,
+          42.9654003
+        ],
+        [
+          -85.6712781,
+          42.9654494
+        ],
+        [
+          -85.6712513,
+          42.9655068
+        ],
+        [
+          -85.6712493,
+          42.9655653
+        ],
+        [
+          -85.6712654,
+          42.9656237
+        ],
+        [
+          -85.671305,
+          42.965687
+        ],
+        [
+          -85.6713713,
+          42.9657418
+        ],
+        [
+          -85.6716911,
+          42.9659277
+        ],
+        [
+          -85.6718341,
+          42.9660335
+        ],
+        [
+          -85.671883,
+          42.9660697
+        ],
+        [
+          -85.6719589,
+          42.9661399
+        ],
+        [
+          -85.6719775,
+          42.9661438
+        ],
+        [
+          -85.6719959,
+          42.9661374
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/162804244",
+  "properties": {
+    "timestamp": "2012-05-09T02:20:19Z",
+    "version": 1,
+    "changeset": 11545476,
+    "user": "nivardus",
+    "uid": 521692,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Monument Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "3",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.2",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "source": "knowledge",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Monument Park",
+    "foo": "bar",
+    "id": "way/162804244"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6676948,
+          42.9633542
+        ],
+        [
+          -85.6676872,
+          42.9633454
+        ],
+        [
+          -85.6676766,
+          42.9633393
+        ],
+        [
+          -85.6676633,
+          42.9633349
+        ],
+        [
+          -85.6676447,
+          42.9633337
+        ],
+        [
+          -85.6672249,
+          42.9633337
+        ],
+        [
+          -85.6672182,
+          42.9633354
+        ],
+        [
+          -85.6672139,
+          42.9633394
+        ],
+        [
+          -85.6672092,
+          42.9633444
+        ],
+        [
+          -85.6672085,
+          42.9633511
+        ],
+        [
+          -85.6672139,
+          42.9633575
+        ],
+        [
+          -85.6676129,
+          42.9635744
+        ],
+        [
+          -85.6676245,
+          42.9635661
+        ],
+        [
+          -85.6676383,
+          42.9635642
+        ],
+        [
+          -85.6676538,
+          42.963574
+        ],
+        [
+          -85.6676746,
+          42.9635766
+        ],
+        [
+          -85.6676889,
+          42.9635744
+        ],
+        [
+          -85.6677031,
+          42.9635709
+        ],
+        [
+          -85.667714,
+          42.9635637
+        ],
+        [
+          -85.6677194,
+          42.963555
+        ],
+        [
+          -85.6677245,
+          42.9635448
+        ],
+        [
+          -85.6677255,
+          42.9635357
+        ],
+        [
+          -85.6677199,
+          42.9635165
+        ],
+        [
+          -85.6676948,
+          42.9633542
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/231169059",
+  "properties": {
+    "timestamp": "2013-07-25T04:07:39Z",
+    "version": 2,
+    "changeset": 17083381,
+    "user": "Paul Johnson",
+    "uid": 92286,
+    "designation": "Cherry Hill Green",
+    "leisure": "park",
+    "id": "way/231169059"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6506455,
+          42.9562087
+        ],
+        [
+          -85.6510395,
+          42.9562115
+        ],
+        [
+          -85.6510425,
+          42.9559776
+        ],
+        [
+          -85.6506486,
+          42.9559749
+        ],
+        [
+          -85.6506455,
+          42.9562087
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/252288395",
+  "properties": {
+    "timestamp": "2014-03-04T02:42:35Z",
+    "version": 5,
+    "changeset": 20901794,
+    "user": "nivardus",
+    "uid": 521692,
+    "Basketball": "X",
+    "Volleyball Courts": "",
+    "Name": "Heartside Park",
+    "Swimming Pool": "",
+    "Grills": "X",
+    "addr:housenumber": "301",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Accessibility Assessment": "2",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Picnic Shelter": "X",
+    "Community Garden": "X",
+    "Dog Park": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Ball Diamond": "",
+    "Parking": "",
+    "XC Skiing": "",
+    "Gymnasium": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "BMX and Singletrack Trails": "",
+    "Soccer Field": "",
+    "name": "Heartside Park",
+    "addr:street": "Ionia Avenue Southwest",
+    "Reservable Picnic Shelter": "",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "2.99",
+    "addr:postcode": "49503",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "operator": "City of Grand Rapids",
+    "Enclosed Shelterhouse with Restroom": "",
+    "Ice Rink": "",
+    "Water Playground": "X",
+    "Wading Pool": "",
+    "leisure": "park",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "addr:city": "Grand Rapids",
+    "foo": "bar",
+    "id": "way/252288395"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6709159,
+          42.9586157
+        ],
+        [
+          -85.6707735,
+          42.9574229
+        ],
+        [
+          -85.6707291,
+          42.9570367
+        ],
+        [
+          -85.6707408,
+          42.957006
+        ],
+        [
+          -85.6707851,
+          42.9562506
+        ],
+        [
+          -85.6702528,
+          42.9562421
+        ],
+        [
+          -85.6702201,
+          42.956712
+        ],
+        [
+          -85.6702724,
+          42.9584189
+        ],
+        [
+          -85.6702784,
+          42.9586157
+        ],
+        [
+          -85.6709159,
+          42.9586157
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/252287072",
+  "properties": {
+    "timestamp": "2015-04-07T23:53:47Z",
+    "version": 4,
+    "changeset": 30052436,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Ah Nab Awen Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "X",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "3",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "6.78",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Ah Nab Awen Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/252287072"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.675963,
+          42.9703991
+        ],
+        [
+          -85.676101,
+          42.9703907
+        ],
+        [
+          -85.6767608,
+          42.9704221
+        ],
+        [
+          -85.6768306,
+          42.9695154
+        ],
+        [
+          -85.6772115,
+          42.9695233
+        ],
+        [
+          -85.6772275,
+          42.969119
+        ],
+        [
+          -85.676852,
+          42.9688089
+        ],
+        [
+          -85.6767757,
+          42.968743
+        ],
+        [
+          -85.6768109,
+          42.9678705
+        ],
+        [
+          -85.6770398,
+          42.9676705
+        ],
+        [
+          -85.6770022,
+          42.9675685
+        ],
+        [
+          -85.6770344,
+          42.9670582
+        ],
+        [
+          -85.677013,
+          42.9669679
+        ],
+        [
+          -85.6770291,
+          42.9667284
+        ],
+        [
+          -85.6764175,
+          42.966697
+        ],
+        [
+          -85.676151,
+          42.9666965
+        ],
+        [
+          -85.6760736,
+          42.967059
+        ],
+        [
+          -85.6760796,
+          42.9675862
+        ],
+        [
+          -85.6760908,
+          42.9682303
+        ],
+        [
+          -85.6759903,
+          42.9686365
+        ],
+        [
+          -85.6759788,
+          42.9687652
+        ],
+        [
+          -85.6759637,
+          42.9689346
+        ],
+        [
+          -85.6759487,
+          42.9691027
+        ],
+        [
+          -85.675933,
+          42.9692788
+        ],
+        [
+          -85.6759166,
+          42.9694633
+        ],
+        [
+          -85.6758985,
+          42.9696658
+        ],
+        [
+          -85.6757359,
+          42.9700034
+        ],
+        [
+          -85.6756639,
+          42.9703603
+        ],
+        [
+          -85.675963,
+          42.9703991
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/263065782",
+  "properties": {
+    "timestamp": "2014-02-23T16:20:35Z",
+    "version": 2,
+    "changeset": 20734678,
+    "user": "jleff",
+    "uid": 1950496,
+    "leisure": "park",
+    "Garden": "Yes",
+    "name": "Congress park",
+    "id": "way/263065782"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6465862,
+          42.9613012
+        ],
+        [
+          -85.6465878,
+          42.9604077
+        ],
+        [
+          -85.6452628,
+          42.9600622
+        ],
+        [
+          -85.6452753,
+          42.9609325
+        ],
+        [
+          -85.6458171,
+          42.9609283
+        ],
+        [
+          -85.6458191,
+          42.9610682
+        ],
+        [
+          -85.6458187,
+          42.9613004
+        ],
+        [
+          -85.6465862,
+          42.9613012
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/262879701",
+  "properties": {
+    "timestamp": "2014-12-15T19:57:35Z",
+    "version": 5,
+    "changeset": 27490491,
+    "user": "jpichot",
+    "uid": 689707,
+    "Basketball": "X",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Cherry Park",
+    "wheelchair": "limited",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "X",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "N",
+    "Acreage": "1.05",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "X",
+    "Picnic Tables": "X",
+    "Tennis Courts": "1",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Cherry Park",
+    "sport": "tennis",
+    "foo": "bar",
+    "id": "way/262879701"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6507451,
+          42.9599203
+        ],
+        [
+          -85.6507367,
+          42.9596102
+        ],
+        [
+          -85.649512,
+          42.9596279
+        ],
+        [
+          -85.6495165,
+          42.9597636
+        ],
+        [
+          -85.649519,
+          42.9598948
+        ],
+        [
+          -85.6495198,
+          42.9600253
+        ],
+        [
+          -85.6495734,
+          42.960023
+        ],
+        [
+          -85.6497512,
+          42.9600234
+        ],
+        [
+          -85.6506225,
+          42.960013
+        ],
+        [
+          -85.6506201,
+          42.9599221
+        ],
+        [
+          -85.6507451,
+          42.9599203
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/339844204",
+  "properties": {
+    "timestamp": "2015-04-21T23:48:52Z",
+    "version": 1,
+    "changeset": 30393201,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Sundial Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.005",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Sundial Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/339844204"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6566166,
+          42.9594774
+        ],
+        [
+          -85.6566007,
+          42.9594781
+        ],
+        [
+          -85.6566007,
+          42.9594904
+        ],
+        [
+          -85.6566166,
+          42.959491
+        ],
+        [
+          -85.6566166,
+          42.9594774
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/287418677",
+  "properties": {
+    "timestamp": "2014-06-11T02:00:42Z",
+    "version": 1,
+    "changeset": 22861884,
+    "user": "Luke Baker",
+    "uid": 251824,
+    "Basketball": "",
+    "Park Classification": "N",
+    "Undeveloped": "X",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Pleasant Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "addr:housenumber": "400",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "addr:street": "Pleasant Street Southeast",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "",
+    "Walking Path/Trails": "",
+    "Gymnasium": "",
+    "Acreage": "2.3",
+    "Football Field": "",
+    "Disc Golf": "",
+    "addr:postcode": "49503",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Ball Diamond": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "addr:city": "Grand Rapids",
+    "Name": "Pleasant Park",
+    "foo": "bar",
+    "id": "way/287418677"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6589638,
+          42.9514994
+        ],
+        [
+          -85.6589572,
+          42.9507949
+        ],
+        [
+          -85.6572316,
+          42.9507585
+        ],
+        [
+          -85.6572308,
+          42.9511716
+        ],
+        [
+          -85.6579468,
+          42.9511848
+        ],
+        [
+          -85.6579447,
+          42.9514811
+        ],
+        [
+          -85.6589638,
+          42.9514994
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/312341828",
+  "properties": {
+    "timestamp": "2015-04-21T23:27:11Z",
+    "version": 2,
+    "changeset": 30392974,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Joe Taylor Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "1.65",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "name": "Joe Taylor Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/312341828"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6444272,
+          42.953037
+        ],
+        [
+          -85.6444096,
+          42.9527201
+        ],
+        [
+          -85.6433995,
+          42.9526995
+        ],
+        [
+          -85.643403,
+          42.9526274
+        ],
+        [
+          -85.6435227,
+          42.9526171
+        ],
+        [
+          -85.6435649,
+          42.9525784
+        ],
+        [
+          -85.6435649,
+          42.9524831
+        ],
+        [
+          -85.6436916,
+          42.9524857
+        ],
+        [
+          -85.6436846,
+          42.9523569
+        ],
+        [
+          -85.6426252,
+          42.9523311
+        ],
+        [
+          -85.6426393,
+          42.9530164
+        ],
+        [
+          -85.6444272,
+          42.953037
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/312343611",
+  "properties": {
+    "timestamp": "2015-04-21T23:06:39Z",
+    "version": 2,
+    "changeset": 30392796,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "X",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Baldwin Park",
+    "wheelchair": "yes",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.17",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Baldwin Park",
+    "foo": "bar",
+    "id": "way/312343611"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6538646,
+          42.9628251
+        ],
+        [
+          -85.6533205,
+          42.9626066
+        ],
+        [
+          -85.6533313,
+          42.9628068
+        ],
+        [
+          -85.6538646,
+          42.9628251
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/312343772",
+  "properties": {
+    "timestamp": "2014-11-12T00:48:38Z",
+    "version": 1,
+    "changeset": 26725796,
+    "user": "crevax",
+    "uid": 2458323,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Midtown Green",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "N",
+    "Acreage": "1.48",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Midtown Green",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/312343772"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6505393,
+          42.9651626
+        ],
+        [
+          -85.6495012,
+          42.9651316
+        ],
+        [
+          -85.6495143,
+          42.9659245
+        ],
+        [
+          -85.6505339,
+          42.9659516
+        ],
+        [
+          -85.6505393,
+          42.9651626
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/314501415",
+  "properties": {
+    "timestamp": "2014-11-26T00:19:55Z",
+    "version": 2,
+    "changeset": 27034843,
+    "user": "BreenySchlacter",
+    "uid": 2458327,
+    "Basketball": "",
+    "Volleyball Courts": "",
+    "Name": "Alexander Park",
+    "Swimming Pool": "",
+    "Grills": "",
+    "addr:state": "MI",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Accessibility Assessment": "2",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Picnic Shelter": "",
+    "Community Garden": "",
+    "Dog Park": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Ball Diamond": "",
+    "Parking": "",
+    "XC Skiing": "",
+    "Gymnasium": "",
+    "website": "http://www.friendsofgrparks.org/parks/find-a-park/alexander-park/",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "BMX and Singletrack Trails": "",
+    "Soccer Field": "",
+    "name": "Alexander Park",
+    "addr:street": "Alexander Street Southeast",
+    "Reservable Picnic Shelter": "",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.57",
+    "addr:postcode": "49507",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "Enclosed Shelterhouse with Restroom": "",
+    "Ice Rink": "",
+    "Water Playground": "",
+    "Wading Pool": "",
+    "leisure": "park",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "addr:housenumber": "614",
+    "addr:city": "Grand Rapids",
+    "foo": "bar",
+    "id": "way/314501415"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6536829,
+          42.9445647
+        ],
+        [
+          -85.6536873,
+          42.9443827
+        ],
+        [
+          -85.6523652,
+          42.944365
+        ],
+        [
+          -85.6523696,
+          42.9445454
+        ],
+        [
+          -85.6536829,
+          42.9445647
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/314501414",
+  "properties": {
+    "timestamp": "2014-11-26T00:14:47Z",
+    "version": 1,
+    "changeset": 27034790,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Foster Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.24",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Foster Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/314501414"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6602714,
+          42.9597876
+        ],
+        [
+          -85.6602536,
+          42.9595079
+        ],
+        [
+          -85.6594968,
+          42.9594874
+        ],
+        [
+          -85.6602714,
+          42.9597876
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/314501437",
+  "properties": {
+    "timestamp": "2014-11-26T00:16:06Z",
+    "version": 1,
+    "changeset": 27034804,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Alexander Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.57",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "name": "Alexander Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/314501437"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6537115,
+          42.9448304
+        ],
+        [
+          -85.6537115,
+          42.9447789
+        ],
+        [
+          -85.6537005,
+          42.9447676
+        ],
+        [
+          -85.6537115,
+          42.9447499
+        ],
+        [
+          -85.6537115,
+          42.9446629
+        ],
+        [
+          -85.6524642,
+          42.9446372
+        ],
+        [
+          -85.6524642,
+          42.9448079
+        ],
+        [
+          -85.6537115,
+          42.9448304
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/314504675",
+  "properties": {
+    "timestamp": "2014-11-26T01:07:47Z",
+    "version": 1,
+    "changeset": 27035388,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Crescent Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "3",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "1.06",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Crescent Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/314504675"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6666018,
+          42.9694809
+        ],
+        [
+          -85.6666823,
+          42.969475
+        ],
+        [
+          -85.6667601,
+          42.969424
+        ],
+        [
+          -85.6668674,
+          42.9693455
+        ],
+        [
+          -85.6669264,
+          42.9692964
+        ],
+        [
+          -85.6669881,
+          42.969214
+        ],
+        [
+          -85.6670283,
+          42.9691315
+        ],
+        [
+          -85.6670766,
+          42.9690079
+        ],
+        [
+          -85.6671061,
+          42.9689314
+        ],
+        [
+          -85.6671168,
+          42.9688686
+        ],
+        [
+          -85.6671141,
+          42.9688097
+        ],
+        [
+          -85.6671007,
+          42.9687665
+        ],
+        [
+          -85.6670954,
+          42.9687253
+        ],
+        [
+          -85.6670927,
+          42.9686821
+        ],
+        [
+          -85.6670846,
+          42.9686213
+        ],
+        [
+          -85.6670551,
+          42.9685486
+        ],
+        [
+          -85.667031,
+          42.9684957
+        ],
+        [
+          -85.6670042,
+          42.9684466
+        ],
+        [
+          -85.6669612,
+          42.9684034
+        ],
+        [
+          -85.6668835,
+          42.9683347
+        ],
+        [
+          -85.6668003,
+          42.9682798
+        ],
+        [
+          -85.6667252,
+          42.9682444
+        ],
+        [
+          -85.6666421,
+          42.9682346
+        ],
+        [
+          -85.6665696,
+          42.968266
+        ],
+        [
+          -85.6666018,
+          42.9694809
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/314504676",
+  "properties": {
+    "timestamp": "2014-11-26T01:07:47Z",
+    "version": 1,
+    "changeset": 27035388,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Heritage Hill Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.18",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Heritage Hill Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/314504676"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6555511,
+          42.953563
+        ],
+        [
+          -85.6555511,
+          42.9538094
+        ],
+        [
+          -85.655873,
+          42.9538162
+        ],
+        [
+          -85.6558757,
+          42.9535679
+        ],
+        [
+          -85.6555511,
+          42.953563
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/314503819",
+  "properties": {
+    "timestamp": "2015-04-21T23:13:40Z",
+    "version": 3,
+    "changeset": 30392851,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Calder Plaza",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "4.43",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Wading Pool": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "surface": "concrete",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "area": "yes",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Calder Plaza",
+    "foo": "bar",
+    "id": "way/314503819"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6703967,
+          42.9686551
+        ],
+        [
+          -85.6704254,
+          42.969484
+        ],
+        [
+          -85.6712036,
+          42.9694696
+        ],
+        [
+          -85.6711981,
+          42.9691103
+        ],
+        [
+          -85.6710291,
+          42.9691122
+        ],
+        [
+          -85.6710129,
+          42.9686437
+        ],
+        [
+          -85.6703967,
+          42.9686551
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316609062",
+  "properties": {
+    "timestamp": "2014-12-09T23:15:49Z",
+    "version": 1,
+    "changeset": 27367736,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "X",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "X",
+    "Name": "Campau Park",
+    "Swimming Pool": "X",
+    "Ice Rink": "",
+    "Grills": "X",
+    "Ball Diamond": "1",
+    "Restrooms": "X",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "7.27",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "name": "Campau Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "X",
+    "Picnic Tables": "X",
+    "Tennis Courts": "2",
+    "Picnic Shelter": "X",
+    "Parking": "X",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/316609062"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6706026,
+          42.9477639
+        ],
+        [
+          -85.6705489,
+          42.9461422
+        ],
+        [
+          -85.6683441,
+          42.9461186
+        ],
+        [
+          -85.6683549,
+          42.9470257
+        ],
+        [
+          -85.6688216,
+          42.9470296
+        ],
+        [
+          -85.6688216,
+          42.9469118
+        ],
+        [
+          -85.6699857,
+          42.9469275
+        ],
+        [
+          -85.6699964,
+          42.94776
+        ],
+        [
+          -85.6706026,
+          42.9477639
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316613769",
+  "properties": {
+    "timestamp": "2014-12-10T00:41:14Z",
+    "version": 1,
+    "changeset": 27368645,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Hosken Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.003",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Hosken Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/316613769"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6444314,
+          42.9596984
+        ],
+        [
+          -85.6444263,
+          42.9595958
+        ],
+        [
+          -85.6441357,
+          42.9595971
+        ],
+        [
+          -85.6440844,
+          42.9595733
+        ],
+        [
+          -85.6439118,
+          42.9595758
+        ],
+        [
+          -85.6439289,
+          42.9595883
+        ],
+        [
+          -85.6444314,
+          42.9596984
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316613213",
+  "properties": {
+    "timestamp": "2014-12-10T00:28:42Z",
+    "version": 1,
+    "changeset": 27368573,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Mooney Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.35",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "X",
+    "name": "Mooney Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/316613213"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6611108,
+          42.953917
+        ],
+        [
+          -85.6611201,
+          42.9536282
+        ],
+        [
+          -85.6605691,
+          42.9536214
+        ],
+        [
+          -85.6605737,
+          42.9539102
+        ],
+        [
+          -85.6611108,
+          42.953917
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316613844",
+  "properties": {
+    "timestamp": "2014-12-10T00:43:17Z",
+    "version": 1,
+    "changeset": 27368660,
+    "user": "jpichot",
+    "uid": 689707,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Pekich Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "4",
+    "Walking Path/Trails": "",
+    "Park Classification": "M",
+    "Acreage": "0.1",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Pekich Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/316613844"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6678844,
+          42.9598027
+        ],
+        [
+          -85.6683071,
+          42.9597992
+        ],
+        [
+          -85.6683055,
+          42.9597863
+        ],
+        [
+          -85.6683087,
+          42.9597677
+        ],
+        [
+          -85.6683198,
+          42.9597513
+        ],
+        [
+          -85.6683358,
+          42.959735
+        ],
+        [
+          -85.6683756,
+          42.9597443
+        ],
+        [
+          -85.6683868,
+          42.9597292
+        ],
+        [
+          -85.6683709,
+          42.959714
+        ],
+        [
+          -85.6682513,
+          42.9596836
+        ],
+        [
+          -85.6681763,
+          42.9596673
+        ],
+        [
+          -85.6681061,
+          42.9596545
+        ],
+        [
+          -85.6680407,
+          42.9596475
+        ],
+        [
+          -85.6679849,
+          42.9596439
+        ],
+        [
+          -85.6679115,
+          42.9596404
+        ],
+        [
+          -85.6678812,
+          42.9596603
+        ],
+        [
+          -85.6678844,
+          42.9598027
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316614009",
+  "properties": {
+    "timestamp": "2014-12-10T00:49:18Z",
+    "version": 1,
+    "changeset": 27368697,
+    "user": "Maxwell Dillivan",
+    "uid": 1949413,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "Name": "Paul I Phillips Recreation Center",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "X",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.32",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Paul I Phillips Recreation Center",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "X",
+    "foo": "bar",
+    "id": "way/316614009"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6589526,
+          42.9498242
+        ],
+        [
+          -85.6589526,
+          42.9494379
+        ],
+        [
+          -85.6579174,
+          42.949435
+        ],
+        [
+          -85.6579255,
+          42.9499639
+        ],
+        [
+          -85.6583842,
+          42.9499639
+        ],
+        [
+          -85.6583842,
+          42.9498242
+        ],
+        [
+          -85.6589526,
+          42.9498242
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316614228",
+  "properties": {
+    "timestamp": "2014-12-10T00:58:03Z",
+    "version": 1,
+    "changeset": 27368747,
+    "user": "BreenySchlacter",
+    "uid": 2458327,
+    "Basketball": "",
+    "website": "http://www.friendsofgrparks.org/parks/find-a-park/lyon-square/",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Lyon Square",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.27",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Lyon Square",
+    "foo": "bar",
+    "id": "way/316614228"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6744059,
+          42.9672177
+        ],
+        [
+          -85.6743926,
+          42.9672063
+        ],
+        [
+          -85.6743834,
+          42.967172
+        ],
+        [
+          -85.674377,
+          42.9671348
+        ],
+        [
+          -85.6743264,
+          42.9671401
+        ],
+        [
+          -85.6742781,
+          42.9671613
+        ],
+        [
+          -85.6742552,
+          42.9671833
+        ],
+        [
+          -85.6742396,
+          42.9672054
+        ],
+        [
+          -85.6742371,
+          42.9672275
+        ],
+        [
+          -85.674239,
+          42.9672525
+        ],
+        [
+          -85.6742523,
+          42.9672756
+        ],
+        [
+          -85.6742733,
+          42.9672962
+        ],
+        [
+          -85.6743022,
+          42.9673139
+        ],
+        [
+          -85.6743264,
+          42.9673253
+        ],
+        [
+          -85.6743565,
+          42.9673324
+        ],
+        [
+          -85.674389,
+          42.9672707
+        ],
+        [
+          -85.6743999,
+          42.9672671
+        ],
+        [
+          -85.6744119,
+          42.9672574
+        ],
+        [
+          -85.6744119,
+          42.9672292
+        ],
+        [
+          -85.6744059,
+          42.9672177
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/316612669",
+  "properties": {
+    "timestamp": "2015-04-21T23:30:10Z",
+    "version": 3,
+    "changeset": 30393004,
+    "user": "Muell133",
+    "uid": 2486027,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "",
+    "Sledding": "",
+    "XC Skiing": "",
+    "Soccer Field": "",
+    "name": "Louis Campau Promenade",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "",
+    "Park Classification": "C",
+    "Acreage": "0.6",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Wading Pool": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "Volleyball Courts": "",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "area": "yes",
+    "Picnic Tables": "",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "Name": "Louis Campau Promenade",
+    "foo": "bar",
+    "id": "way/316612669"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6723146,
+          42.9651085
+        ],
+        [
+          -85.6725772,
+          42.9648885
+        ],
+        [
+          -85.6723878,
+          42.9647786
+        ],
+        [
+          -85.6725084,
+          42.96466
+        ],
+        [
+          -85.6725321,
+          42.9646354
+        ],
+        [
+          -85.6724747,
+          42.9646079
+        ],
+        [
+          -85.6724551,
+          42.9646038
+        ],
+        [
+          -85.6724363,
+          42.9646254
+        ],
+        [
+          -85.6723317,
+          42.9647314
+        ],
+        [
+          -85.6722968,
+          42.9648001
+        ],
+        [
+          -85.6722754,
+          42.9648511
+        ],
+        [
+          -85.672262,
+          42.9649178
+        ],
+        [
+          -85.6722539,
+          42.9649865
+        ],
+        [
+          -85.6722566,
+          42.965067
+        ],
+        [
+          -85.6722834,
+          42.9652221
+        ],
+        [
+          -85.6722566,
+          42.9652515
+        ],
+        [
+          -85.6722647,
+          42.9653811
+        ],
+        [
+          -85.6723197,
+          42.9654252
+        ],
+        [
+          -85.6726974,
+          42.9654397
+        ],
+        [
+          -85.6727547,
+          42.9654917
+        ],
+        [
+          -85.6732253,
+          42.965525
+        ],
+        [
+          -85.6732296,
+          42.9653815
+        ],
+        [
+          -85.673057,
+          42.9653696
+        ],
+        [
+          -85.6730646,
+          42.9652987
+        ],
+        [
+          -85.6729754,
+          42.9652947
+        ],
+        [
+          -85.6729754,
+          42.9653379
+        ],
+        [
+          -85.6727635,
+          42.9653265
+        ],
+        [
+          -85.6727278,
+          42.9653559
+        ],
+        [
+          -85.6723146,
+          42.9651085
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/321034337",
+  "properties": {
+    "timestamp": "2015-01-08T20:28:32Z",
+    "version": 1,
+    "changeset": 28005613,
+    "user": "jpichot",
+    "uid": 689707,
+    "leisure": "park",
+    "id": "way/321034337"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.6689684,
+          42.9594385
+        ],
+        [
+          -85.6689661,
+          42.9590564
+        ],
+        [
+          -85.6686064,
+          42.9590553
+        ],
+        [
+          -85.6686043,
+          42.9594387
+        ],
+        [
+          -85.6686297,
+          42.9594415
+        ],
+        [
+          -85.6689684,
+          42.9594385
+        ]
+      ]
+    ]
+  }
+},
+{
+  "type": "Feature",
+  "id": "way/161254972",
+  "properties": {
+    "timestamp": "2015-04-05T01:59:45Z",
+    "version": 5,
+    "changeset": 29984138,
+    "user": "Andonbray",
+    "uid": 654208,
+    "Basketball": "",
+    "Undeveloped": "",
+    "Natural Area": "X",
+    "Sledding": "",
+    "XC Skiing": "X",
+    "Soccer Field": "",
+    "Name": "Aman Park",
+    "Swimming Pool": "",
+    "Ice Rink": "",
+    "Grills": "",
+    "Ball Diamond": "",
+    "Restrooms": "",
+    "Lodge Building with Gym": "",
+    "Reservable Picnic Shelter": "",
+    "Volleyball Courts": "",
+    "Accessibility Assessment": "2",
+    "Walking Path/Trails": "X",
+    "Park Classification": "U",
+    "Acreage": "331",
+    "Football Field": "",
+    "Disc Golf": "",
+    "Millage": "",
+    "Skateboard Equipment": "",
+    "Playground": "",
+    "name": "Aman Park",
+    "Community Garden": "",
+    "Enclosed Shelterhouse with Restroom": "",
+    "leisure": "park",
+    "Water Playground": "",
+    "Dog Park": "",
+    "Wading Pool": "",
+    "Picnic Tables": "X",
+    "Tennis Courts": "",
+    "Picnic Shelter": "",
+    "Parking": "X",
+    "BMX and Singletrack Trails": "",
+    "Mountain Bike Skis Area/Pump Track": "",
+    "Gymnasium": "",
+    "foo": "bar",
+    "id": "way/161254972"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -85.8250675,
+          42.9731609
+        ],
+        [
+          -85.8252127,
+          42.9759557
+        ],
+        [
+          -85.8252371,
+          42.9764264
+        ],
+        [
+          -85.8216343,
+          42.9765206
+        ],
+        [
+          -85.8211623,
+          42.976552
+        ],
+        [
+          -85.8212052,
+          42.9802883
+        ],
+        [
+          -85.8238659,
+          42.9802569
+        ],
+        [
+          -85.8239088,
+          42.9818581
+        ],
+        [
+          -85.8277257,
+          42.9819128
+        ],
+        [
+          -85.8304727,
+          42.9819522
+        ],
+        [
+          -85.8307342,
+          42.9865335
+        ],
+        [
+          -85.8358487,
+          42.9865245
+        ],
+        [
+          -85.8357156,
+          42.9820024
+        ],
+        [
+          -85.8357156,
+          42.9814535
+        ],
+        [
+          -85.8360057,
+          42.9814255
+        ],
+        [
+          -85.8370893,
+          42.9809781
+        ],
+        [
+          -85.8371107,
+          42.9800833
+        ],
+        [
+          -85.8398263,
+          42.9800792
+        ],
+        [
+          -85.8398879,
+          42.976157
+        ],
+        [
+          -85.8397258,
+          42.9720814
+        ],
+        [
+          -85.833137,
+          42.972796
+        ],
+        [
+          -85.825075,
+          42.972826
+        ],
+        [
+          -85.8250675,
+          42.9731609
+        ]
+      ]
+    ]
+  }
+}}
