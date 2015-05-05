@@ -17,6 +17,7 @@ after_script: >
     # Copy the generated files
     cp *.csv pages/
     cp *.osm_json pages/
+    cp *.geojson pages/
 
     # Configure Git with Travis CI information
     git config --global user.email "travis@travis-ci.org" ;
