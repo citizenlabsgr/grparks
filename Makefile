@@ -85,6 +85,7 @@ geojson: parks.geojson
 parks.geojson: depends parks.osm_json
 	osmtogeojson -v parks.osm_json -f json > parks.geojson
 	sh -x strip_geojson_points.sh
+	geojson-minifier -o pack -f parks.geojson -p 6
 
 .PHONY: osm_json
 osm_json: parks.osm_json
@@ -112,7 +113,7 @@ depends: .depends-ci .depends-dev
 $(DEPENDS_CI): Makefile
 	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8 pep257 $(TEST_RUNNER) coverage
-	npm install -g osmtogeojson
+	npm install -g osmtogeojson geojson-minifier
 	touch $(DEPENDS_CI)  # flag to indicate dependencies are installed
 
 .PHONY: .depends-dev
