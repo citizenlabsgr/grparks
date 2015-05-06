@@ -49,7 +49,7 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     osm_points = finder.find(debug=debug)
     osm_parks = {}
     for point in osm_points:
-        if point['type'] == 'way':
+        if point['type'] in ('way', 'relation'):
             data = point['data']
             name = data['tag'].get('name', '<unknown>')
             osm_parks[name] = data
@@ -64,7 +64,7 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     # Generate new OSM JSON parks data with millage information
     modified_osm_points = []
     for point in osm_points:
-        if point['type'] == 'way':
+        if point['type'] in ('way', 'relation'):
             name = point['data']['tag'].get('name')
             try:
                 millage_park_data = millage_parks[name]

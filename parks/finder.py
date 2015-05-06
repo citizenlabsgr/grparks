@@ -78,7 +78,7 @@ def find(debug=False):
                 for point in points:
                     if point['type'] == 'node':
                         data.append(point)
-                    if point['type'] in ('way', 'multipolygon'):
+                    if point['type'] in ('way', 'relation'):
                         if any(((point['data']['tag'].get('leisure') == 'park'),
                                 (point['data']['tag'].get('name') in PARK_NAMES))):
                             log.debug("found park: %s", point['data'])
