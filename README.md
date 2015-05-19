@@ -1,5 +1,4 @@
-ParkFinder
-==========
+# ParkFinder
 
 This project generates maps to visualize the distribution of parks millage.
 
@@ -7,11 +6,9 @@ This project generates maps to visualize the distribution of parks millage.
 [![Coverage Status](http://img.shields.io/coveralls/friendlycode/osm-park-finder/master.svg)](https://coveralls.io/r/friendlycode/osm-park-finder)
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/friendlycode/osm-park-finder.svg)](https://scrutinizer-ci.com/g/friendlycode/osm-park-finder/?branch=master)
 
-Getting Started
-===============
+## Setup
 
-Requirements
-------------
+### Requirements
 
 * Make:
     * Windows: http://cygwin.com/install.html
@@ -22,8 +19,7 @@ Requirements
 * GEOS (`brew install geos`)
 * Node 0.12+
 
-Installation
-------------
+### Installation
 
 ParkFinder can be installed from the source code:
 
@@ -33,8 +29,7 @@ $ cd ParkFinder
 $ make env
 ```
 
-Basic Usage
-===========
+## Development
 
 To generate new map data from OpenStreetMap:
 
@@ -47,3 +42,9 @@ To run all checks after making code changes:
 ```
 $ make ci
 ```
+
+## Deployment
+
+Each [Travis CI](https://travis-ci.org/friendlycode/osm-park-finder) build deploys to the [gh-pages](https://github.com/friendlycode/osm-park-finder/tree/gh-pages) branch.
+
+
