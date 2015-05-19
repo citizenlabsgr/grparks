@@ -90,7 +90,7 @@ parks.geojson: depends parks.osm_json
 .PHONY: osm_json
 osm_json: parks.osm_json
 parks.osm_json: depends data/millage.csv
-	$(PYTHON) $(PACKAGE)/main.py data/millage.csv
+	$(PYTHON) $(PACKAGE)/main.py data/millage.csv --debug
 
 # Development Installation ###################################################
 
