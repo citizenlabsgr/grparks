@@ -6,7 +6,7 @@ install:
 - pip install coveralls scrutinizer-ocular
 script:
 - make ci
-- make run || echo "ERROR: missing parks"
+- make run || echo "missing parks"
 after_success:
 - coveralls
 - ocular
