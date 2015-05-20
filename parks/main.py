@@ -98,10 +98,8 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     for name in osm_parks.keys():
         if name not in millage_parks:
             log.warning("missing park in CSV: %s", name)
-            success = False
 
-    # TODO: for now, always return True so we can view all parks
-    return success or debug or True
+    return success or debug
 
 
 if __name__ == '__main__':
