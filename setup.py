@@ -21,7 +21,7 @@ setuptools.setup(
     version=__version__,
 
     description="Find and validate park data on OpenStreetMap.",
-    url='https://github.com/friendlycode/osm-park-finder',
+    url='https://github.com/friendlycode/gr-parks',
     author='Jace Browning',
     author_email='jacebrowning@gmail.com',
 

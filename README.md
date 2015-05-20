@@ -1,10 +1,10 @@
-# ParkFinder
+# GR Parks
 
 This project generates maps to visualize the distribution of parks millage.
 
-[![Build Status](http://img.shields.io/travis/friendlycode/osm-park-finder/master.svg)](https://travis-ci.org/friendlycode/osm-park-finder)
-[![Coverage Status](http://img.shields.io/coveralls/friendlycode/osm-park-finder/master.svg)](https://coveralls.io/r/friendlycode/osm-park-finder)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/friendlycode/osm-park-finder.svg)](https://scrutinizer-ci.com/g/friendlycode/osm-park-finder/?branch=master)
+[![Build Status](http://img.shields.io/travis/friendlycode/gr-parks/master.svg)](https://travis-ci.org/friendlycode/gr-parks)
+[![Coverage Status](http://img.shields.io/coveralls/friendlycode/gr-parks/master.svg)](https://coveralls.io/r/friendlycode/gr-parks)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/friendlycode/gr-parks.svg)](https://scrutinizer-ci.com/g/friendlycode/gr-parks/?branch=master)
 
 ## Setup
 
@@ -24,7 +24,7 @@ This project generates maps to visualize the distribution of parks millage.
 ParkFinder can be installed from the source code:
 
 ```
-$ git clone https://github.com/friendlycode/osm-park-finder.git ParkFinder
+$ git clone https://github.com/friendlycode/gr-parks.git ParkFinder
 $ cd ParkFinder
 $ make env
 ```
@@ -45,6 +45,6 @@ $ make ci
 
 ## Deployment
 
-Each [Travis CI](https://travis-ci.org/friendlycode/osm-park-finder) build deploys to the [gh-pages](https://github.com/friendlycode/osm-park-finder/tree/gh-pages) branch.
+Each [Travis CI](https://travis-ci.org/friendlycode/gr-parks) build deploys to the [gh-pages](https://github.com/friendlycode/gr-parks/tree/gh-pages) branch.
 
 

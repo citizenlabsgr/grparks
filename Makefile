@@ -11,7 +11,7 @@ ifndef TEST_RUNNER
 endif
 
 # Project settings
-PROJECT := ParkFinder
+PROJECT := Parks
 PACKAGE := parks
 SOURCES := Makefile setup.py $(shell find $(PACKAGE) -name '*.py')
 EGG_INFO := $(subst -,_,$(PROJECT)).egg-info
