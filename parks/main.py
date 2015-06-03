@@ -81,10 +81,9 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
                 log.debug("skipped untagged: %s", name)
                 continue
             if point['type'] in ('way', 'relation'):
-                millage_park_data = millage_parks[name]
-                for key, value in millage_park_data.items():
-                    point['data']['tag'][key] = value
+                point['data']['tag'] = millage_parks[name]
                 log.debug("tags added to park: %s", name)
+        # map to names expected for GeoJSON
         point2 = {}
         point2['type'] = point['type']
         point2.update(point['data'])
