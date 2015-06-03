@@ -81,7 +81,7 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
                 log.debug("skipped untagged: %s", name)
                 continue
             if point['type'] in ('way', 'relation'):
-                point['data']['tag'].clear()
+                point['data']['tag'] = dict(leisure='park')
                 millage_park_data = millage_parks[name]
                 for key, value in millage_park_data.items():
                     point['data']['tag'][key.lower()] = value
