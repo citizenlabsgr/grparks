@@ -212,7 +212,7 @@ tests-pytest: .depends-ci
 .PHONY: clean
 clean: .clean-dist .clean-test .clean-doc .clean-build
 	rm -rf $(ALL)
-	rm -rf *.csv *.osm_json *.geojson
+	rm -rf *.csv *.osm_json *.geojson*
 
 .PHONY: clean-env
 clean-env: clean
