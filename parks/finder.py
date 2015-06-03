@@ -47,9 +47,10 @@ def find(debug=False):
     log.info("connecting to OSM...")
     api = osmapi.OsmApi()
 
-    for out_bbox, sections in BBOXES:
+    for count, (out_bbox, sections) in enumerate(BBOXES, start=1):
 
         # Iterate through each section of the bounding box
+        log.info("loading bounding box %s...", count)
         log.debug("outer bounding box: %s", out_bbox)
         height = (out_bbox['max_lat'] - out_bbox['min_lat']) / sections
         width = (out_bbox['max_lon'] - out_bbox['min_lon']) / sections

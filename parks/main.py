@@ -42,6 +42,8 @@ def main(args=None):
 def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     """Merge the input data with OpenStreetMap data."""
 
+    success = True
+
     # Read the input millage data
     millage_parks = reader.read(input_csv_path)
 
@@ -54,6 +56,15 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
             name = data['tag'].get('name', '<unknown>')
             osm_parks[name] = data
 
+    # Display the difference between both park lists
+    for name in millage_parks.keys():
+        if name not in osm_parks:
+            log.error("missing park on OSM: %s", name)
+            success = False
+    for name in osm_parks.keys():
+        if name not in millage_parks:
+            log.warning("missing park in CSV: %s", name)
+
     # Write the relevant OSM data to a flat file
     log.info("writing %s...", output_csv_path)
     with open(output_csv_path, 'w', newline='') as csvfile:
@@ -64,14 +75,13 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     # Generate new OSM JSON parks data with millage information
     modified_osm_points = []
     for point in osm_points:
-        if point['type'] in ('way', 'relation'):
-            name = point['data']['tag'].get('name')
-            try:
+        name = point['data']['tag'].get('name')
+        if name:
+            if name not in millage_parks:
+                log.debug("skipped untagged: %s", name)
+                continue
+            if point['type'] in ('way', 'relation'):
                 millage_park_data = millage_parks[name]
-            except KeyError:
-                log.debug("no tags added to park: %s", name)
-            else:
-                point['data']['tag']['foo'] = 'bar'
                 for key, value in millage_park_data.items():
                     point['data']['tag'][key] = value
                 log.debug("tags added to park: %s", name)
@@ -88,16 +98,6 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
         modified_osm_data = {'elements': modified_osm_points}
         modified_osm_json = json.dumps(modified_osm_data, indent='  ')
         osm_json_file.write(modified_osm_json)
-
-    # Compare the park names
-    success = True
-    for name in millage_parks.keys():
-        if name not in osm_parks:
-            log.error("missing park on OSM: %s", name)
-            success = False
-    for name in osm_parks.keys():
-        if name not in millage_parks:
-            log.warning("missing park in CSV: %s", name)
 
     return success or debug
 
