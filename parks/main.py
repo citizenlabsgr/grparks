@@ -83,7 +83,7 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
             if point['type'] in ('way', 'relation'):
                 millage_park_data = millage_parks[name]
                 for key, value in millage_park_data.items():
-                    point['data']['tag'][key] = value
+                    point['data']['tag'][key.lower()] = value
                 log.debug("tags added to park: %s", name)
         # map to names expected for GeoJSON
         point2 = {}
