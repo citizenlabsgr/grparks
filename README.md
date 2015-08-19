@@ -24,8 +24,8 @@ This project generates maps to visualize the distribution of parks millage.
 ParkFinder can be installed from the source code:
 
 ```
-$ git clone https://github.com/friendlycode/gr-parks.git ParkFinder
-$ cd ParkFinder
+$ git clone https://github.com/friendlycode/grparks.git friendlycode-grparks
+$ cd friendlycode-grparks
 $ make env
 ```
 
@@ -45,6 +45,6 @@ $ make ci
 
 ## Deployment
 
-Each [Travis CI](https://travis-ci.org/friendlycode/gr-parks) build deploys to the [gh-pages](https://github.com/friendlycode/gr-parks/tree/gh-pages) branch.
+Each [Travis CI](https://travis-ci.org/friendlycode/grparks) build deploys to the [gh-pages](https://github.com/friendlycode/grparks/tree/gh-pages) branch.
 
 
