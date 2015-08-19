@@ -2,9 +2,9 @@
 
 This project generates maps to visualize the distribution of parks millage.
 
-[![Build Status](http://img.shields.io/travis/friendlycode/gr-parks/master.svg)](https://travis-ci.org/friendlycode/gr-parks)
-[![Coverage Status](https://coveralls.io/repos/friendlycode/gr-parks/badge.svg?branch=master&service=github)](https://coveralls.io/github/friendlycode/gr-parks?branch=master)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/friendlycode/gr-parks.svg)](https://scrutinizer-ci.com/g/friendlycode/gr-parks/?branch=master)
+[![Build Status](http://img.shields.io/travis/friendlycode/grparks/master.svg)](https://travis-ci.org/friendlycode/grparks)
+[![Coverage Status](https://coveralls.io/repos/friendlycode/grparks/badge.svg?branch=master&service=github)](https://coveralls.io/github/friendlycode/grparks?branch=master)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/friendlycode/grparks.svg)](https://scrutinizer-ci.com/g/friendlycode/grparks/?branch=master)
 
 ## Setup
 
