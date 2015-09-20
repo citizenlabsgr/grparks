@@ -16,7 +16,7 @@ This project generates maps to visualize the distribution of parks millage.
     * Linux: http://www.gnu.org/software/make (likely already installed)
 * Python 3.3+: https://www.python.org/downloads
 * virtualenv: https://pypi.python.org/pypi/virtualenv#installation
-* GEOS (`brew install geos`)
+* GEOS (`brew install geos --with-python`)
 * Node 0.12+
 
 ### Installation
