@@ -84,7 +84,8 @@ run: geojson
 geojson: parks.geojson
 parks.geojson: depends parks.osm_json
 	osmtogeojson -v parks.osm_json -f json > parks.geojson
-	sh -x strip_geojson_points.sh
+	./strip_unused_points.sh
+	./strip_unused_properties.py parks.geojson
 	geojson-minifier -o pack -f parks.geojson -p 6
 
 .PHONY: osm_json
