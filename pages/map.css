@@ -1,0 +1,57 @@
+body {
+	background-color: #fbfffb;
+	font-size: 100%;
+}
+#header {
+	background: linear-gradient(to bottom right, #048004, #044004);
+	background: -webkit-linear-gradient(left top, #048004, #044004);
+	background: -moz-linear-gradient(bottom right, #048004, #044004);
+	padding: 0.5em;
+	position: relative;
+	margin-bottom: 1px;
+}
+h1 {
+	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
+	color: white;
+	margin: 0;
+	font-size: 1.5em;
+	font-style: normal;
+	font-variant: small-caps;
+	font-weight: 500;
+	line-height: 1.625em;
+	position: absolute;
+	right: .5em;
+	bottom: 0;
+}
+#main {
+	width: 100%;
+}
+#parklist {
+	overflow: scroll;
+	float: left;
+	list-style: none;
+	margin: 0 1px 0 0;
+	background-color: lightgray;
+}
+#parklist a {
+	padding: 0 4px;
+	font-size: 88%;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;	
+	text-decoration: none;
+	color: black;
+	display: block;
+}
+#parklist a:hover {
+	background-color: gray;
+	color: white;
+}
+.map-wrap {
+	overflow: auto;
+}
+#parklist, .map-wrap {
+	border: 1px solid darkgray;
+	padding: 1px;	
+}
+#parklist, .map-wrap, #map {
+	height: 636px;
+}
