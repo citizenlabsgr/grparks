@@ -1,5 +1,5 @@
 body {
-	background-color: #fbfffb;
+	background-color: lightgray;
 	font-size: 100%;
 }
 #header {
@@ -31,7 +31,7 @@ h1 {
 	float: left;
 	list-style: none;
 	margin: 0 1px 0 0;
-	background-color: lightgray;
+	background-color: #fbfffb;
 }
 #parklist a {
 	padding: 0 4px;
