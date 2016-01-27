@@ -69,7 +69,7 @@ function onEachFeature(feature, layer) {
 				return "";
 				}
 			}
-		if (!feature.properties.pool) {feature.properties.millage = "none";};
+		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		popup.setContent(
 			"<h3>" + feature.properties.name + "</h3>" +
 			"<h4>" + feature.properties.type + " " + feature.properties.leisure + "</h4>" +
