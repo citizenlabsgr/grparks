@@ -1,5 +1,6 @@
 body {
 	background-color: lightgray;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;	
 	font-size: 100%;
 }
 #header {
@@ -20,13 +21,40 @@ h1 {
 	font-weight: 500;
 	line-height: 1.625em;
 	position: absolute;
-	right: .5em;
+	right: 0.5em;
 	bottom: 0;
+}
+#nav {
+	font-size: 75%;
+	background-color: black;
+	margin-bottom: 1px;
+	float: right;
+	width: 100%;
+}
+#nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	float: right;
+}
+#nav li {
+	float: left;
+}
+#nav a {
+	padding: 5px 10px;
+	text-decoration: none;
+	color: white;
+	display: block;
+}
+#nav a:hover {
+	background-color: gray;
 }
 #main {
 	width: 100%;
 }
 #parklist {
+	font-size: 88%;
 	overflow: scroll;
 	float: left;
 	list-style: none;
@@ -35,8 +63,6 @@ h1 {
 }
 #parklist a {
 	padding: 0 4px;
-	font-size: 88%;
-	font-family: Tahoma, Verdana, Segoe, sans-serif;	
 	text-decoration: none;
 	color: black;
 	display: block;
