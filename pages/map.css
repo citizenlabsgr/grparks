@@ -2,6 +2,8 @@ body {
 	background-color: lightgray;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;	
 	font-size: 100%;
+	margin: 0;
+	padding: 0;
 }
 #header {
 	background: linear-gradient(to bottom right, #048004, #044004);
