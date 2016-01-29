@@ -12,12 +12,31 @@ function loadJSON(url, callback) {
  
 function JSONloaded(response) {
 	parks = JSON.parse(response);
-	mapParks(); 
 	getParkFeatures();
+	mapParks(); 
 	makeList();
 	makeGrid();
 	}
 	
+function getParkFeatures() {
+	ParkFeatures = [];
+	for (i = 0; i < parks.features.length; i++) {
+		var feature = parks.features[i]
+		if (feature.properties && feature.properties.name) {
+			if (!feature.properties.millage) {feature.properties.millage = "none";};
+			ParkFeatures.push({
+				"name": feature.properties.name, 
+				"id": feature.id, 
+				"type": feature.properties.type + " " + feature.properties.leisure,
+				"acreage": feature.properties.acreage,
+				"pool": feature.properties.pool,
+				"millage": feature.properties.millage //millage()
+				});
+			}
+		}  
+	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
+	}
+
 function mapParks() {
 	map = L.map("map").setView([42.9612, -85.6557], 12);
 	L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
@@ -49,7 +68,6 @@ function onEachFeature(feature, layer) {
 				return "";
 				}
 			}
-		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		popup.setContent(
 			"<h3>" + feature.properties.name + "</h3>" +
 			"<h4>" + feature.properties.type + " " + feature.properties.leisure + "</h4>" +
@@ -61,32 +79,6 @@ function onEachFeature(feature, layer) {
 		}
 	}
 	
-function getParkFeatures() {
-	ParkFeatures = [];
-	for (i = 0; i < parks.features.length; i++) {
-		var feature = parks.features[i]
-		var millage = function () {
-			if (feature.properties.millage) {
-				return feature.properties.millage;
-				} 
-			else {
-				return "none";
-				}
-			}
-		if (feature.properties && feature.properties.name) {
-			ParkFeatures.push({
-				"name": feature.properties.name, 
-				"id": feature.id, 
-				"type": feature.properties.type + " " + feature.properties.leisure,
-				"acreage": feature.properties.acreage,
-				"pool": feature.properties.pool,
-				"millage": millage()
-				});
-			}
-		}  
-	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
-	}
-
 function makeList() {
 	for (i = 0; i < ParkFeatures.length; i++) {
 		var li = document.createElement("li");

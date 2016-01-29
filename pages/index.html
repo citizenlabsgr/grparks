@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Grand Rapids Park and Recreation Investments</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="map.js"></script>
+	<link rel="stylesheet" href="map.css" />
+	<title>Grand Rapids Parks and Recreation Investments</title>
 </head>
-<body style="margin:0px;padding:0px;overflow:hidden">
-    <a href="map.html" target="_blank">Alternate version</a>
-    <center>
-        <div style="position: relative; float: right;">
-            <iframe src="https://render.githubusercontent.com/view/geojson?url=https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:550px;width:1000px;"></iframe>
-        </div>
-    </center>
+<body>
+	<div id="header">
+		<img src="grlogo.png" />
+		<h1>Parks and Recreation Investments</h1>
+	</div>
+	<div id="nav">
+		<a href="javascript:toggle();" id="tlink">View as grid</a>
+		<ul>
+			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
+			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
+		</ul>
+	</div>
+	<div id="main">
+		<ul id="parklist"></ul>
+		<div class="map-wrap">
+			<div id="map"></div>
+		</div>
+	</div>
+	<div id="maingrid">
+		<table>
+			<thead>
+				<tr>
+					<th>Park</th>
+					<th>Type</th>
+					<th>Acreage</th>
+					<th>Pool</th>
+					<th>Millage</th>
+			<tbody id="grid"></tbody>
+		</table>
+	</div>
 </body>
 </html>

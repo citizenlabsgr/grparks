@@ -1,3 +1,6 @@
+/*html, body, #main, .map-wrap, #map {
+	height: 100%;
+}*/
 body {
 	background-color: lightgray;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;	
@@ -81,7 +84,7 @@ h1 {
 	padding: 1px;	
 }
 #parklist, .map-wrap, #map {
-	height: 636px;
+	height: 636px; /*calc(100% - 100px);*/
 }
 #maingrid {
 	display: none;
