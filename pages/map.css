@@ -1,6 +1,3 @@
-/*html, body, #main, .map-wrap, #map {
-	height: 100%;
-}*/
 body {
 	background-color: lightgray;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;	
@@ -14,7 +11,8 @@ body {
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 	padding: 0.5em;
 	position: relative;
-	margin-bottom: 1px;
+	height: 4em;
+	overflow: scroll;
 }
 h1 {
 	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
@@ -32,14 +30,12 @@ h1 {
 #nav {
 	font-size: 75%;
 	background-color: black;
-	margin-bottom: 1px;
 	float: right;
 	width: 100%;
+	height: 2em;
+	overflow: scroll;
 }
 #nav ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
 	overflow: hidden;
 	float: right;
 }
@@ -57,13 +53,14 @@ h1 {
 }
 #main {
 	width: 100%;
+	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
+	top: 6.5em;
+	bottom: 0;
 }
 #parklist {
 	font-size: 88%;
 	overflow: scroll;
 	float: left;
-	list-style: none;
-	margin: 0 1px 0 0;
 	background-color: #f0fff0;
 }
 #parklist a {
@@ -79,12 +76,14 @@ h1 {
 .map-wrap {
 	overflow: auto;
 }
-#parklist, .map-wrap {
-	border: 1px solid darkgray;
-	padding: 1px;	
-}
 #parklist, .map-wrap, #map {
-	height: 636px; /*calc(100% - 100px);*/
+	/*height: 636px;*/
+	height: 100%;
+}
+#nav ul, ul#parklist {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 #maingrid {
 	display: none;
