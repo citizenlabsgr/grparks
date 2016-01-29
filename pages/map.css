@@ -47,7 +47,7 @@ h1 {
 	padding: 5px 10px;
 	text-decoration: none;
 	color: white;
-	display: block;
+	display: inline-block;
 }
 #nav a:hover {
 	background-color: gray;
@@ -61,7 +61,7 @@ h1 {
 	float: left;
 	list-style: none;
 	margin: 0 1px 0 0;
-	background-color: #fbfffb;
+	background-color: #f0fff0;
 }
 #parklist a {
 	padding: 0 4px;
@@ -82,4 +82,14 @@ h1 {
 }
 #parklist, .map-wrap, #map {
 	height: 636px;
+}
+#maingrid {
+	display: none;
+	font-size: 88%;
+}
+#maingrid tr.odd {
+	background-color: #f0fff0;
+}
+#maingrid tr.even {
+	background-color: white;
 }

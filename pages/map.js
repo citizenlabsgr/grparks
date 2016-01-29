@@ -11,34 +11,14 @@ function loadJSON(url, callback) {
  }
  
 function JSONloaded(response) {
-	var geojson = JSON.parse(response);
-	mapParks(geojson);
-	getListofParks(geojson);
+	parks = JSON.parse(response);
+	mapParks(); 
+	getParkFeatures();
+	makeList();
+	makeGrid();
 	}
 	
-function getListofParks(geojson) {
-	var listofparks = [];
-	for (i = 0; i < geojson["features"].length; i++) {
-		var feature = geojson.features[i]
-		if (feature.properties && feature.properties.name) {
-			listofparks.push({"name": feature.properties.name, "id": feature.id});
-			}
-		}  
-	listofparks.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
-	for (i = 0; i < listofparks.length; i++) {
-		//var parkwords = listofparks[i].name.split(" ");
-		//if (parkwords[parkwords.length - 1] == "Park") {parkwords.splice(-1,1);};
-		//listofparks[i].name = parkwords.join(" ");
-		var li = document.createElement("li");
-		var a = document.createElement("a");
-		a.href = "javascript:clickMap('" + listofparks[i].id + "');";
-		a.text = listofparks[i].name;
-		li.appendChild(a);
-		parklist.appendChild(li);
-		}  
-	}
-	
-function mapParks(json) {
+function mapParks() {
 	map = L.map("map").setView([42.9612, -85.6557], 12);
 	L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
 		attribution: 
@@ -53,7 +33,7 @@ function mapParks(json) {
 		id: "github.kedo1cp3",
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	allLayers = L.geoJson(json, {onEachFeature: onEachFeature, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
+	allLayers = L.geoJson(parks, {onEachFeature: onEachFeature, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
 	}
 	
 function onEachFeature(feature, layer) {
@@ -81,6 +61,81 @@ function onEachFeature(feature, layer) {
 		}
 	}
 	
-function clickMap(id) {
+function getParkFeatures() {
+	ParkFeatures = [];
+	for (i = 0; i < parks.features.length; i++) {
+		var feature = parks.features[i]
+		var millage = function () {
+			if (feature.properties.millage) {
+				return feature.properties.millage;
+				} 
+			else {
+				return "none";
+				}
+			}
+		if (feature.properties && feature.properties.name) {
+			ParkFeatures.push({
+				"name": feature.properties.name, 
+				"id": feature.id, 
+				"type": feature.properties.type + " " + feature.properties.leisure,
+				"acreage": feature.properties.acreage,
+				"pool": feature.properties.pool,
+				"millage": millage()
+				});
+			}
+		}  
+	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
+	}
+
+function makeList() {
+	for (i = 0; i < ParkFeatures.length; i++) {
+		var li = document.createElement("li");
+		var a = document.createElement("a");
+		a.href = "javascript:pop('" + ParkFeatures[i].id + "');";
+		a.text = ParkFeatures[i].name;
+		li.appendChild(a);
+		parklist.appendChild(li);
+		}  
+	}
+
+function makeGrid() {
+	for (i = 0; i < ParkFeatures.length; i++) {
+		var feature = ParkFeatures[i]
+		var tr = document.createElement("tr");
+		if (i%2 == 0) {tr.className = "odd";} else {tr.className = "even"}
+		var td = document.createElement("td");
+		var tdname = document.createElement("td");
+		var tdtype = document.createElement("td");
+		var tdacreage = document.createElement("td");
+		var tdpool = document.createElement("td");
+		var tdmillage = document.createElement("td");
+		tdname.textContent = feature.name;
+		tdtype.textContent = feature.type;
+		tdacreage.textContent = feature.acreage;
+		tdpool.textContent = feature.pool;
+		tdmillage.textContent = feature.millage;
+		tr.appendChild(tdname);
+		tr.appendChild(tdtype);
+		tr.appendChild(tdacreage);
+		tr.appendChild(tdpool);
+		tr.appendChild(tdmillage);
+		grid.appendChild(tr);
+		}
+	}
+
+function toggle() {
+	if (tlink.text == "View as grid") {
+		main.style.display = "none";
+		maingrid.style.display = "initial";
+		tlink.text = "View as map";
+		}
+	else {
+		main.style.display = "initial";
+		maingrid.style.display = "none";
+		tlink.text = "View as grid";
+		} 
+	}
+		
+function pop(id) {
 	allLayers.getLayer(id).openPopup();
 	}

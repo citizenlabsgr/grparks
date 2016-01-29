@@ -13,6 +13,7 @@
 		<h1>Parks and Recreation Investments</h1>
 	</div>
 	<div id="nav">
+		<a href="javascript:toggle();" id="tlink">View as grid</a>
 		<ul>
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
@@ -23,6 +24,18 @@
 		<div class="map-wrap">
 			<div id="map"></div>
 		</div>
+	</div>
+	<div id="maingrid">
+		<table>
+			<thead>
+				<tr>
+					<th>Park</th>
+					<th>Type</th>
+					<th>Acreage</th>
+					<th>Pool</th>
+					<th>Millage</th>
+			<tbody id="grid"></tbody>
+		</table>
 	</div>
 </body>
 </html>
