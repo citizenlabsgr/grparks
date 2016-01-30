@@ -12,7 +12,6 @@ body {
 	padding: 0.5em;
 	position: relative;
 	height: 4em;
-	/*overflow: scroll;*/
 }
 h1 {
 	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
@@ -33,7 +32,6 @@ h1 {
 	float: right;
 	width: 100%;
 	height: 2em;
-	/*overflow: scroll;*/
 }
 #nav ul {
 	overflow: hidden;
@@ -77,7 +75,6 @@ h1 {
 	overflow: auto;
 }
 #parklist, .map-wrap, #map {
-	/*height: 636px;*/
 	height: 100%;
 }
 #nav ul, ul#parklist {
@@ -88,10 +85,23 @@ h1 {
 #maingrid {
 	display: none;
 	font-size: 88%;
+	overflow-x: auto;
 }
-#maingrid tr.odd {
+#maingrid table {
+	border-spacing: 0;
+	margin: auto;
+}
+#maingrid th {
+	text-align: left;
+	background-color: #048004;
+	color: white;
+}
+#grid tr:nth-child(odd) {
 	background-color: #f0fff0;
 }
-#maingrid tr.even {
+#grid tr:nth-child(even) {
 	background-color: white;
+}
+#maingrid th, #maingrid td {
+	padding: 4px 8px;
 }

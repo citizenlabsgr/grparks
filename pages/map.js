@@ -94,7 +94,6 @@ function makeGrid() {
 	for (i = 0; i < ParkFeatures.length; i++) {
 		var feature = ParkFeatures[i]
 		var tr = document.createElement("tr");
-		if (i%2 == 0) {tr.className = "odd";} else {tr.className = "even"}
 		var td = document.createElement("td");
 		var tdname = document.createElement("td");
 		var tdtype = document.createElement("td");
