@@ -93,7 +93,7 @@ h1 {
 }
 #maingrid th {
 	text-align: left;
-	background-color: "canary yellow";
+	background-color: #fff100;
 }
 #grid tr:nth-child(odd) {
 	background-color: #f0fff0;
