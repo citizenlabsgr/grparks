@@ -60,6 +60,7 @@ h1 {
 	overflow: scroll;
 	float: left;
 	background-color: #f0fff0;
+	border-right: 2px solid darkgray;
 }
 #parklist a {
 	padding: 0 4px;
