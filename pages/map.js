@@ -3,7 +3,7 @@ loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
 	xobj.overrideMimeType("application/json");
-	xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
+	xobj.open('GET', url, true);
 	xobj.onreadystatechange = function () {
 		if (xobj.readyState == 4 && xobj.status == "200") {callback(xobj.responseText);}
 		};
@@ -30,7 +30,7 @@ function getParkFeatures() {
 				"type": feature.properties.type + " " + feature.properties.leisure,
 				"acreage": feature.properties.acreage,
 				"pool": feature.properties.pool,
-				"millage": feature.properties.millage //millage()
+				"millage": feature.properties.millage
 				});
 			}
 		}  
@@ -57,9 +57,6 @@ function mapParks() {
 	
 function onEachFeature(feature, layer) {
 	if (feature.properties && feature.properties.name) {
-		var bounds = layer.getBounds();
-		var popup = new L.Popup({closeButton: false});
-		popup.setLatLng(bounds.getCenter());
 		var pool = function() {
 			if (feature.properties.pool) {
 				return "<br />pool: " + feature.properties.pool;
@@ -68,6 +65,8 @@ function onEachFeature(feature, layer) {
 				return "";
 				}
 			}
+		var popup = new L.Popup({closeButton: false});
+		popup.setLatLng(layer.getBounds().getCenter());
 		popup.setContent(
 			"<h3>" + feature.properties.name + "</h3>" +
 			"<h4>" + feature.properties.type + " " + feature.properties.leisure + "</h4>" +
@@ -94,7 +93,6 @@ function makeGrid() {
 	for (i = 0; i < ParkFeatures.length; i++) {
 		var feature = ParkFeatures[i]
 		var tr = document.createElement("tr");
-		var td = document.createElement("td");
 		var tdname = document.createElement("td");
 		var tdtype = document.createElement("td");
 		var tdacreage = document.createElement("td");
