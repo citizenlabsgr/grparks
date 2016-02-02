@@ -72,10 +72,7 @@ h1 {
 	background-color: gray;
 	color: white;
 }
-.map-wrap {
-	overflow: auto;
-}
-#parklist, .map-wrap, #map {
+#parklist, #map {
 	height: 100%;
 }
 #nav ul, ul#parklist {
