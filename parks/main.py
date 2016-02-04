@@ -33,7 +33,6 @@ def main(argv=None):
 
     # Parse arguments
     arguments = docopt(__doc__, argv=argv or sys.argv[1:])
-    print(arguments)
     verbose = arguments.get('--verbose')
     debug = arguments.get('--debug')
     input_csv_path = arguments['<path>']
