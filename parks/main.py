@@ -1,9 +1,22 @@
-"""Generates GeoJSON to map millage data to parks on OpenStreetMap."""
+#!/usr/bin/env python3
+
+"""Generates GeoJSON to map millage data to parks on OpenStreetMap.
+
+Usage:
+  main.py <path> [--verbose] [--debug]
+
+Options:
+  --verbose   Enable verbose logging.
+  --debug     Use a smaller data set to fail faster.
+
+"""
 
 import sys
 import csv
 import json
 import logging
+
+from docopt import docopt
 
 from parks import common
 from parks import reader
@@ -15,21 +28,18 @@ OUTPUT_OSM_JSON = "parks.osm_json"
 log = common.logger(__name__)
 
 
-def main(args=None):
+def main(argv=None):
     """Parse arguments and run the program."""
 
     # Parse arguments
-    args = args or sys.argv  # TODO: replace this with an `argparse` CLI
-    assert len(args) in (2, 3)
-    if '--debug' in args:
-        debug = True
-        args.remove('--debug')
-    else:
-        debug = False
-    input_csv_path = args[1]
+    arguments = docopt(__doc__, argv=argv or sys.argv[1:])
+    print(arguments)
+    verbose = arguments.get('--verbose')
+    debug = arguments.get('--debug')
+    input_csv_path = arguments['<path>']
 
     # Configure logging
-    logging.basicConfig(level=logging.DEBUG if debug else logging.INFO,
+    logging.basicConfig(level=logging.DEBUG if verbose else logging.INFO,
                         format="%(levelname)s: %(name)s: %(message)s")
 
     # Run the program
@@ -78,14 +88,14 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
         name = point['data']['tag'].get('name')
         if name:
             if name not in millage_parks:
-                log.debug("skipped untagged: %s", name)
+                log.info("skipped untagged: %s", name)
                 continue
             if point['type'] in ('way', 'relation'):
                 point['data']['tag'] = dict(leisure='park')
                 millage_park_data = millage_parks[name]
                 for key, value in millage_park_data.items():
                     point['data']['tag'][key.lower()] = value
-                log.debug("tags added to park: %s", name)
+                log.info("tags added to park: %s", name)
         # map to names expected for GeoJSON
         point2 = {}
         point2['type'] = point['type']
