@@ -108,6 +108,10 @@ function makeGrid() {
 		tr.appendChild(tdacreage);
 		tr.appendChild(tdpool);
 		tr.appendChild(tdmillage);
+		tr.onclick = function(e) {
+			toggle();
+			pop(ParkFeatures[e.target.parentNode.rowIndex - 1].id);
+			};
 		grid.appendChild(tr);
 		}
 	}

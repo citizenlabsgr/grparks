@@ -87,17 +87,54 @@ h1 {
 }
 #maingrid table {
 	border-spacing: 0;
-	margin: auto;
+	margin: 2.5em auto 1em auto;
+}
+/*#maingrid th {
+	position: sticky;
+}*/
+#maingrid table, #maingrid thead {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 #maingrid th {
 	text-align: left;
 	background-color: #fff100;
+}
+#maingrid thead th:first-child {
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+#maingrid thead th:last-child {
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#grid:hover {
+	cursor: pointer;
+}
+#grid:hover > tr td {
+	opacity: 0.4;
+}
+#grid:hover > tr:hover td {
+	opacity: 1;
 }
 #grid tr:nth-child(odd) {
 	background-color: #f0fff0;
 }
 #grid tr:nth-child(even) {
 	background-color: white;
+}
+#grid tr:last-child td:first-child {
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#grid tr:last-child td:last-child {
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 #maingrid th, #maingrid td {
 	padding: 4px 8px;
