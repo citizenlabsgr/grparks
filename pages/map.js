@@ -130,5 +130,7 @@ function toggle() {
 	}
 		
 function pop(id) {
-	allLayers.getLayer(id).openPopup();
+	var thisLayer = allLayers.getLayer(id);
+	map.setView(thisLayer.getBounds().getCenter(), 15, {animation: true});
+	thisLayer.openPopup();
 	}
