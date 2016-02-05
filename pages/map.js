@@ -131,6 +131,8 @@ function toggle() {
 		
 function pop(id) {
 	var thisLayer = allLayers.getLayer(id);
-	map.setView(thisLayer.getBounds().getCenter(), 15, {animation: true});
+	var zoom = map.getZoom();
+	if (zoom < 15) {zoom = 15;};
+	map.setView(thisLayer.getBounds().getCenter(), zoom, {animation: true});
 	thisLayer.openPopup();
 	}
