@@ -65,15 +65,13 @@ function onEachFeature(feature, layer) {
 				return "";
 				}
 			}
-		var popup = new L.Popup({closeButton: false});
-		popup.setLatLng(layer.getBounds().getCenter());
-		popup.setContent(
+		layer.bindPopup(
 			"<h3>" + feature.properties.name + "</h3>" +
 			"<h4>" + feature.properties.type + " " + feature.properties.leisure + "</h4>" +
 			"<p>" + feature.properties.acreage + " acres" + pool() + "</p>" +
-			"<p><b>millage: </b>" + feature.properties.millage + "</p>"
+			"<p><b>millage: </b>" + feature.properties.millage + "</p>",
+			{closeButton: false}
 			);
-		layer.bindPopup(popup);
 		layer._leaflet_id = feature.id;
 		}
 	}
@@ -131,8 +129,9 @@ function toggle() {
 		
 function pop(id) {
 	var thisLayer = allLayers.getLayer(id);
+	var where = thisLayer.getBounds().getCenter();
 	var zoom = map.getZoom();
 	if (zoom < 15) {zoom = 15;};
-	map.setView(thisLayer.getBounds().getCenter(), zoom, {animation: true});
-	thisLayer.openPopup();
+	map.setView(where, zoom, {animation: true});
+	thisLayer.openPopup(where);
 	}
