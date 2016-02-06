@@ -1,36 +1,26 @@
+* {
+	margin: 0;
+	padding: 0;	
+}
 body {
-	background-color: lightgray;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;	
 	font-size: 100%;
-	margin: 0;
-	padding: 0;
 }
 #header {
-	background: linear-gradient(to bottom right, #048004, #044004);
-	background: -webkit-linear-gradient(left top, #048004, #044004);
-	background: -moz-linear-gradient(bottom right, #048004, #044004);
 	padding: 0.5em;
 	position: relative;
-	height: 4em;
+	height: 3.5em;
 }
 h1 {
 	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
-	margin: 0;
 	font-size: 1.5em;
 	font-style: normal;
 	font-variant: small-caps;
 	font-weight: 500;
-	line-height: 1.625em;
+	line-height: 1.5em;
 	position: absolute;
 	right: 0.5em;
 	bottom: 0;
-}
-#nav {
-	font-size: 75%;
-	background-color: black;
-	float: right;
-	width: 100%;
-	height: 2em;
 }
 #nav ul {
 	overflow: hidden;
@@ -40,18 +30,19 @@ h1 {
 	float: left;
 }
 #nav a {
-	padding: 5px 10px;
+	font-size: 0.75em;
+	line-height: 1;
+	padding: 0.5em 0.75em;
 	text-decoration: none;
 	display: inline-block;
 }
 #main {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
-	top: 6.5em;
+	top: 6em;
 	bottom: 0;
 }
 #parklist {
-	font-size: 88%;
 	overflow: scroll;
 	float: left;
 	border-right: 2px solid darkgray;
@@ -59,42 +50,80 @@ h1 {
 #parklist a {
 	padding: 0 4px;
 	text-decoration: none;
-	color: black;
 	display: block;
 }
 #parklist, #map {
 	height: 100%;
 }
 #nav ul, ul#parklist {
-	margin: 0;
-	padding: 0;
 	list-style: none;
 }
 #maingrid {
 	display: none;
-	font-size: 88%;
 	overflow-x: auto;
+}
+#parklist, #maingrid {
+	font-size: 0.88em;
 }
 #maingrid table {
 	border-spacing: 0;
-	margin: 2.5em auto 1em auto;
+	margin: 1em auto;
 }
-/*#maingrid th {
-	position: sticky;
-}*/
-#maingrid table, #maingrid thead {
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+#maingrid th {
+	text-align: left;
+	font-weight: 500;
+}
+#grid:hover {
+	cursor: pointer;
+}
+#grid:hover > tr td {
+	opacity: 0.4;
+}
+#grid:hover > tr:hover td {
+	opacity: 1;
+}
+#maingrid th, #maingrid td {
+	padding: 4px 8px;
+}
+/*------------------------------------------------------------------------------*/
+/* just colors */
+body {
+	background-color: lightgray;
+}
+#header {
+	background: linear-gradient(to bottom right, #048004, #044004);
+	background: -webkit-linear-gradient(left top, #048004, #044004);
+	background: -moz-linear-gradient(bottom right, #048004, #044004);
+}
+h1, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wrapper {
+	color: white;
+}
+#parklist a {
+	color: black;
+}
+#nav {
+	background-color: black;
+}
+#nav a:hover, #parklist a:hover {
+	background-color: gray;
 }
 #maingrid thead {
 	background: linear-gradient(#048004, #044004);
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#maingrid th {
-	text-align: left;
-	font-weight: normal;
+#parklist, #grid tr:nth-child(odd) {
+	background-color: #f0fff0;
+}
+#grid tr:nth-child(even) {
+	background-color: white;
+}
+/*------------------------------------------------------------------------------*/
+/* rounded corners */
+#maingrid table, #maingrid thead {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 #maingrid thead th:first-child {
   -moz-border-radius-topleft: 5px;
@@ -106,15 +135,6 @@ h1 {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-#grid:hover {
-	cursor: pointer;
-}
-#grid:hover > tr td {
-	opacity: 0.4;
-}
-#grid:hover > tr:hover td {
-	opacity: 1;
-}
 #grid tr:last-child td:first-child {
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
@@ -125,23 +145,9 @@ h1 {
   -webkit-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-#maingrid th, #maingrid td {
-	padding: 4px 8px;
-}
+/*------------------------------------------------------------------------------*/
+/* leaflet popup overrides */
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
 	background-color: #044004;
 	opacity: 0.8;
-}
-/* just colors */
-h1, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wrapper {
-	color: white;
-}
-#nav a:hover, #parklist a:hover {
-	background-color: gray;
-}
-#parklist, #grid tr:nth-child(odd) {
-	background-color: #f0fff0;
-}
-#grid tr:nth-child(even) {
-	background-color: white;
 }
