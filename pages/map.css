@@ -15,7 +15,6 @@ body {
 }
 h1 {
 	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
-	color: white;
 	margin: 0;
 	font-size: 1.5em;
 	font-style: normal;
@@ -43,11 +42,7 @@ h1 {
 #nav a {
 	padding: 5px 10px;
 	text-decoration: none;
-	color: white;
 	display: inline-block;
-}
-#nav a:hover {
-	background-color: gray;
 }
 #main {
 	width: 100%;
@@ -59,7 +54,6 @@ h1 {
 	font-size: 88%;
 	overflow: scroll;
 	float: left;
-	background-color: #f0fff0;
 	border-right: 2px solid darkgray;
 }
 #parklist a {
@@ -67,10 +61,6 @@ h1 {
 	text-decoration: none;
 	color: black;
 	display: block;
-}
-#parklist a:hover {
-	background-color: gray;
-	color: white;
 }
 #parklist, #map {
 	height: 100%;
@@ -97,9 +87,14 @@ h1 {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
+#maingrid thead {
+	background: linear-gradient(#048004, #044004);
+	background: -webkit-linear-gradient(#048004, #044004);
+	background: -moz-linear-gradient(#048004, #044004);
+}
 #maingrid th {
 	text-align: left;
-	background-color: #fff100;
+	font-weight: normal;
 }
 #maingrid thead th:first-child {
   -moz-border-radius-topleft: 5px;
@@ -120,12 +115,6 @@ h1 {
 #grid:hover > tr:hover td {
 	opacity: 1;
 }
-#grid tr:nth-child(odd) {
-	background-color: #f0fff0;
-}
-#grid tr:nth-child(even) {
-	background-color: white;
-}
 #grid tr:last-child td:first-child {
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
@@ -138,4 +127,21 @@ h1 {
 }
 #maingrid th, #maingrid td {
 	padding: 4px 8px;
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+	background-color: #044004;
+	opacity: 0.8;
+}
+/* just colors */
+h1, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wrapper {
+	color: white;
+}
+#nav a:hover, #parklist a:hover {
+	background-color: gray;
+}
+#parklist, #grid tr:nth-child(odd) {
+	background-color: #f0fff0;
+}
+#grid tr:nth-child(even) {
+	background-color: white;
 }
