@@ -52,18 +52,13 @@ function mapParks() {
 		id: "github.kedo1cp3",
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	allLayers = L.geoJson(parks, {onEachFeature: onEachFeature, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
+	allLayers = L.geoJson(parks, {onEachFeature: makePopup, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
 	}
 	
-function onEachFeature(feature, layer) {
+function makePopup(feature, layer) {
 	if (feature.properties && feature.properties.name) {
 		var pool = function() {
-			if (feature.properties.pool) {
-				return "<br />pool: " + feature.properties.pool;
-				}
-			else {
-				return "";
-				}
+			if (feature.properties.pool) {return "<br />pool: " + feature.properties.pool;}	else {return "";}
 			}
 		layer.bindPopup(
 			"<h3>" + feature.properties.name + "</h3>" +
@@ -89,27 +84,18 @@ function makeList() {
 
 function makeGrid() {
 	for (i = 0; i < ParkFeatures.length; i++) {
-		var feature = ParkFeatures[i]
 		var tr = document.createElement("tr");
-		var tdname = document.createElement("td");
-		var tdtype = document.createElement("td");
-		var tdacreage = document.createElement("td");
-		var tdpool = document.createElement("td");
-		var tdmillage = document.createElement("td");
-		tdname.textContent = feature.name;
-		tdtype.textContent = feature.type;
-		tdacreage.textContent = feature.acreage;
-		tdpool.textContent = feature.pool;
-		tdmillage.textContent = feature.millage;
-		tr.appendChild(tdname);
-		tr.appendChild(tdtype);
-		tr.appendChild(tdacreage);
-		tr.appendChild(tdpool);
-		tr.appendChild(tdmillage);
 		tr.onclick = function(e) {
 			toggle();
 			pop(ParkFeatures[e.target.parentNode.rowIndex - 1].id);
 			};
+		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
+		delete feature.id;
+		for (f in feature) {
+			var td = document.createElement("td");
+			td.textContent = feature[f];
+			tr.appendChild(td);		
+			} 
 		grid.appendChild(tr);
 		}
 	}

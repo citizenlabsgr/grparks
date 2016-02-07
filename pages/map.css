@@ -14,16 +14,15 @@ body {
 h1 {
 	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
 	font-size: 1.5em;
+	line-height: 1;
 	font-style: normal;
 	font-variant: small-caps;
 	font-weight: 500;
-	line-height: 1.5em;
 	position: absolute;
 	right: 0.5em;
 	bottom: 0;
 }
 #nav ul {
-	overflow: hidden;
 	float: right;
 }
 #nav li {
