@@ -19,19 +19,23 @@ function JSONloaded(response) {
 	}
 	
 function getParkFeatures() {
+	var ids = [];
 	ParkFeatures = [];
 	for (i = 0; i < parks.features.length; i++) {
-		var feature = parks.features[i]
+		var feature = parks.features[i];
 		if (feature.properties && feature.properties.name) {
-			if (!feature.properties.millage) {feature.properties.millage = "none";};
-			ParkFeatures.push({
-				"name": feature.properties.name, 
-				"id": feature.id, 
-				"type": feature.properties.type + " " + feature.properties.leisure,
-				"acreage": feature.properties.acreage,
-				"pool": feature.properties.pool,
-				"millage": feature.properties.millage
-				});
+			if (ids.indexOf(feature.id) == -1) {
+				ids.push(feature.id);
+				if (!feature.properties.millage) {feature.properties.millage = "none";};
+				ParkFeatures.push({
+					"name": feature.properties.name, 
+					"id": feature.id, 
+					"type": feature.properties.type + " " + feature.properties.leisure,
+					"acreage": feature.properties.acreage,
+					"pool": feature.properties.pool,
+					"millage": feature.properties.millage
+					});
+				}
 			}
 		}  
 	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
@@ -103,11 +107,11 @@ function makeGrid() {
 function toggle() {
 	if (tlink.text == "View as grid") {
 		main.style.display = "none";
-		maingrid.style.display = "initial";
+		maingrid.style.display = "block";
 		tlink.text = "View as map";
 		}
 	else {
-		main.style.display = "initial";
+		main.style.display = "block";
 		maingrid.style.display = "none";
 		tlink.text = "View as grid";
 		} 
