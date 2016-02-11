@@ -26,7 +26,12 @@
 		<h1>Parks and Recreation Investments</h1>
 	</div>
 	<div id="nav">
-		<a href="javascript:toggle();" id="tlink">View as grid</a>
+		<span>View</span> 
+		<select onchange="javascript:toggle();" id="view">
+			<option>map</option>
+			<option>grid</option>
+			<option>tiles</option>
+		</select>
 		<ul>
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
@@ -49,6 +54,8 @@
 			</thead>
 			<tbody id="grid"></tbody>
 		</table>
+	</div>
+	<div id="maintiles">
 	</div>
 </body>
 </html>

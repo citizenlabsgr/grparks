@@ -16,6 +16,7 @@ function JSONloaded(response) {
 	mapParks(); 
 	makeList();
 	makeGrid();
+	makeTiles();
 	}
 	
 function getParkFeatures() {
@@ -90,6 +91,7 @@ function makeGrid() {
 	for (i = 0; i < ParkFeatures.length; i++) {
 		var tr = document.createElement("tr");
 		tr.onclick = function(e) {
+			view.value = "map";
 			toggle();
 			pop(ParkFeatures[e.target.parentNode.rowIndex - 1].id);
 			};
@@ -104,17 +106,35 @@ function makeGrid() {
 		}
 	}
 
-function toggle() {
-	if (tlink.text == "View as grid") {
-		main.style.display = "none";
-		maingrid.style.display = "block";
-		tlink.text = "View as map";
+function makeTiles() {
+	for (i = 0; i < ParkFeatures.length; i++) {
+		var div = document.createElement("div");
+		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
+		delete feature.id;
+		for (f in feature) {
+			var p = document.createElement("p");
+			p.innerHTML = feature[f];
+			div.appendChild(p);
+			}
+		maintiles.appendChild(div);
 		}
-	else {
-		main.style.display = "block";
-		maingrid.style.display = "none";
-		tlink.text = "View as grid";
-		} 
+	}
+
+function toggle() {
+	main.style.display = "none";
+	maingrid.style.display = "none";
+	maintiles.style.display = "none";
+	switch (view.value) {
+		case "map":
+			main.style.display = "block";
+			break;
+		case "grid":
+			maingrid.style.display = "block";
+			break;
+		case "tiles":
+			maintiles.style.display = "block";
+			break;
+		}
 	}
 		
 function pop(id) {
