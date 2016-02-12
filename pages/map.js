@@ -14,9 +14,7 @@ function JSONloaded(response) {
 	parks = JSON.parse(response);
 	getParkFeatures();
 	mapParks(); 
-	makeList();
-	makeGrid();
-	makeTiles();
+	showFeatures();
 	}
 	
 function getParkFeatures() {
@@ -76,48 +74,43 @@ function makePopup(feature, layer) {
 		}
 	}
 	
-function makeList() {
+function showFeatures() {
 	for (i = 0; i < ParkFeatures.length; i++) {
+		
+		// parklist gets names
 		var li = document.createElement("li");
 		var a = document.createElement("a");
 		a.href = "javascript:pop('" + ParkFeatures[i].id + "');";
 		a.text = ParkFeatures[i].name;
 		li.appendChild(a);
 		parklist.appendChild(li);
-		}  
-	}
-
-function makeGrid() {
-	for (i = 0; i < ParkFeatures.length; i++) {
+		
+		// grid (table) and tiles get all data
 		var tr = document.createElement("tr");
 		tr.onclick = function(e) {
 			view.value = "map";
 			toggle();
 			pop(ParkFeatures[e.target.parentNode.rowIndex - 1].id);
 			};
+		var div = document.createElement("div");
+
 		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
 		delete feature.id;
 		for (f in feature) {
+			// for table cells
 			var td = document.createElement("td");
 			td.textContent = feature[f];
-			tr.appendChild(td);		
-			} 
-		grid.appendChild(tr);
-		}
-	}
-
-function makeTiles() {
-	for (i = 0; i < ParkFeatures.length; i++) {
-		var div = document.createElement("div");
-		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
-		delete feature.id;
-		for (f in feature) {
+			tr.appendChild(td);
+			// for tiles		
 			var p = document.createElement("p");
 			p.innerHTML = feature[f];
 			div.appendChild(p);
-			}
+			} 
+
+		grid.appendChild(tr);
 		maintiles.appendChild(div);
-		}
+		
+		}  
 	}
 
 function toggle() {

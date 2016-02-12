@@ -64,8 +64,8 @@ h1 {
 #nav ul, ul#parklist {
 	list-style: none;
 }
-#parklist, #maingrid {
-	font-size: 0.88em;
+#parklist, #maingrid, #maintiles {
+	font-size: 0.875em;
 }
 #main {
 	width: 100%;
@@ -105,29 +105,32 @@ h1 {
 	width: 15em;
 	height: 6em;
 	float: left;
-	padding: 0.25em;
-	margin: 1px 1px 0 0;
+	padding: 0.375em;
+	margin: 0.125em 0 0 0.125em;
+}
+#maintiles div p:first-child {
+	font-weight: bold;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
 body {
 	background-color: lightgray;
 }
-#header, #maintiles div {
+#header {
 	background: linear-gradient(to bottom right, #048004, #044004);
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 }
-h1, #nav, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wrapper, #maintiles div {
+h1, #nav, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wrapper, #maintiles div:hover {
 	color: white;
 }
-#parklist a {
+#parklist a, #maintiles div {
 	color: black;
 }
 #nav {
 	background-color: black;
 }
-#nav a:hover, #parklist a:hover {
+#nav a:hover, #parklist a:hover, #maintiles div:hover {
 	background-color: gray;
 }
 #maingrid thead {
@@ -135,7 +138,7 @@ h1, #nav, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wra
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#parklist, #grid tr:nth-child(odd) {
+#parklist, #grid tr:nth-child(odd), #maintiles div {
 	background-color: #f0fff0;
 }
 #grid tr:nth-child(even) {
