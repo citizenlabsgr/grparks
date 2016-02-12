@@ -131,10 +131,13 @@ h1 {
 #maingrid th, #maingrid td {
 	padding: 4px 8px;
 }
+/*------------------------------------------------------------------------------*/
+/* tiles of parks */
 #maintiles div {
 	width: 15em;
 	height: 6em;
 	float: left;
+	cursor: pointer;
 	padding: 0.375em;
 	margin: 0.125em 0 0 0.125em;
 }

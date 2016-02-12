@@ -12,35 +12,12 @@ function loadJSON(url, callback) {
  
 function JSONloaded(response) {
 	parks = JSON.parse(response);
-	getParkFeatures();
+	ids = [];
+	ParkFeatures = [];
 	mapParks(); 
 	showFeatures();
 	}
 	
-function getParkFeatures() {
-	var ids = [];
-	ParkFeatures = [];
-	for (i = 0; i < parks.features.length; i++) {
-		var feature = parks.features[i];
-		if (feature.properties && feature.properties.name) {
-			if (ids.indexOf(feature.id) == -1) {
-				ids.push(feature.id);
-				if (!feature.properties.millage) {feature.properties.millage = "none";};
-				// todo: put functions here
-				ParkFeatures.push({
-					"name": feature.properties.name, 
-					"id": feature.id, 
-					"type": feature.properties.type + " " + feature.properties.leisure,
-					"acreage": feature.properties.acreage,
-					"pool": feature.properties.pool,
-					"millage": feature.properties.millage
-					});
-				}
-			}
-		}  
-	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
-	}
-
 function mapParks() {
 	map = L.map("map").setView([42.9612, -85.6557], 12);
 	L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
@@ -56,11 +33,13 @@ function mapParks() {
 		id: "github.kedo1cp3",
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	allLayers = L.geoJson(parks, {onEachFeature: makePopup, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
+	allLayers = L.geoJson(parks, {onEachFeature: getFeature, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
 	}
 	
-function makePopup(feature, layer) {
+function getFeature(feature, layer) {
 	if (feature.properties && feature.properties.name) {
+		
+		// make a popup for the map
 		var pool = function() {
 			if (feature.properties.pool) {return "<br />pool: " + feature.properties.pool;}	else {return "";}
 			}
@@ -72,10 +51,27 @@ function makePopup(feature, layer) {
 			{closeButton: false}
 			);
 		layer._leaflet_id = feature.id;
+		
+		// remember the feature's properties, excluding duplicates
+		if (ids.indexOf(feature.id) == -1) {
+			ids.push(feature.id);
+			if (!feature.properties.millage) {feature.properties.millage = "none";};
+			// todo: put functions here
+			ParkFeatures.push({
+				"name": feature.properties.name, 
+				"id": feature.id, 
+				"type": feature.properties.type + " " + feature.properties.leisure,
+				"acreage": feature.properties.acreage,
+				"pool": feature.properties.pool,
+				"millage": feature.properties.millage
+				});
+			}
+		
 		}
 	}
 	
 function showFeatures() {
+	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
 	for (i = 0; i < ParkFeatures.length; i++) {
 		
 		// parklist gets just names, together with ids
@@ -88,7 +84,7 @@ function showFeatures() {
 		
 		var tr = document.createElement("tr");
 		tr.onclick = function(e) {
-			toggleMap(e.target.parentNode.rowIndex - 1);
+			showPopup(e.target.parentNode.rowIndex - 1);
 			};
 		var div = document.createElement("div");
 		div.onclick = function(e) {
@@ -98,7 +94,7 @@ function showFeatures() {
 				div = outerdiv;
 				outerdiv = div.parentNode;
 				}
-			toggleMap(Array.prototype.indexOf.call(outerdiv.children, div));
+			showPopup(Array.prototype.indexOf.call(outerdiv.children, div));
 			};
 
 		// grid (table) and tiles get all data except id
@@ -121,7 +117,7 @@ function showFeatures() {
 		}  
 	}
 
-function toggleMap(index) {
+function showPopup(index) {
 	toggle(rbmap);
 	pop(ParkFeatures[index].id);
 	}
