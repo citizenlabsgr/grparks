@@ -26,6 +26,7 @@ function getParkFeatures() {
 			if (ids.indexOf(feature.id) == -1) {
 				ids.push(feature.id);
 				if (!feature.properties.millage) {feature.properties.millage = "none";};
+				// todo: put functions here
 				ParkFeatures.push({
 					"name": feature.properties.name, 
 					"id": feature.id, 
@@ -77,7 +78,7 @@ function makePopup(feature, layer) {
 function showFeatures() {
 	for (i = 0; i < ParkFeatures.length; i++) {
 		
-		// parklist gets names
+		// parklist gets just names, together with ids
 		var li = document.createElement("li");
 		var a = document.createElement("a");
 		a.href = "javascript:pop('" + ParkFeatures[i].id + "');";
@@ -85,15 +86,22 @@ function showFeatures() {
 		li.appendChild(a);
 		parklist.appendChild(li);
 		
-		// grid (table) and tiles get all data
 		var tr = document.createElement("tr");
 		tr.onclick = function(e) {
-			view.value = "map";
-			toggle();
-			pop(ParkFeatures[e.target.parentNode.rowIndex - 1].id);
+			toggleMap(e.target.parentNode.rowIndex - 1);
 			};
 		var div = document.createElement("div");
+		div.onclick = function(e) {
+			var div = e.target;
+			var outerdiv = div.parentNode;
+			while (outerdiv.id != "maintiles") {
+				div = outerdiv;
+				outerdiv = div.parentNode;
+				}
+			toggleMap(Array.prototype.indexOf.call(outerdiv.children, div));
+			};
 
+		// grid (table) and tiles get all data except id
 		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
 		delete feature.id;
 		for (f in feature) {
@@ -113,7 +121,13 @@ function showFeatures() {
 		}  
 	}
 
-function toggle() {
+function toggleMap(index) {
+	toggle(rbmap);
+	pop(ParkFeatures[index].id);
+	}
+
+function toggle(view) {
+	if (!view.checked) {view.checked = true;}
 	main.style.display = "none";
 	maingrid.style.display = "none";
 	maintiles.style.display = "none";

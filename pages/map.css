@@ -30,6 +30,9 @@ h1 {
 	font-size: 0.75em;
 	line-height: 1;
 }
+#nav input {
+	display: inline-block;
+}
 #nav ul {
 	float: right;
 }
