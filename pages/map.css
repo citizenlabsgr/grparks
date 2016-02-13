@@ -150,6 +150,7 @@ nav ul, ul#parklist {
 #tiles a p:nth-child(5) {
 	color: #048004;
 	font-weight: 600;
+	text-align: right;
 }
 #tiles a:hover p:nth-child(5) {
 	color: #f0fff0;
