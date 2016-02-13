@@ -8,7 +8,7 @@ body {
 }
 /*------------------------------------------------------------------------------*/
 /* page heading */
-#header {
+header {
 	padding: 0.5em;
 	position: relative;
 	height: 3.5em;
@@ -26,21 +26,21 @@ h1 {
 }
 /*------------------------------------------------------------------------------*/
 /* navigation bar */
-#nav {
+nav {
 	font-size: 0.75em;
 	line-height: 1;
 }
-#nav input[type=radio] {
+nav input[type=radio] {
 	display: none;
 }
-#nav label {
+nav label {
     display: inline-block;
     cursor: pointer;
     position: relative;
     padding-left: 1.5em;
     margin-right: 1em;	
 }
-#nav label:before {
+nav label:before {
     content: "";
     display: inline-block;
     width: 1em;
@@ -53,25 +53,25 @@ h1 {
     box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
     border-radius: 0.5em;
 }
-#nav input[type=radio]:checked + label:before {
+nav input[type=radio]:checked + label:before {
     content: "\2022";
     color: black;
     font-size: 1em;
     text-align: center;
     line-height: 1em;
 }
-#nav ul {
+nav ul {
 	float: right;
 }
-#nav li {
+nav li {
 	float: left;
 }
-#nav a, #nav span {
+nav a, nav span {
 	padding: 0.5em 0.75em;
 	text-decoration: none;
 	display: inline-block;
 }
-#nav span {
+nav span {
 	padding-right: 0.25em;
 }
 /*------------------------------------------------------------------------------*/
@@ -91,19 +91,19 @@ h1 {
 #parklist, #map {
 	height: 100%;
 }
-#nav ul, ul#parklist {
+nav ul, ul#parklist {
 	list-style: none;
 }
-#parklist, #maingrid, #maintiles {
+#parklist, #grid, #tiles {
 	font-size: 0.875em;
 }
-#main, #maingrid, #maintiles {
+#main, #grid, #tiles {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
 	top: 6em;
 	bottom: 0;
 }
-#maingrid, #maintiles {
+#grid, #tiles {
 	display: none;
 	top: 6.857em;
 	overflow-x: auto;
@@ -111,29 +111,29 @@ h1 {
 }
 /*------------------------------------------------------------------------------*/
 /* table (grid) of parks and its container */
-#maingrid table {
+#grid table {
 	border-spacing: 0;
 	margin: 1em auto;
 }
-#maingrid th {
+#grid th {
 	text-align: left;
 	font-weight: 500;
 }
-#grid:hover {
+#tbody:hover {
 	cursor: pointer;
 }
-#grid:hover > tr td {
+#tbody:hover > tr td {
 	opacity: 0.4;
 }
-#grid:hover > tr:hover td {
+#tbody:hover > tr:hover td {
 	opacity: 1;
 }
-#maingrid th, #maingrid td {
+#grid th, #grid td {
 	padding: 4px 8px;
 }
 /*------------------------------------------------------------------------------*/
 /* tiles of parks */
-#maintiles div {
+#tiles div {
 	width: 15em;
 	height: 6em;
 	float: left;
@@ -141,10 +141,10 @@ h1 {
 	padding: 0.375em;
 	margin: 0.125em 0 0 0.125em;
 }
-#maintiles div p:first-child {
+#tiles div p:first-child {
 	font-weight: bold;
 }
-#maintiles div p:nth-child(5) {
+#tiles div p:nth-child(5) {
 	color: #048004;
 	font-weight: 600;
 }
@@ -153,57 +153,57 @@ h1 {
 body {
 	background-color: lightgray;
 }
-#header {
+header {
 	background: linear-gradient(to bottom right, #048004, #044004);
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 }
-h1, #nav, #nav a, #parklist a:hover, #maingrid thead, .leaflet-popup-content-wrapper, #maintiles div:hover {
+h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper, #tiles div:hover {
 	color: white;
 }
-#parklist a, #maintiles div {
+#parklist a, #tiles div {
 	color: black;
 }
-#nav {
+nav {
 	background-color: black;
 }
-#nav a:hover, #parklist a:hover, #maintiles div:hover {
+nav a:hover, #parklist a:hover, #tiles div:hover {
 	background-color: gray;
 }
-#maingrid thead {
+#grid thead {
 	background: linear-gradient(#048004, #044004);
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#parklist, #grid tr:nth-child(odd), #maintiles div {
+#parklist, #tbody tr:nth-child(odd), #tiles div {
 	background-color: #f0fff0;
 }
-#grid tr:nth-child(even) {
+#tbody tr:nth-child(even) {
 	background-color: white;
 }
 /*------------------------------------------------------------------------------*/
 /* rounded corners */
-#maingrid table, #maingrid thead {
+#grid table, #grid thead {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
-#maingrid thead th:first-child {
+#grid thead th:first-child {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
 }
-#maingrid thead th:last-child {
+#grid thead th:last-child {
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-#grid tr:last-child td:first-child {
+#tbody tr:last-child td:first-child {
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-#grid tr:last-child td:last-child {
+#tbody tr:last-child td:last-child {
   -moz-border-radius-bottomright: 5px;
   -webkit-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;

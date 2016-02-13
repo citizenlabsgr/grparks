@@ -6,7 +6,11 @@
 	<script src="map.js"></script>
 	<link rel="stylesheet" href="map.css" />
 	<title>Grand Rapids Parks and Recreation Investments</title>
-
+	
+	<!--[if lt IE 9]>
+	 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	 <![endif]-->
+	
 	<!-- Google Analytics -->
 	<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -21,11 +25,11 @@
 
 </head>
 <body>
-	<div id="header">
+	<header>
 		<img src="grlogo.png" />
 		<h1>Parks and Recreation Investments</h1>
-	</div>
-	<div id="nav">
+	</header>
+	<nav>
 		<span>View</span> 
 		<input type="radio" id="rbmap" name="view" value="map" onchange="javascript:toggle(this);" checked="true">
 			<label for="rbmap">map</label>
@@ -37,12 +41,12 @@
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
 		</ul>
-	</div>
-	<div id="main">
+	</nav>
+	<section id="main">
 		<ul id="parklist"></ul>
 		<div id="map"></div>
-	</div>
-	<div id="maingrid">
+	</section>
+	<section id="grid">
 		<table>
 			<thead>
 				<tr>
@@ -53,10 +57,10 @@
 					<th>Millage</th>
 				</tr>
 			</thead>
-			<tbody id="grid"></tbody>
+			<tbody id="tbody"></tbody>
 		</table>
-	</div>
-	<div id="maintiles">
-	</div>
+	</section>
+	<section id="tiles">
+	</section>
 </body>
 </html>

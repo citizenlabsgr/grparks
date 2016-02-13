@@ -56,7 +56,6 @@ function getFeature(feature, layer) {
 		if (ids.indexOf(feature.id) == -1) {
 			ids.push(feature.id);
 			if (!feature.properties.millage) {feature.properties.millage = "none";};
-			// todo: put functions here
 			ParkFeatures.push({
 				"name": feature.properties.name, 
 				"id": feature.id, 
@@ -87,10 +86,11 @@ function showFeatures() {
 			showPopup(e.target.parentNode.rowIndex - 1);
 			};
 		var div = document.createElement("div");
+		// can div contain an a or be contained by an a tag? yes, in html5
 		div.onclick = function(e) {
 			var div = e.target;
 			var outerdiv = div.parentNode;
-			while (outerdiv.id != "maintiles") {
+			while (outerdiv.id != "tiles") {
 				div = outerdiv;
 				outerdiv = div.parentNode;
 				}
@@ -123,8 +123,8 @@ function showFeatures() {
 			div.appendChild(p);
 			} 
 
-		grid.appendChild(tr);
-		maintiles.appendChild(div);
+		tbody.appendChild(tr);
+		tiles.appendChild(div);
 		
 		}  
 	}
@@ -137,17 +137,17 @@ function showPopup(index) {
 function toggle(view) {
 	if (!view.checked) {view.checked = true;}
 	main.style.display = "none";
-	maingrid.style.display = "none";
-	maintiles.style.display = "none";
+	grid.style.display = "none";
+	tiles.style.display = "none";
 	switch (view.value) {
 		case "map":
 			main.style.display = "block";
 			break;
 		case "grid":
-			maingrid.style.display = "block";
+			grid.style.display = "block";
 			break;
 		case "tiles":
-			maintiles.style.display = "block";
+			tiles.style.display = "block";
 			break;
 		}
 	}
