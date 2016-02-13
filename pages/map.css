@@ -138,11 +138,11 @@ nav ul, ul#parklist {
 	align-content: flex-start;
 }
 #tiles a {
-	width: 15em;
+	width: 17em;
 	height: 6em;
 	text-decoration: none;
 	padding: 0.375em;
-	margin: 0.125em 0 0 0.125em;
+	margin: 0.25em 0 0 0.25em;
 }
 #tiles a p:first-child {
 	font-weight: bold;
