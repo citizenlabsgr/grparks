@@ -139,7 +139,7 @@ function toggle(view) {
 			grid.style.display = "block";
 			break;
 		case "tiles":
-			tiles.style.display = "block";
+			tiles.style.display = "flex";
 			break;
 		}
 	}

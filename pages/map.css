@@ -133,10 +133,13 @@ nav ul, ul#parklist {
 }
 /*------------------------------------------------------------------------------*/
 /* tiles of parks */
+#tiles {
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
 #tiles a {
 	width: 15em;
 	height: 6em;
-	float: left;
 	text-decoration: none;
 	padding: 0.375em;
 	margin: 0.125em 0 0 0.125em;
@@ -147,6 +150,9 @@ nav ul, ul#parklist {
 #tiles a p:nth-child(5) {
 	color: #048004;
 	font-weight: 600;
+}
+#tiles a:hover p:nth-child(5) {
+	color: #f0fff0;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
