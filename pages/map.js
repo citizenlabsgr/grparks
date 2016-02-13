@@ -119,18 +119,21 @@ function showFeatures() {
 	}
 
 function pop(index) {
-	toggle(rbmap);
+	if (!rbmap.checked) {
+		rbmap.checked = true;
+		toggle(rbmap);
+		}
 	showPopup(ParkFeatures[index].id);
 	}
 
 function toggle(view) {
-	if (!view.checked) {view.checked = true;}
 	main.style.display = "none";
 	grid.style.display = "none";
 	tiles.style.display = "none";
 	switch (view.value) {
 		case "map":
 			main.style.display = "block";
+			map.invalidateSize();
 			break;
 		case "grid":
 			grid.style.display = "block";
