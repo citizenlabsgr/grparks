@@ -108,6 +108,18 @@ function showFeatures() {
 			// for tiles		
 			var p = document.createElement("p");
 			p.innerHTML = feature[f];
+			switch (f) {
+				case "acreage":
+					p.innerHTML += " acres";
+					break;
+				case "millage":
+					if (feature[f] == "none") {p.innerHTML = "";}
+					break;
+				case "pool":
+					if (feature[f] != "") {p.innerHTML += " pool";}
+					break;
+				}
+			
 			div.appendChild(p);
 			} 
 

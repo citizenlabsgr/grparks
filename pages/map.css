@@ -88,7 +88,7 @@ h1 {
 }
 /*------------------------------------------------------------------------------*/
 /* "shared" properties of mixed items */
-#parklist, #map, #maingrid table {
+#parklist, #map {
 	height: 100%;
 }
 #nav ul, ul#parklist {
@@ -97,7 +97,7 @@ h1 {
 #parklist, #maingrid, #maintiles {
 	font-size: 0.875em;
 }
-#main {
+#main, #maingrid, #maintiles {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
 	top: 6em;
@@ -105,12 +105,12 @@ h1 {
 }
 #maingrid, #maintiles {
 	display: none;
+	top: 6.857em;
+	overflow-x: auto;
+	overflow-y: auto;
 }
 /*------------------------------------------------------------------------------*/
 /* table (grid) of parks and its container */
-#maingrid {
-	overflow-x: auto;
-}
 #maingrid table {
 	border-spacing: 0;
 	margin: 1em auto;
@@ -143,6 +143,10 @@ h1 {
 }
 #maintiles div p:first-child {
 	font-weight: bold;
+}
+#maintiles div p:nth-child(5) {
+	color: #048004;
+	font-weight: 600;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
