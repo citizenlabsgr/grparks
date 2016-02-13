@@ -76,26 +76,15 @@ function showFeatures() {
 		// parklist gets just names, together with ids
 		var li = document.createElement("li");
 		var a = document.createElement("a");
-		a.href = "javascript:pop('" + ParkFeatures[i].id + "');";
+		a.href = "javascript:pop('" + i + "');";
 		a.text = ParkFeatures[i].name;
 		li.appendChild(a);
 		parklist.appendChild(li);
 		
 		var tr = document.createElement("tr");
-		tr.onclick = function(e) {
-			showPopup(e.target.parentNode.rowIndex - 1);
-			};
-		var div = document.createElement("div");
-		// can div contain an a or be contained by an a tag? yes, in html5
-		div.onclick = function(e) {
-			var div = e.target;
-			var outerdiv = div.parentNode;
-			while (outerdiv.id != "tiles") {
-				div = outerdiv;
-				outerdiv = div.parentNode;
-				}
-			showPopup(Array.prototype.indexOf.call(outerdiv.children, div));
-			};
+		tr.onclick = function(e) {pop(e.target.parentNode.rowIndex - 1);};
+		var a = document.createElement("a");
+		a.href = "javascript:pop('" + i + "');";
 
 		// grid (table) and tiles get all data except id
 		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
@@ -116,22 +105,22 @@ function showFeatures() {
 					if (feature[f] == "none") {p.innerHTML = "";}
 					break;
 				case "pool":
-					if (feature[f] != "") {p.innerHTML += " pool";}
+					if (feature[f] == "") {p.innerHTML = "&nbsp;"} else {p.innerHTML += " pool";}
 					break;
 				}
 			
-			div.appendChild(p);
+			a.appendChild(p);
 			} 
 
 		tbody.appendChild(tr);
-		tiles.appendChild(div);
+		tiles.appendChild(a);
 		
 		}  
 	}
 
-function showPopup(index) {
+function pop(index) {
 	toggle(rbmap);
-	pop(ParkFeatures[index].id);
+	showPopup(ParkFeatures[index].id);
 	}
 
 function toggle(view) {
@@ -152,7 +141,7 @@ function toggle(view) {
 		}
 	}
 		
-function pop(id) {
+function showPopup(id) {
 	var thisLayer = allLayers.getLayer(id);
 	var where = thisLayer.getBounds().getCenter();
 	var zoom = map.getZoom();

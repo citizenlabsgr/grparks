@@ -133,18 +133,18 @@ nav ul, ul#parklist {
 }
 /*------------------------------------------------------------------------------*/
 /* tiles of parks */
-#tiles div {
+#tiles a {
 	width: 15em;
 	height: 6em;
 	float: left;
-	cursor: pointer;
+	text-decoration: none;
 	padding: 0.375em;
 	margin: 0.125em 0 0 0.125em;
 }
-#tiles div p:first-child {
+#tiles a p:first-child {
 	font-weight: bold;
 }
-#tiles div p:nth-child(5) {
+#tiles a p:nth-child(5) {
 	color: #048004;
 	font-weight: 600;
 }
@@ -158,16 +158,16 @@ header {
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 }
-h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper, #tiles div:hover {
+h1, nav, nav a, #parklist a:hover, #grid thead, #tiles a:hover, .leaflet-popup-content-wrapper {
 	color: white;
 }
-#parklist a, #tiles div {
+#parklist a, #tiles a {
 	color: black;
 }
 nav {
 	background-color: black;
 }
-nav a:hover, #parklist a:hover, #tiles div:hover {
+nav a:hover, #parklist a:hover, #tiles a:hover {
 	background-color: gray;
 }
 #grid thead {
@@ -175,7 +175,7 @@ nav a:hover, #parklist a:hover, #tiles div:hover {
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#parklist, #tbody tr:nth-child(odd), #tiles div {
+#parklist, #tbody tr:nth-child(odd), #tiles a {
 	background-color: #f0fff0;
 }
 #tbody tr:nth-child(even) {
