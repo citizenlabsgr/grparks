@@ -83,17 +83,22 @@ function showFeatures() {
 		
 		var tr = document.createElement("tr");
 		tr.onclick = function(e) {pop(e.target.parentNode.rowIndex - 1);};
-		var a = document.createElement("a");
-		a.href = "javascript:pop('" + i + "');";
-
+		var tile = document.createElement("div");
+		tile.innerHTML = 
+			"<a href=javascript:pop('" + i + "');>" +
+			"<i class='fa fa-map-marker fa-2x'></i>" + 
+			"</a>";
+		
 		// grid (table) and tiles get all data except id
 		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
 		delete feature.id;
 		for (f in feature) {
+			
 			// for table cells
 			var td = document.createElement("td");
 			td.textContent = feature[f];
 			tr.appendChild(td);
+			
 			// for tiles		
 			var p = document.createElement("p");
 			p.innerHTML = feature[f];
@@ -108,12 +113,11 @@ function showFeatures() {
 					if (feature[f] == "") {p.innerHTML = "&nbsp;"} else {p.innerHTML += " pool";}
 					break;
 				}
-			
-			a.appendChild(p);
+			tile.appendChild(p);
 			} 
 
 		tbody.appendChild(tr);
-		tiles.appendChild(a);
+		tiles.appendChild(tile);
 		
 		}  
 	}

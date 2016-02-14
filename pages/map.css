@@ -137,23 +137,27 @@ nav ul, ul#parklist {
 	flex-wrap: wrap;
 	align-content: flex-start;
 }
-#tiles a {
+#tiles div {
 	width: 17em;
 	height: 6em;
-	text-decoration: none;
 	padding: 0.375em;
 	margin: 0.25em 0 0 0.25em;
+	border-width: 0.125em;
+	border-style: outset;
 }
-#tiles a p:first-child {
+#tiles div p:nth-child(2) {
 	font-weight: bold;
 }
-#tiles a p:nth-child(5) {
-	color: #048004;
+#tiles div p:nth-child(6) {
 	font-weight: 600;
 	text-align: right;
 }
-#tiles a:hover p:nth-child(5) {
-	color: #f0fff0;
+#tiles div a {
+	float: left;
+	height: 100%;
+	border-right: 2px solid darkgray;
+	padding-right: 0.375em;
+	margin-right: 0.375em;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
@@ -165,16 +169,16 @@ header {
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 }
-h1, nav, nav a, #parklist a:hover, #grid thead, #tiles a:hover, .leaflet-popup-content-wrapper {
+h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
 	color: white;
 }
-#parklist a, #tiles a {
+#parklist a, #tiles div {
 	color: black;
 }
 nav {
 	background-color: black;
 }
-nav a:hover, #parklist a:hover, #tiles a:hover {
+nav a:hover, #parklist a:hover {
 	background-color: gray;
 }
 #grid thead {
@@ -182,11 +186,14 @@ nav a:hover, #parklist a:hover, #tiles a:hover {
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#parklist, #tbody tr:nth-child(odd), #tiles a {
+#parklist, #tbody tr:nth-child(odd), #tiles div {
 	background-color: #f0fff0;
 }
 #tbody tr:nth-child(even) {
 	background-color: white;
+}
+#tiles div p:nth-child(6), #tiles div a {
+	color: #048004;
 }
 /*------------------------------------------------------------------------------*/
 /* rounded corners */
