@@ -83,11 +83,15 @@ function showFeatures() {
 		
 		var tr = document.createElement("tr");
 		tr.onclick = function(e) {pop(e.target.parentNode.rowIndex - 1);};
+		
 		var tile = document.createElement("div");
 		tile.innerHTML = 
 			"<a href=javascript:pop('" + i + "');>" +
 			"<i class='fa fa-map-marker fa-2x'></i>" + 
 			"</a>";
+		tile.className = "plain";
+		
+		var flipperNeeded = false;
 		
 		// grid (table) and tiles get all data except id
 		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
@@ -107,17 +111,38 @@ function showFeatures() {
 					p.innerHTML += " acres";
 					break;
 				case "millage":
-					if (feature[f] == "none") {p.innerHTML = "";}
+					if (feature[f] == "none") {p.innerHTML = "";} else {flipperNeeded = true;}
 					break;
 				case "pool":
-					if (feature[f] == "") {p.innerHTML = "&nbsp;"} else {p.innerHTML += " pool";}
+					if (feature[f] == "") {p.innerHTML = "&nbsp;";} else {p.innerHTML += " pool";}
 					break;
 				}
 			tile.appendChild(p);
 			} 
 
 		tbody.appendChild(tr);
-		tiles.appendChild(tile);
+		if (flipperNeeded) {
+			var flipContainer = document.createElement("div");
+			var flipper = document.createElement("div");
+			var back = document.createElement("div");
+			flipContainer.className = "flip-container";
+			flipContainer.onclick = function(e) {
+				var tag = e.target.tagName.toLowerCase();
+				if ((tag != "a") && (tag != "i")) {this.classList.toggle("flip");}
+				}
+			flipper.className = "flipper";
+			back.className = "back";
+			back.innerText = "description of improvements would go here";
+			tile.classList.toggle("front");
+			flipper.appendChild(tile);
+			flipper.appendChild(back);
+			flipContainer.appendChild(flipper);
+			tiles.appendChild(flipContainer);
+			console.log(flipContainer.innerHTML);
+			}
+		else {
+			tiles.appendChild(tile);
+			}
 		
 		}  
 	}

@@ -137,7 +137,7 @@ nav ul, ul#parklist {
 	flex-wrap: wrap;
 	align-content: flex-start;
 }
-#tiles div {
+#tiles div.plain, #tiles div.front, #tiles div.back {
 	width: 17em;
 	height: 6em;
 	padding: 0.375em;
@@ -227,4 +227,53 @@ nav a:hover, #parklist a:hover {
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
 	background-color: #044004;
 	opacity: 0.8;
+}
+/*------------------------------------------------------------------------------*/
+/* flipper */
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+	/* flip the pane when hovered */
+	.flip-container.flip .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container {
+	width: 17.75em;
+	height: 7em;
+	background-color: transparent;
+	margin: 0.25em 0.25em 0 0.25em;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	-webkit-backface-visibility: hidden;
+	cursor: pointer;
+	position: absolute;
+	top: -0.25em;
+	left: -0.25em;
+}
+.back {
+	left: -0.5em;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
 }
