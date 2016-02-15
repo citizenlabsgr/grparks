@@ -21,8 +21,8 @@ h1 {
 	font-variant: small-caps;
 	font-weight: 500;
 	position: absolute;
-	right: 0.5em;
-	bottom: 0;
+	right: 0.25em;
+	bottom: 0.25em;
 }
 /*------------------------------------------------------------------------------*/
 /* navigation bar */
@@ -240,30 +240,26 @@ nav a:hover, #parklist a:hover {
 	}
 
 .flip-container {
-	width: 17.75em;
+	width: 18em;
 	height: 7em;
-	background-color: transparent;
-	margin: 0.25em 0.25em 0 0.25em;
+	margin: 0.25em 0 0 0.25em;
 }
 
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
-
 	position: relative;
 }
 
 /* hide back of pane during swap */
 .front, .back {
 	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
 	cursor: pointer;
 	position: absolute;
 	top: -0.25em;
 	left: -0.25em;
-}
-.back {
-	left: -0.5em;
 }
 
 /* front pane, placed above back */

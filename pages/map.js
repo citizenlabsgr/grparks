@@ -13,7 +13,7 @@ function loadJSON(url, callback) {
 function JSONloaded(response) {
 	parks = JSON.parse(response);
 	ids = [];
-	ParkFeatures = [];
+	parkFeatures = [];
 	mapParks(); 
 	showFeatures();
 	}
@@ -56,7 +56,7 @@ function getFeature(feature, layer) {
 		if (ids.indexOf(feature.id) == -1) {
 			ids.push(feature.id);
 			if (!feature.properties.millage) {feature.properties.millage = "none";};
-			ParkFeatures.push({
+			parkFeatures.push({
 				"name": feature.properties.name, 
 				"id": feature.id, 
 				"type": feature.properties.type + " " + feature.properties.leisure,
@@ -70,14 +70,14 @@ function getFeature(feature, layer) {
 	}
 	
 function showFeatures() {
-	ParkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
-	for (i = 0; i < ParkFeatures.length; i++) {
+	parkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
+	for (i = 0; i < parkFeatures.length; i++) {
 		
-		// parklist gets just names, together with ids
+		// parklist gets just names
 		var li = document.createElement("li");
 		var a = document.createElement("a");
 		a.href = "javascript:pop('" + i + "');";
-		a.text = ParkFeatures[i].name;
+		a.text = parkFeatures[i].name;
 		li.appendChild(a);
 		parklist.appendChild(li);
 		
@@ -94,7 +94,7 @@ function showFeatures() {
 		var flipperNeeded = false;
 		
 		// grid (table) and tiles get all data except id
-		var feature = JSON.parse(JSON.stringify(ParkFeatures[i]));
+		var feature = JSON.parse(JSON.stringify(parkFeatures[i]));
 		delete feature.id;
 		for (f in feature) {
 			
@@ -138,7 +138,6 @@ function showFeatures() {
 			flipper.appendChild(back);
 			flipContainer.appendChild(flipper);
 			tiles.appendChild(flipContainer);
-			console.log(flipContainer.innerHTML);
 			}
 		else {
 			tiles.appendChild(tile);
@@ -152,7 +151,7 @@ function pop(index) {
 		rbmap.checked = true;
 		toggle(rbmap);
 		}
-	showPopup(ParkFeatures[index].id);
+	showPopup(parkFeatures[index].id);
 	}
 
 function toggle(view) {
