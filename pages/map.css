@@ -236,7 +236,7 @@ nav a:hover, #parklist a:hover {
 /* flipper */
 /* entire container, keeps perspective */
 .flip-container {
-	perspective: 1000;
+	perspective: 1000px;
 }
 	/* flip the pane when hovered */
 	.flip-container.flip .flipper {

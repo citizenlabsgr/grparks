@@ -105,16 +105,16 @@ function showFeatures() {
 			
 			// for tiles		
 			var p = document.createElement("p");
-			p.innerHTML = feature[f];
+			p.textContent = feature[f];
 			switch (f) {
 				case "acreage":
-					p.innerHTML += " acres";
+					p.textContent += " acres";
 					break;
 				case "millage":
-					if (feature[f] == "none") {p.innerHTML = "";} else {flipperNeeded = true;}
+					if (feature[f] == "none") {p.textContent = "";} else {flipperNeeded = true;}
 					break;
 				case "pool":
-					if (feature[f] == "") {p.innerHTML = "&nbsp;";} else {p.innerHTML += " pool";}
+					if (feature[f] == "") {p.textContent = "&nbsp;";} else {p.textContent += " pool";}
 					break;
 				}
 			tile.appendChild(p);
