@@ -132,7 +132,7 @@ function showFeatures() {
 				}
 			flipper.className = "flipper";
 			back.className = "back";
-			back.innerText = "description of improvements would go here";
+			back.textContent = "description of improvements would go here";
 			tile.classList.toggle("front");
 			flipper.appendChild(tile);
 			flipper.appendChild(back);
