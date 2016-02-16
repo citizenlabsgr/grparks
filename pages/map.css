@@ -260,6 +260,7 @@ nav a:hover, #parklist a:hover {
 .front, .back {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
 	cursor: pointer;
 	position: absolute;
 	top: -0.25em;
