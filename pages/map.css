@@ -38,7 +38,7 @@ nav label {
     cursor: pointer;
     position: relative;
     padding-left: 1.5em;
-    margin-right: 1em;	
+    margin-right: 1em;
 }
 nav label:before {
     content: "";

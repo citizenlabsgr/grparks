@@ -114,7 +114,7 @@ function showFeatures() {
 					if (feature[f] == "none") {p.textContent = "";} else {flipperNeeded = true;}
 					break;
 				case "pool":
-					if (feature[f] == "") {p.textContent = "&nbsp;";} else {p.textContent += " pool";}
+					if (feature[f] == "") {p.innerHTML = "&nbsp;";} else {p.textContent += " pool";}
 					break;
 				}
 			tile.appendChild(p);
