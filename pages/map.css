@@ -137,7 +137,7 @@ nav ul, ul#parklist {
 	flex-wrap: wrap;
 	align-content: flex-start;
 }
-#tiles div.plain, #tiles div.front, #tiles div.back {
+#tiles div.plain, #tiles div.back {
 	width: 17em;
 	height: 6em;
 	padding: 0.375em;
@@ -172,7 +172,7 @@ header {
 h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
 	color: white;
 }
-#parklist a, #tiles div {
+#parklist a, #tiles div.plain {
 	color: black;
 }
 nav {
@@ -186,7 +186,7 @@ nav a:hover, #parklist a:hover {
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#parklist, #tbody tr:nth-child(odd), #tiles div {
+#parklist, #tbody tr:nth-child(odd), #tiles div.plain {
 	background-color: #f0fff0;
 }
 #tbody tr:nth-child(even) {
@@ -194,6 +194,10 @@ nav a:hover, #parklist a:hover {
 }
 #tiles div p:nth-child(6), #tiles div a {
 	color: #048004;
+}
+.back {
+	background-color: #044004;
+	color: white;
 }
 /*------------------------------------------------------------------------------*/
 /* rounded corners */
