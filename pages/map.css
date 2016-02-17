@@ -27,7 +27,7 @@ h1 {
 /*------------------------------------------------------------------------------*/
 /* navigation bar */
 nav {
-	font-size: 0.75em;
+	font-size: 0.875em;
 	line-height: 1;
 	height: 2em;
 	padding-left: 0.75em;;
@@ -99,12 +99,12 @@ nav ul, ul#parklist {
 #main, #grid, #tiles {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
-	top: 6em;
+	top: 6.25em;
 	bottom: 0;
 }
 #grid, #tiles {
 	display: none;
-	top: 6.857em;
+	top: 7.107em;
 	overflow-x: auto;
 	overflow-y: auto;
 }
