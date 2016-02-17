@@ -27,10 +27,9 @@ h1 {
 /*------------------------------------------------------------------------------*/
 /* navigation bar */
 nav {
-	font-size: 0.875em;
 	line-height: 1;
 	height: 2em;
-	padding-left: 0.75em;;
+	padding-left: 0.75em;
 }
 nav input[type=radio] {
 	display: none;
@@ -93,7 +92,7 @@ nav a {
 nav ul, ul#parklist {
 	list-style: none;
 }
-#parklist, #grid, #tiles {
+nav, #parklist, #grid, #tiles {
 	font-size: 0.875em;
 }
 #main, #grid, #tiles {
@@ -104,7 +103,7 @@ nav ul, ul#parklist {
 }
 #grid, #tiles {
 	display: none;
-	top: 7.107em;
+	top: 7.143em; /* 6.25 divided by .875 */
 	overflow-x: auto;
 	overflow-y: auto;
 }
