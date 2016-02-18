@@ -14,7 +14,8 @@ function JSONloaded(response) {
 	parks = JSON.parse(response);
 	ids = [];
 	parkFeatures = [];
-	mapParks(); 
+	mapParks();
+	parks = undefined;
 	showFeatures();
 	}
 	
