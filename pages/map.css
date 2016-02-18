@@ -258,7 +258,7 @@ nav a:hover, #parklist a:hover {
 .front, .back {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-ms-backface-visibility: hidden;
+	/*-ms-backface-visibility: hidden;*/
 	cursor: pointer;
 	position: absolute;
 	top: -0.25em;
@@ -275,4 +275,7 @@ nav a:hover, #parklist a:hover {
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
+}
+.flip-container.flip .back {
+	z-index: 3;
 }
