@@ -142,6 +142,7 @@ nav, #parklist, #grid, #tiles {
 	margin: 0.25em 0 0 0.25em;
 	border-width: 0.125em;
 	border-style: outset;
+	border-color: white silver silver white;
 }
 #tiles div p:nth-child(2) {
 	font-weight: bold;
