@@ -87,7 +87,7 @@ function showFeatures() {
 		
 		var tile = document.createElement("div");
 		tile.innerHTML = 
-			"<a href=javascript:pop('" + i + "');>" +
+			"<a href=javascript:pop('" + i + "') title='Click for map';>" +
 			"<i class='fa fa-map-marker fa-2x'></i>" + 
 			"</a>";
 		tile.className = "plain";
@@ -127,6 +127,7 @@ function showFeatures() {
 			var flipper = document.createElement("div");
 			var back = document.createElement("div");
 			flipContainer.className = "flip-container";
+			flipContainer.title = "Click to flip";
 			flipContainer.onclick = function(e) {
 				var tag = e.target.tagName.toLowerCase();
 				if ((tag != "a") && (tag != "i")) {this.classList.toggle("flip");}

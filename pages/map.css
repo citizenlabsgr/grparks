@@ -267,7 +267,7 @@ nav a:hover, #parklist a:hover {
 .front, .back {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-ms-backface-visibility: hidden; /* attempt to solve IE problem */
+	-ms-backface-visibility: hidden; /* attempt to solve IE problem -- possibly not necessary */
 	transition: 0.6s; /* attempt to solve IE problem */
 	transform-style: preserve-3d; /* attempt to solve IE problem */
 	cursor: pointer;
@@ -285,8 +285,8 @@ nav a:hover, #parklist a:hover {
 
 /* back, initially hidden pane */
 .back {
-	transform: rotateY(180deg);
+	transform: rotateY(-180deg);
 }
 .flip-container.flip .back {
-	z-index: 3; /* attempt to solve IE problem */
+	z-index: 3; /* attempt to solve IE problem -- possibly not necessary */
 }
