@@ -123,23 +123,20 @@ function showFeatures() {
 
 		tbody.appendChild(tr);
 		if (flipperNeeded) {
-			var flipContainer = document.createElement("div");
 			var flipper = document.createElement("div");
 			var back = document.createElement("div");
-			flipContainer.className = "flip-container";
-			flipContainer.title = "Click to flip";
-			flipContainer.onclick = function(e) {
+			flipper.className = "flipper";
+			flipper.title = "Click to flip";
+			flipper.onclick = function(e) {
 				var tag = e.target.tagName.toLowerCase();
 				if ((tag != "a") && (tag != "i")) {this.classList.toggle("flip");}
 				}
-			flipper.className = "flipper";
 			back.className = "back";
 			back.textContent = "description of improvements would go here";
 			tile.classList.toggle("front");
 			flipper.appendChild(tile);
 			flipper.appendChild(back);
-			flipContainer.appendChild(flipper);
-			tiles.appendChild(flipContainer);
+			tiles.appendChild(flipper);
 			}
 		else {
 			tiles.appendChild(tile);

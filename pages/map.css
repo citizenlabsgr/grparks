@@ -234,59 +234,36 @@ nav a:hover, #parklist a:hover {
 /*------------------------------------------------------------------------------*/
 /* flipper */
 /* entire container, keeps perspective */
-.flip-container {
+.flipper {
 	perspective: 1000px;
 	transform-style: preserve-3d; /* attempt to solve IE problem */
-}
-	/* flip the pane when hovered, commented out in attempt to solve IE problem */
-	/*.flip-container.flip .flipper {
-		transform: rotateY(180deg);
-	}*/
-	
-	.flip-container.flip .back {
-		transform: rotateY(0deg); /* attempt to solve IE problem */
-	}
-	.flip-container.flip .front {
-		transform: rotateY(180deg); /* attempt to solve IE problem */
-	}
-
-.flip-container {
 	width: 18em;
 	height: 7em;
 	margin: 0.25em 0 0 0.25em;
 }
-
-/* flip speed goes here */
-.flipper {
-	transition: 0.6s;
-	transform-style: preserve-3d;
-	position: relative;
+.flipper.flip .back {
+	transform: rotateY(0deg);
+	z-index: 3; /* attempt to solve IE problem -- possibly not necessary */
 }
-
-/* hide back of pane during swap */
+.flipper.flip .front {
+	transform: rotateY(180deg);
+}
 .front, .back {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	-ms-backface-visibility: hidden; /* attempt to solve IE problem -- possibly not necessary */
-	transition: 0.6s; /* attempt to solve IE problem */
+	transition: 0.6s;
 	transform-style: preserve-3d; /* attempt to solve IE problem */
 	cursor: pointer;
 	position: absolute;
 	top: -0.25em;
 	left: -0.25em;
 }
-
-/* front pane, placed above back */
 .front {
 	z-index: 2;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
 }
-
-/* back, initially hidden pane */
 .back {
 	transform: rotateY(-180deg);
-}
-.flip-container.flip .back {
-	z-index: 3; /* attempt to solve IE problem -- possibly not necessary */
 }
