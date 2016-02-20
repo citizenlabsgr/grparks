@@ -236,10 +236,18 @@ nav a:hover, #parklist a:hover {
 /* entire container, keeps perspective */
 .flip-container {
 	perspective: 1000px;
+	transform-style: preserve-3d; /* attempt to solve IE problem */
 }
-	/* flip the pane when hovered */
-	.flip-container.flip .flipper {
+	/* flip the pane when hovered, commented out in attempt to solve IE problem */
+	/*.flip-container.flip .flipper {
 		transform: rotateY(180deg);
+	}*/
+	
+	.flip-container.flip .back {
+		transform: rotateY(0deg); /* attempt to solve IE problem */
+	}
+	.flip-container.flip .front {
+		transform: rotateY(180deg); /* attempt to solve IE problem */
 	}
 
 .flip-container {
@@ -260,6 +268,8 @@ nav a:hover, #parklist a:hover {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	-ms-backface-visibility: hidden; /* attempt to solve IE problem */
+	transition: 0.6s; /* attempt to solve IE problem */
+	transform-style: preserve-3d; /* attempt to solve IE problem */
 	cursor: pointer;
 	position: absolute;
 	top: -0.25em;
