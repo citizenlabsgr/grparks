@@ -238,6 +238,7 @@ nav a:hover, #parklist a:hover {
 	perspective: 1000px;
 	cursor: pointer;
 	width: 18em;
+	height: 7em;
 	margin-right: 0.25em;
 }
 .flipper.flip .front {
