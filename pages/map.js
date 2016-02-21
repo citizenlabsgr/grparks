@@ -90,7 +90,7 @@ function showFeatures() {
 			"<a href=javascript:pop('" + i + "') title='Click for map';>" +
 			"<i class='fa fa-map-marker fa-2x'></i>" + 
 			"</a>";
-		tile.className = "plain";
+		tile.className = "info";
 		
 		var flipperNeeded = false;
 		

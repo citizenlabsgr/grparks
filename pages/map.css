@@ -135,7 +135,7 @@ nav, #parklist, #grid, #tiles {
 	flex-wrap: wrap;
 	align-content: flex-start;
 }
-#tiles div.plain, #tiles div.back {
+#tiles .info, #tiles .back {
 	width: 17em;
 	height: 6em;
 	padding: 0.375em;
@@ -144,14 +144,14 @@ nav, #parklist, #grid, #tiles {
 	border-style: outset;
 	border-color: white silver silver white;
 }
-#tiles div p:nth-child(2) {
+#tiles .info p:nth-child(2) {
 	font-weight: bold;
 }
-#tiles div p:nth-child(6) {
+#tiles .info p:nth-child(6) {
 	font-weight: 600;
 	text-align: right;
 }
-#tiles div a {
+#tiles .info a {
 	float: left;
 	height: 100%;
 	border-right: 2px solid darkgray;
@@ -171,7 +171,7 @@ header {
 h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
 	color: white;
 }
-#parklist a, #tiles div.plain {
+#parklist a, #tiles .info {
 	color: black;
 }
 nav {
@@ -185,13 +185,13 @@ nav a:hover, #parklist a:hover {
 	background: -webkit-linear-gradient(#048004, #044004);
 	background: -moz-linear-gradient(#048004, #044004);
 }
-#parklist, #tbody tr:nth-child(odd), #tiles div.plain {
+#parklist, #tbody tr:nth-child(odd), #tiles .info {
 	background-color: #f0fff0;
 }
 #tbody tr:nth-child(even) {
 	background-color: white;
 }
-#tiles div p:nth-child(6), #tiles div a {
+#tiles .info p:nth-child(6), #tiles .info a {
 	color: #048004;
 }
 .back {
@@ -238,14 +238,13 @@ nav a:hover, #parklist a:hover {
 	perspective: 1000px;
 	cursor: pointer;
 	width: 18em;
-	height: 7em;
-	margin: 0.25em 0 0 0.25em;
-}
-.flipper.flip .back {
-	transform: rotateY(0deg);
+	margin-right: 0.25em;
 }
 .flipper.flip .front {
 	transform: rotateY(180deg);
+}
+.flipper.flip .back {
+	transform: rotateY(0deg);
 }
 .front, .back {
 	-webkit-backface-visibility: hidden;
@@ -253,8 +252,8 @@ nav a:hover, #parklist a:hover {
 	transition: 0.6s;
 	transform-style: preserve-3d;
 	position: absolute;
-	top: -0.25em;
-	left: -0.25em;
+	top: 0;
+	left: 0;
 }
 .front {
 	z-index: 2;
