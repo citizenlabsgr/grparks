@@ -236,14 +236,15 @@ nav a:hover, #parklist a:hover {
 /* entire container, keeps perspective */
 .flipper {
 	perspective: 1000px;
-	transform-style: preserve-3d; /* attempt to solve IE problem */
+/*	transform-style: preserve-3d; /* attempt to solve IE problem *!/*/
+	cursor: pointer;
 	width: 18em;
 	height: 7em;
 	margin: 0.25em 0 0 0.25em;
 }
 .flipper.flip .back {
 	transform: rotateY(0deg);
-	z-index: 3; /* attempt to solve IE problem -- possibly not necessary */
+/*	z-index: 3; /* attempt to solve IE problem -- possibly not necessary *!/*/
 }
 .flipper.flip .front {
 	transform: rotateY(180deg);
@@ -251,10 +252,9 @@ nav a:hover, #parklist a:hover {
 .front, .back {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-ms-backface-visibility: hidden; /* attempt to solve IE problem -- possibly not necessary */
+/*	-ms-backface-visibility: hidden; /* attempt to solve IE problem -- possibly not necessary *!/*/
 	transition: 0.6s;
 	transform-style: preserve-3d; /* attempt to solve IE problem */
-	cursor: pointer;
 	position: absolute;
 	top: -0.25em;
 	left: -0.25em;
