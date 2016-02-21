@@ -1,4 +1,4 @@
-loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", JSONloaded);
+loadJSON("https://raw.githubusercontent.com/friendlycode/grparks/master/pages/gr.geojson", GRloaded);
 
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
@@ -10,17 +10,9 @@ function loadJSON(url, callback) {
     xobj.send(null);  
  	}
  
-function JSONloaded(response) {
-	parks = JSON.parse(response);
-	ids = [];
-	parkFeatures = [];
-	mapParks();
-	parks = undefined;
-	showFeatures();
-	}
-	
-function mapParks() {
-	map = L.map("map").setView([42.9612, -85.6557], 12);
+function GRloaded(response) {
+	var city = JSON.parse(response);
+	map = L.map("map").setView([42.9614844, -85.6556833], 12);
 	L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
 		attribution: 
 			"<a target='_blank' href='" +
@@ -34,9 +26,19 @@ function mapParks() {
 		id: "github.kedo1cp3",
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	allLayers = L.geoJson(parks, {onEachFeature: getFeature, style: {"color": "#ff7800", "weight": 1, "opacity": 0.65}}).addTo(map);
+	L.geoJson(city, {style: {color: "#efffaf", stroke: false, clickable: false}}).addTo(map);
+	loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", JSONloaded);
 	}
 	
+function JSONloaded(response) {
+	parks = JSON.parse(response);
+	ids = [];
+	parkFeatures = [];
+	allParks = L.geoJson(parks, {onEachFeature: getFeature, style: {color: "#ff7800", weight: 1, opacity: 0.65}}).addTo(map);
+	parks = undefined;
+	showFeatures();
+	}
+
 function getFeature(feature, layer) {
 	if (feature.properties && feature.properties.name) {
 		
@@ -172,7 +174,7 @@ function toggle(view) {
 	}
 		
 function showPopup(id) {
-	var thisLayer = allLayers.getLayer(id);
+	var thisLayer = allParks.getLayer(id);
 	var where = thisLayer.getBounds().getCenter();
 	var zoom = map.getZoom();
 	if (zoom < 15) {zoom = 15;};
