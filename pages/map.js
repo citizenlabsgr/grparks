@@ -26,7 +26,7 @@ function GRloaded(response) {
 		id: "github.kedo1cp3",
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	L.geoJson(city, {style: {color: "#efffaf", stroke: false, clickable: false}}).addTo(map);
+	L.geoJson(city, {style: {color: "yellow", clickable: false}}).addTo(map);
 	loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", JSONloaded);
 	}
 	
