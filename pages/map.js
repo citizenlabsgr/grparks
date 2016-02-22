@@ -45,6 +45,7 @@ function getFeature(feature, layer) {
 	if (feature.properties && feature.properties.name) {
 		
 		// make a popup for the map
+		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		var pool = function() {
 			if (feature.properties.pool) {return "<br />pool: " + feature.properties.pool;}	else {return "";}
 			}
@@ -60,7 +61,6 @@ function getFeature(feature, layer) {
 		// remember the feature's properties, excluding duplicates
 		if (ids.indexOf(feature.id) == -1) {
 			ids.push(feature.id);
-			if (!feature.properties.millage) {feature.properties.millage = "none";};
 			parkFeatures.push({
 				"name": feature.properties.name, 
 				"id": feature.id, 
