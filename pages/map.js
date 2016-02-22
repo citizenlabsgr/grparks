@@ -1,4 +1,4 @@
-loadJSON("https://raw.githubusercontent.com/friendlycode/grparks/master/pages/gr.geojson", GRloaded);
+loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson", GRloaded);
 
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
