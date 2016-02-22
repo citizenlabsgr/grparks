@@ -12,6 +12,8 @@ function loadJSON(url, callback) {
  
 function GRloaded(response) {
 	var city = JSON.parse(response);
+	var view = window.location.search.substring(1);
+	if (view == "") {view = "github.kedo1cp3";} else {view = "mapbox." + view;}
 	map = L.map("map").setView([42.9614844, -85.6556833], 12);
 	L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
 		attribution: 
@@ -23,10 +25,10 @@ function GRloaded(response) {
 				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve the underlying map</b></a>",
 		minZoom: 11,
 		maxZoom: 17,
-		id: "github.kedo1cp3",
+		id: view,
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	L.geoJson(city, {style: {color: "yellow", clickable: false}}).addTo(map);
+	L.geoJson(city, {style: {color: "yellow", weight: 1, clickable: false}}).addTo(map);
 	loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", JSONloaded);
 	}
 	
