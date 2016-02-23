@@ -22,7 +22,7 @@ function GRloaded(response) {
 			"<a target='_blank' href='" +
 				"http://www.openstreetmap.org/copyright'>&copy; OpenStreetMap</a> " +
 			"<a target='_blank' href='" +
-				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve the underlying map</b></a>",
+				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
 		minZoom: 11,
 		maxZoom: 17,
 		id: view,

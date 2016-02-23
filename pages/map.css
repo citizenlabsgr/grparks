@@ -29,37 +29,12 @@ h1 {
 nav {
 	line-height: 1;
 	height: 2em;
-	padding-left: 0.75em;
 }
 nav input[type=radio] {
 	display: none;
 }
 nav label {
-    display: inline-block;
     cursor: pointer;
-    position: relative;
-    padding-left: 1.5em;
-    margin: 0.5em 1em 0 0;
-}
-nav label:before {
-    content: "";
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    margin-right: 0.5em;
-    position: absolute;
-    left: 0;
-    bottom: 1px;
-    background-color: lightgray;
-    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
-    border-radius: 0.5em;
-}
-nav input[type=radio]:checked + label:before {
-    content: "\2022";
-    color: black;
-    font-size: 1em;
-    text-align: center;
-    line-height: 1em;
 }
 nav ul {
 	float: right;
@@ -68,9 +43,7 @@ nav li {
 	float: left;
 }
 nav a {
-	padding: 0.5em 0.75em;
 	text-decoration: none;
-	display: inline-block;
 }
 /*------------------------------------------------------------------------------*/
 /* sidebar list of parks */
@@ -78,6 +51,7 @@ nav a {
 	overflow: auto;
 	float: left;
 	border-right: 2px solid darkgray;
+	padding: 2px 0;
 }
 #parklist a {
 	padding: 0 4px;
@@ -86,6 +60,10 @@ nav a {
 }
 /*------------------------------------------------------------------------------*/
 /* "shared" properties of mixed items */
+nav label, nav a {
+	display: inline-block;
+	padding: 0.5em 0.75em;
+}
 #parklist, #map {
 	height: 100%;
 }
@@ -171,13 +149,16 @@ header {
 h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
 	color: white;
 }
+nav input[type=radio]:checked + label {
+	background-color: dimgray;
+}
 #parklist a, #tiles .info {
 	color: black;
 }
 nav {
 	background-color: black;
 }
-nav a:hover, #parklist a:hover {
+nav label:hover, nav a:hover, #parklist a:hover {
 	background-color: gray;
 }
 #grid thead {
