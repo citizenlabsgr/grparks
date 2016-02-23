@@ -146,19 +146,17 @@ header {
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 }
-h1, nav, nav a, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
+h1, nav label:hover, nav input[type=radio]:checked + label, nav a:hover, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
 	color: white;
 }
-nav input[type=radio]:checked + label {
-	background-color: dimgray;
+nav, nav a {
+	background-color: black;
+	color: silver;
 }
 #parklist a, #tiles .info {
 	color: black;
 }
-nav {
-	background-color: black;
-}
-nav label:hover, nav a:hover, #parklist a:hover {
+#parklist a:hover {
 	background-color: gray;
 }
 #grid thead {
