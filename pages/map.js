@@ -80,8 +80,7 @@ function showFeatures() {
 		
 		// parklist gets just names
 		var li = document.createElement("li");
-		var a = document.createElement("a");
-		a.href = "javascript:pop('" + i + "');";
+		var a = newMapPopupLink(i);
 		a.text = parkFeatures[i].name;
 		li.appendChild(a);
 		parklist.appendChild(li);
@@ -90,10 +89,10 @@ function showFeatures() {
 		tr.onclick = function(e) {pop(e.target.parentNode.rowIndex - 1);};
 		
 		var tile = document.createElement("div");
-		tile.innerHTML = 
-			"<a href=" + '"' + "javascript:pop('" + i + "');" + '"' + " title='Click for map';>" +
-			"<i class='fa fa-map-marker fa-2x'></i>" + 
-			"</a>";
+		var a = newMapPopupLink(i);
+		a.innerHTML = "<i class='fa fa-map-marker fa-2x'></i>";
+		a.title = "Click for map";
+		tile.appendChild(a);
 		tile.className = "info";
 		
 		var flipperNeeded = false;
@@ -147,6 +146,12 @@ function showFeatures() {
 			}
 		
 		}  
+	}
+
+function newMapPopupLink(i) {
+	var a = document.createElement("a");
+	a.href = "javascript:pop('" + i + "');";
+	return a;
 	}
 
 function pop(index) {
