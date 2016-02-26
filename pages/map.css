@@ -122,19 +122,19 @@ nav, #parklist, #grid, #tiles {
 	border-style: outset;
 	border-color: white silver silver white;
 }
-#tiles .info p:nth-child(2) {
-	font-weight: bold;
-}
-#tiles .info p:nth-child(6) {
-	font-weight: 600;
-	text-align: right;
-}
 #tiles .info a {
 	float: left;
 	height: 100%;
 	border-right: 2px solid darkgray;
 	padding-right: 0.375em;
 	margin-right: 0.375em;
+}
+#tiles .info p:nth-child(2) {
+	font-weight: bold;
+}
+#tiles .info p:nth-child(6) {
+	font-weight: 600;
+	text-align: right;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
@@ -243,4 +243,10 @@ nav, nav a {
 }
 .back {
 	transform: rotateY(-180deg);
+	display: block; /* Fallback for non-webkit */
+	display: -webkit-box;
+	line-height: 1.29;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
 }

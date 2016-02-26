@@ -76,6 +76,7 @@ function getFeature(feature, layer) {
 	
 function showFeatures() {
 	parkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
+	var longTextNeeded = true;
 	for (i = 0; i < parkFeatures.length; i++) {
 		
 		// parklist gets just names
@@ -136,6 +137,10 @@ function showFeatures() {
 				}
 			back.className = "back";
 			back.textContent = "description of improvements would go here";
+			if (longTextNeeded) {
+				back.textContent += ", but this can easily be expanded to monster-size to fit a lot more text than can posibly go in one box of this size, run-on sentences and all, in the beginning, etc., and I guess I need to put even more stuff in here to prove my point, eh?";
+				longTextNeeded = false;
+				}
 			tile.classList.toggle("front");
 			flipper.appendChild(tile);
 			flipper.appendChild(back);
