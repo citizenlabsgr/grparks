@@ -245,6 +245,7 @@ nav, nav a {
 	transform: rotateY(-180deg);
 	display: block; /* Fallback for non-webkit */
 	display: -webkit-box;
+	max-height: 6em;
 	line-height: 1.29;
 	-webkit-line-clamp: 5;
 	-webkit-box-orient: vertical;
