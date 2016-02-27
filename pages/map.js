@@ -144,10 +144,10 @@ function showFeatures() {
 			tile.classList.toggle("front");
 			flipper.appendChild(tile);
 			flipper.appendChild(back);
-			tiles.appendChild(flipper);
+			tilelist.appendChild(flipper);
 			}
 		else {
-			tiles.appendChild(tile);
+			tilelist.appendChild(tile);
 			}
 		
 		}  

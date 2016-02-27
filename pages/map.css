@@ -124,11 +124,10 @@ nav, #parklist, #grid, #tiles {
 }
 /*------------------------------------------------------------------------------*/
 /* tiles of parks */
-#tiles {
+#tilelist {
 	margin: 1em auto;
 	display: flex;
 	flex-wrap: wrap;
-	align-content: flex-start;
 	justify-content: center;
 }
 #tiles .info, #tiles .back {
