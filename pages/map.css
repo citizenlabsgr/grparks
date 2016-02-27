@@ -6,6 +6,34 @@ body {
 	font-family: Tahoma, Verdana, Segoe, sans-serif;	
 	font-size: 100%;
 }
+section {
+	display: initial;
+	width: 100%;
+	animation: appear 0.33s 1;
+	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
+	top: 6.25em;
+	bottom: 0;
+}
+@keyframes appear {
+	0% {
+		display: initial;
+		opacity: 0;
+		transform: scale(0) /*rotate(360deg)*/;
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1) /*rotate(0deg)*/;
+	}
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+.hide {
+	display: none;
+}
 /*------------------------------------------------------------------------------*/
 /* page heading */
 header {
@@ -33,17 +61,15 @@ nav {
 nav input[type=radio] {
 	display: none;
 }
-nav label {
-    cursor: pointer;
-}
 nav ul {
 	float: right;
 }
 nav li {
 	float: left;
 }
-nav a {
-	text-decoration: none;
+nav label, nav a {
+	display: inline-block;
+	padding: 0.5em 0.75em;
 }
 /*------------------------------------------------------------------------------*/
 /* sidebar list of parks */
@@ -55,63 +81,16 @@ nav a {
 }
 #parklist a {
 	padding: 0 4px;
-	text-decoration: none;
 	display: block;
 }
 /*------------------------------------------------------------------------------*/
-/* "shared" properties of mixed items */
-nav label, nav a {
-	display: inline-block;
-	padding: 0.5em 0.75em;
-}
-#parklist, #map {
-	height: 100%;
-}
-nav ul, ul#parklist {
-	list-style: none;
-}
-nav, #parklist, #grid, #tiles {
-	font-size: 0.875em;
-}
-#main, #grid, #tiles {
-	display: initial;
-	width: 100%;
-	animation: appear 0.33s 1;
-	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
-	top: 6.25em;
-	bottom: 0;
-}
-@keyframes appear {
-	0% {
-		display: initial;
-		opacity: 0;
-		transform: scale(0) /*rotate(360deg)*/;
-	}
-	100% {
-		opacity: 1;
-		transform: scale(1) /*rotate(0deg)*/;
-	}
-}
-#main.hide, #grid.hide, #tiles.hide {
-	display: none;
-}
-#grid, #tiles {
-	top: 7.143em; /* 6.25 divided by .875 */
-	overflow-x: auto;
-	overflow-y: auto;
-}
-/*------------------------------------------------------------------------------*/
-/* table (grid) of parks and its container */
+/* park info table (grid) */
 #grid table {
 	border-spacing: 0;
-	margin: 1em auto;
 }
 #grid th {
 	text-align: left;
 	font-weight: 500;
-}
-#tbody:hover {
-	cursor: pointer;
 }
 #tbody:hover > tr td {
 	opacity: 0.4;
@@ -123,14 +102,13 @@ nav, #parklist, #grid, #tiles {
 	padding: 4px 8px;
 }
 /*------------------------------------------------------------------------------*/
-/* tiles of parks */
+/* park info tiles */
 #tilelist {
-	margin: 1em auto;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 }
-#tiles .info, #tiles .back {
+.info, .back {
 	width: 17em;
 	height: 6em;
 	padding: 0.375em;
@@ -139,66 +117,85 @@ nav, #parklist, #grid, #tiles {
 	border-style: outset;
 	border-color: white silver silver white;
 }
-#tiles .info {
+.info {
 	text-shadow: 1px 1px white;
 }
-#tiles .info a {
+.info a {
 	float: left;
 	height: 100%;
 	border-right: 2px solid darkgray;
 	padding-right: 0.375em;
 	margin-right: 0.375em;
 }
-#tiles .info p:nth-child(2) {
+.info p:nth-child(2) {
 	font-weight: bold;
 }
-#tiles .info p:nth-child(6) {
+.info p:nth-child(6) {
 	font-weight: 600;
 	text-align: right;
+}
+/*------------------------------------------------------------------------------*/
+/* "shared" properties of mixed items */
+#parklist, #map {
+	height: 100%;
+}
+nav, #parklist, #grid, #tiles {
+	font-size: 0.875em;
+}
+nav label, #tbody:hover {
+	cursor: pointer;
+}
+#grid, #tiles {
+	top: 7.143em; /* 6.25 divided by .875 */
+	overflow-x: auto;
+	overflow-y: auto;
+}
+#grid table, #tilelist {
+	margin: 1em auto;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
 body {
 	background-color: lightgray;
 }
-header {
-	background: linear-gradient(to bottom right, #048004, #044004);
-	background: -webkit-linear-gradient(left top, #048004, #044004);
-	background: -moz-linear-gradient(bottom right, #048004, #044004);
-}
-h1, nav label:hover, nav input[type=radio]:checked + label, nav a:hover, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
-	color: white;
-}
-nav, nav a {
-	background-color: black;
-	color: silver;
-}
-#parklist a, #tiles .info {
-	color: black;
-}
 #parklist a:hover {
 	background-color: gray;
 }
-#grid thead {
-	background: linear-gradient(#048004, #044004);
-	background: -webkit-linear-gradient(#048004, #044004);
-	background: -moz-linear-gradient(#048004, #044004);
-}
-#parklist, #tbody tr:nth-child(odd), #tiles .info {
+#parklist, #tbody tr:nth-child(odd), .info {
 	background-color: #f0fff0;
 }
 #tbody tr:nth-child(even) {
 	background-color: white;
 }
-#tiles .info a {
+h1, nav label:hover, nav input[type=radio]:checked + label, nav a:hover, #parklist a:hover, #grid thead, .leaflet-popup-content-wrapper {
+	color: white;
+}
+#parklist a, .info {
+	color: black;
+}
+.info a {
 	color: gray;
 }
-#tiles .info p:nth-child(6), #tiles .info a:hover {
+.info p:nth-child(6), .info a:hover {
 	color: #048004;
+}
+nav, nav a {
+	background-color: black;
+	color: silver;
 }
 .back {
 	background-color: #044004;
 	color: white;
+}
+header {
+	background: linear-gradient(to bottom right, #048004, #044004);
+	background: -webkit-linear-gradient(left top, #048004, #044004);
+	background: -moz-linear-gradient(bottom right, #048004, #044004);
+}
+#grid thead {
+	background: linear-gradient(#048004, #044004);
+	background: -webkit-linear-gradient(#048004, #044004);
+	background: -moz-linear-gradient(#048004, #044004);
 }
 /*------------------------------------------------------------------------------*/
 /* rounded corners */
