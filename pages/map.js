@@ -168,19 +168,19 @@ function pop(index) {
 	}
 
 function toggle(view) {
-	main.style.display = "none";
-	grid.style.display = "none";
-	tiles.style.display = "none";
+	main.classList.toggle("hide", true);
+	grid.classList.toggle("hide", true);
+	tiles.classList.toggle("hide", true);
 	switch (view.value) {
 		case "map":
-			main.style.display = "block";
+			main.classList.toggle("hide", false);
 			map.invalidateSize();
 			break;
 		case "grid":
-			grid.style.display = "block";
+			grid.classList.toggle("hide", false);
 			break;
 		case "tiles":
-			tiles.style.display = "flex";
+			tiles.classList.toggle("hide", false);
 			break;
 		}
 	}
