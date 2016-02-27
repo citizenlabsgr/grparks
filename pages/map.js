@@ -168,19 +168,19 @@ function pop(index) {
 	}
 
 function toggle(view) {
-	main.classList.toggle("hide", true);
-	grid.classList.toggle("hide", true);
-	tiles.classList.toggle("hide", true);
+	main.classList.add("hide");
+	grid.classList.add("hide");
+	tiles.classList.add("hide");
 	switch (view.value) {
 		case "map":
-			main.classList.toggle("hide", false);
+			main.classList.remove("hide");
 			map.invalidateSize();
 			break;
 		case "grid":
-			grid.classList.toggle("hide", false);
+			grid.classList.remove("hide");
 			break;
 		case "tiles":
-			tiles.classList.toggle("hide", false);
+			tiles.classList.remove("hide");
 			break;
 		}
 	}
