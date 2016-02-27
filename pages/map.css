@@ -83,17 +83,13 @@ nav, #parklist, #grid, #tiles {
 }
 @keyframes appear {
 	0% {
-		display: none;
+		display: initial;
 		opacity: 0;
-	}
-	1% {
-		display: block;
-		opacity: 0;
-		transform: scale(0);
+		transform: scale(0) /*rotate(360deg)*/;
 	}
 	100% {
 		opacity: 1;
-		transform: scale(1);
+		transform: scale(1) /*rotate(0deg)*/;
 	}
 }
 #main.hide, #grid.hide, #tiles.hide {
@@ -129,9 +125,11 @@ nav, #parklist, #grid, #tiles {
 /*------------------------------------------------------------------------------*/
 /* tiles of parks */
 #tiles {
+	margin: 1em auto;
 	display: flex;
 	flex-wrap: wrap;
 	align-content: flex-start;
+	justify-content: center;
 }
 #tiles .info, #tiles .back {
 	width: 17em;
@@ -141,6 +139,9 @@ nav, #parklist, #grid, #tiles {
 	border-width: 0.125em;
 	border-style: outset;
 	border-color: white silver silver white;
+}
+#tiles .info {
+	text-shadow: 1px 1px white;
 }
 #tiles .info a {
 	float: left;
