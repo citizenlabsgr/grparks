@@ -7,7 +7,6 @@ body {
 	font-size: 100%;
 }
 section {
-	display: initial;
 	width: 100%;
 	animation: appear 0.33s 1;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
@@ -16,7 +15,7 @@ section {
 }
 @keyframes appear {
 	0% {
-		display: initial;
+		display: block;
 		opacity: 0;
 		transform: scale(0) /*rotate(360deg)*/;
 	}
@@ -112,7 +111,7 @@ nav label, nav a {
 	width: 17em;
 	height: 6em;
 	padding: 0.375em;
-	margin: 0.25em 0 0 0.25em;
+	margin: 0 0.125em 0.25em 0.125em;
 	border-width: 0.125em;
 	border-style: outset;
 	border-color: white silver silver white;

@@ -164,7 +164,12 @@ function pop(index) {
 		rbmap.checked = true;
 		toggle(rbmap);
 		}
-	showPopup(parkFeatures[index].id);
+	var thisLayer = allParks.getLayer(parkFeatures[index].id);
+	var where = thisLayer.getBounds().getCenter();
+	var zoom = map.getZoom();
+	if (zoom < 15) {zoom = 15;};
+	map.setView(where, zoom, {animation: true});
+	thisLayer.openPopup(where);
 	}
 
 function toggle(view) {
@@ -183,13 +188,4 @@ function toggle(view) {
 			tiles.classList.remove("hide");
 			break;
 		}
-	}
-		
-function showPopup(id) {
-	var thisLayer = allParks.getLayer(id);
-	var where = thisLayer.getBounds().getCenter();
-	var zoom = map.getZoom();
-	if (zoom < 15) {zoom = 15;};
-	map.setView(where, zoom, {animation: true});
-	thisLayer.openPopup(where);
 	}
