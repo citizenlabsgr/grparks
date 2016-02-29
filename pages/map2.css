@@ -98,7 +98,7 @@ body {
 .info {
 	background-color: #f0fff0;
 }
-h1, nav a:hover, .leaflet-popup-content-wrapper {
+h1, nav a:hover {
 	color: white;
 }
 .info {
@@ -119,12 +119,6 @@ header {
 	background: linear-gradient(to bottom right, #048004, #044004);
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
-}
-/*------------------------------------------------------------------------------*/
-/* leaflet popup overrides */
-.leaflet-popup-content-wrapper, .leaflet-popup-tip {
-	background-color: #044004;
-	opacity: 0.8;
 }
 /*------------------------------------------------------------------------------*/
 /* flipper */

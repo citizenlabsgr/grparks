@@ -35,50 +35,46 @@ function GRloaded(response) {
 function JSONloaded(response) {
 	parks = JSON.parse(response);
 	ids = [];
-	parkFeatures = [];
-	allParks = L.geoJson(parks, {onEachFeature: getFeature, style: {color: "#ff7800", weight: 1, opacity: 0.65}}).addTo(map);
+	markers = [];
+	L.geoJson(parks, {onEachFeature: getFeature, style: {color: "#ff7800", weight: 1, opacity: 0.65}}).addTo(map);
 	parks = undefined;
+	ids = undefined;
 	showFeatures();
 	}
 
 function getFeature(feature, layer) {
-	if (feature.properties && feature.properties.name) {
-		
-		// make a popup for the map
+	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
+		ids.push(feature.id);
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		var pool = function() {
 			if (feature.properties.pool) {return "<br />pool: " + feature.properties.pool;}	else {return "";}
 			}
-		layer.bindPopup(
-			"<h3>" + feature.properties.name + "</h3>" +
-			"<h4>" + feature.properties.type + " " + feature.properties.leisure + "</h4>" +
-			"<p>" + feature.properties.acreage + " acres" + pool() + "</p>" +
-			"<p><b>millage: </b>" + feature.properties.millage + "</p>",
-			{closeButton: false}
-			);
-		layer._leaflet_id = feature.id;
-		
-		// remember the feature's properties, excluding duplicates
-		if (ids.indexOf(feature.id) == -1) {
-			ids.push(feature.id);
-			parkFeatures.push({
-				"name": feature.properties.name, 
-				"id": feature.id, 
-				"type": feature.properties.type + " " + feature.properties.leisure,
-				"acreage": feature.properties.acreage,
-				"pool": feature.properties.pool,
-				"millage": feature.properties.millage
-				});
+		var thisMarker = L.marker(layer.getBounds().getCenter(), {riseOnHover: true}).addTo(map);
+		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {closeButton: false});
+		thisMarker.on("click", function(e) {
+			// todo: highlight selected park
+			var li = parklist.getElementsByTagName("li")[e.target.index];
+			li.scrollIntoView();
+			});
+		thisMarker.park = {
+			"name": feature.properties.name, 
+			"type": feature.properties.type + " " + feature.properties.leisure,
+			"acreage": feature.properties.acreage,
+			"pool": feature.properties.pool,
+			"millage": feature.properties.millage		
 			}
-		
+		markers.push(thisMarker);
 		}
 	}
 	
 function showFeatures() {
-	parkFeatures.sort(function(a, b){return (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1;});
+	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	var longTextNeeded = true;
-	for (i = 0; i < parkFeatures.length; i++) {
+	for (i = 0; i < markers.length; i++) {
 		
+		thisMarker = markers[i];
+		thisMarker.index = i;
+				
 		var li = document.createElement("li");
 		var a = newMapPopupLink(i);
 		
@@ -87,27 +83,24 @@ function showFeatures() {
 		
 		var flipperNeeded = false;
 		
-		var feature = JSON.parse(JSON.stringify(parkFeatures[i]));
-		delete feature.id;
-		for (f in feature) {
-			
-			// for tiles		
+		var thisPark = JSON.parse(JSON.stringify(thisMarker.park));
+		for (feature in thisPark) {
 			var p = document.createElement("p");
-			p.textContent = feature[f];
-			switch (f) {
+			p.textContent = thisPark[feature];
+			switch (feature) {
 				case "acreage":
 					p.textContent += " acres";
 					break;
 				case "millage":
-					if (feature[f] == "none") {p.textContent = "";} else {flipperNeeded = true;}
+					if (thisPark[feature] == "none") {p.textContent = "";} else {flipperNeeded = true;}
 					break;
 				case "pool":
-					if (feature[f] == "") {p.innerHTML = "&nbsp;";} else {p.textContent += " pool";}
+					if (thisPark[feature] == "") {p.innerHTML = "&nbsp;";} else {p.textContent += " pool";}
 					break;
 				}
 			tile.appendChild(p);
 			} 
-
+		
 		if (flipperNeeded) {
 			var flipper = document.createElement("div");
 			var back = document.createElement("div");
@@ -134,6 +127,7 @@ function showFeatures() {
 		
 		li.appendChild(a);
 		parklist.appendChild(li);
+		
 		}  
 	}
 
@@ -144,10 +138,10 @@ function newMapPopupLink(i) {
 	}
 
 function pop(index) {
-	var thisLayer = allParks.getLayer(parkFeatures[index].id);
-	var where = thisLayer.getBounds().getCenter();
+	var thisMarker = markers[index];
+	var where = thisMarker.getLatLng();
 	var zoom = map.getZoom();
 	if (zoom < 15) {zoom = 15;};
 	map.setView(where, zoom, {animation: true});
-	thisLayer.openPopup(where);
+	thisMarker.openPopup();
 	}
