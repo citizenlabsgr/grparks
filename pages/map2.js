@@ -51,13 +51,13 @@ function getFeature(feature, layer) {
 			}
 		var thisMarker = L.marker(
 			layer.getBounds().getCenter(), {
-				riseOnHover: true,
-				icon: L.divIcon({
-					className: "mapIcon",
-					iconAnchor: [15, 36],
-					popupAnchor: [0, -36],
-					html: "<i class='fa fa-tree fa-3x'></i>"
-					})	
+				riseOnHover: true//,
+//				icon: L.divIcon({
+//					className: "mapIcon",
+//					iconAnchor: [15, 36],
+//					popupAnchor: [0, -36],
+//					html: "<i class='fa fa-tree fa-3x'></i>"
+//					})	
 			}).addTo(map);
 		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {closeButton: false});
 		thisMarker.on("click", function(e) {getLI(e).scrollIntoView()});
