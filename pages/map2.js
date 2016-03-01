@@ -51,11 +51,9 @@ function getFeature(feature, layer) {
 			}
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {riseOnHover: true}).addTo(map);
 		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {closeButton: false});
-		thisMarker.on("click", function(e) {
-			// todo: highlight selected park
-			var li = parklist.getElementsByTagName("li")[e.target.index];
-			li.scrollIntoView();
-			});
+		thisMarker.on("click", function(e) {getLI(e).scrollIntoView()});
+		thisMarker.on("popupopen", function(e) {toggleParkHighlight(e)});
+		thisMarker.on("popupclose", function(e) {toggleParkHighlight(e)});
 		thisMarker.park = {
 			"name": feature.properties.name, 
 			"type": feature.properties.type + " " + feature.properties.leisure,
@@ -66,7 +64,15 @@ function getFeature(feature, layer) {
 		markers.push(thisMarker);
 		}
 	}
+
+function toggleParkHighlight(e) {
+	getLI(e).classList.toggle("highlight");
+	}
 	
+function getLI(e) {
+	return (parklist.getElementsByTagName("li")[e.target.index]);
+	}
+
 function showFeatures() {
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	var longTextNeeded = true;

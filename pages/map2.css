@@ -70,10 +70,14 @@ nav a {
 .info, .back {
 	width: 14.5em;
 	height: 5.25em;
-	padding: 0.33em;
+	padding: 0.25em 0.375em;
 }
 .info {
 	text-shadow: 1px 1px white;
+}
+#parklist li.highlight .info, .info:hover {
+	padding-right: 0.125em;
+	border-right: 0.25em solid black;
 }
 .info p:nth-child(1) {
 	font-weight: bold;
@@ -125,8 +129,8 @@ header {
 .flipper {
 	perspective: 567px;
 	cursor: pointer;
-	width: 15.16em;
-	height: 5.91em;
+	width: 15.25em;
+	height: 5.75em;
 }
 .flipper.flip .front {
 	transform: rotateY(180deg);
