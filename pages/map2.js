@@ -36,7 +36,7 @@ function JSONloaded(response) {
 	parks = JSON.parse(response);
 	ids = [];
 	markers = [];
-	L.geoJson(parks, {onEachFeature: getFeature, style: {color: "#ff7800", weight: 1, opacity: 0.65}}).addTo(map);
+	L.geoJson(parks, {onEachFeature: getFeature, style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false}}).addTo(map);
 	parks = undefined;
 	ids = undefined;
 	showFeatures();
@@ -49,7 +49,16 @@ function getFeature(feature, layer) {
 		var pool = function() {
 			if (feature.properties.pool) {return "<br />pool: " + feature.properties.pool;}	else {return "";}
 			}
-		var thisMarker = L.marker(layer.getBounds().getCenter(), {riseOnHover: true}).addTo(map);
+		var thisMarker = L.marker(
+			layer.getBounds().getCenter(), {
+				riseOnHover: true,
+				icon: L.divIcon({
+					className: "mapIcon",
+					iconAnchor: [15, 36],
+					popupAnchor: [0, -36],
+					html: "<i class='fa fa-tree fa-3x'></i>"
+					})	
+			}).addTo(map);
 		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {closeButton: false});
 		thisMarker.on("click", function(e) {getLI(e).scrollIntoView()});
 		thisMarker.on("popupopen", function(e) {toggleParkHighlight(e)});

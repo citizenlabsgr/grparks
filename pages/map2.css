@@ -108,7 +108,7 @@ h1, nav a:hover {
 .info {
 	color: black;
 }
-.info p:nth-child(5) {
+.info p:nth-child(5), .mapIcon {
 	color: #048004;
 }
 nav, nav a {
