@@ -1,4 +1,4 @@
-loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson", GRloaded);
+loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson", loadedGR);
 
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
@@ -10,7 +10,7 @@ function loadJSON(url, callback) {
     xobj.send(null);  
  	}
  
-function GRloaded(response) {
+function loadedGR(response) {
 	var city = JSON.parse(response);
 	var view = window.location.search.substring(1);
 	if (view == "") {view = "github.kedo1cp3";} else {view = "mapbox." + view;}
@@ -29,10 +29,10 @@ function GRloaded(response) {
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
 	L.geoJson(city, {style: {color: "yellow", weight: 1, clickable: false}}).addTo(map);
-	loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", JSONloaded);
+	loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", loadedParks);
 	}
 	
-function JSONloaded(response) {
+function loadedParks(response) {
 	parks = JSON.parse(response);
 	ids = [];
 	markers = [];
@@ -46,23 +46,11 @@ function getFeature(feature, layer) {
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
 		ids.push(feature.id);
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
-		var pool = function() {
-			if (feature.properties.pool) {return "<br />pool: " + feature.properties.pool;}	else {return "";}
-			}
-		var thisMarker = L.marker(
-			layer.getBounds().getCenter(), {
-				riseOnHover: true//,
-//				icon: L.divIcon({
-//					className: "mapIcon",
-//					iconAnchor: [15, 36],
-//					popupAnchor: [0, -36],
-//					html: "<i class='fa fa-tree fa-3x'></i>"
-//					})	
-			}).addTo(map);
+		var thisMarker = L.marker(layer.getBounds().getCenter(), {riseOnHover: true}).addTo(map);
 		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {closeButton: false});
-		thisMarker.on("click", function(e) {getLI(e).scrollIntoView()});
-		thisMarker.on("popupopen", function(e) {toggleParkHighlight(e)});
-		thisMarker.on("popupclose", function(e) {toggleParkHighlight(e)});
+		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
+		thisMarker.on("popupopen", function(e) {clickPark(e)});
+		thisMarker.on("popupclose", function(e) {clickPark(e)});
 		thisMarker.park = {
 			"name": feature.properties.name, 
 			"type": feature.properties.type + " " + feature.properties.leisure,
@@ -74,89 +62,105 @@ function getFeature(feature, layer) {
 		}
 	}
 
-function toggleParkHighlight(e) {
-	getLI(e).classList.toggle("highlight");
-	}
-	
-function getLI(e) {
-	return (parklist.getElementsByTagName("li")[e.target.index]);
+function liPark(index) {
+	return (parklist.getElementsByTagName("li")[index]);
 	}
 
+function clickPark(e) {
+	var index = e.target.index;
+	var li = liPark(index);
+	if (li.classList.contains("highlight")) {
+		li.classList.remove("highlight");
+		// todo: make a function for this second line ("contains", etc.)
+		var a = li.firstElementChild.getElementsByTagName("a");
+		if (a.length !=0 && a[0].firstElementChild.classList.contains("hide")) {clickMoney(index);}
+		}
+	else {
+		li.classList.add("highlight");
+		}
+	}
+	
 function showFeatures() {
+	
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	var longTextNeeded = true;
+	
 	for (i = 0; i < markers.length; i++) {
 		
 		thisMarker = markers[i];
 		thisMarker.index = i;
 				
 		var li = document.createElement("li");
-		var a = newMapPopupLink(i);
+		var a = document.createElement("a");
+		a.href = "javascript:pop(" + i + ");";
 		
-		var tile = document.createElement("div");
-		tile.className = "info";
-		
-		var flipperNeeded = false;
+		var details = false;
 		
 		var thisPark = JSON.parse(JSON.stringify(thisMarker.park));
 		for (feature in thisPark) {
 			var p = document.createElement("p");
-			p.textContent = thisPark[feature];
 			switch (feature) {
 				case "acreage":
-					p.textContent += " acres";
+					p.textContent = thisPark[feature] + " acres";
 					break;
 				case "millage":
-					if (thisPark[feature] == "none") {p.textContent = "";} else {flipperNeeded = true;}
+					if (thisPark[feature] == "none") {
+						p.textContent = "";
+						} 
+					else {
+						details = true
+						p.innerHTML = 
+							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-caret-down'></i><i class='fa fa-caret-up hide'></i></a>";
+						;}
 					break;
 				case "pool":
+					p.textContent = thisPark[feature];
 					if (thisPark[feature] == "") {p.innerHTML = "&nbsp;";} else {p.textContent += " pool";}
 					break;
+				default:
+					p.textContent = thisPark[feature];
 				}
-			tile.appendChild(p);
+			a.appendChild(p);
 			} 
+		li.appendChild(a);
 		
-		if (flipperNeeded) {
-			var flipper = document.createElement("div");
-			var back = document.createElement("div");
-			flipper.className = "flipper";
-			flipper.title = "Click to flip";
-			flipper.onclick = function(e) {
-				var tag = e.target.tagName.toLowerCase();
-				if ((tag != "a") && (tag != "i")) {this.classList.toggle("flip");}
-				}
-			back.className = "back";
-			back.textContent = "description of improvements would go here";
+		if (details) {
+			var accordion = document.createElement("div");
+			accordion.className = "accordion";
+			accordion.textContent = "description of improvements would go here";
 			if (longTextNeeded) {
-				back.textContent += ", but this can easily be expanded to monster-size to fit a lot more text than can posibly go in one box of this size, run-on sentences and all, in the beginning, etc., and I guess I need to put even more stuff in here to prove my point, eh?";
+				accordion.textContent +=
+					", but this can easily be expanded to monster-size to fit a lot more text than can posibly go in one box of this size, run-on sentences and all, in the beginning, etc., and I guess I need to put even more stuff in here to prove my point, eh?";
 				longTextNeeded = false;
 				}
-			tile.classList.toggle("front");
-			flipper.appendChild(tile);
-			flipper.appendChild(back);
-			a.appendChild(flipper);
-			}
-		else {
-			a.appendChild(tile);
+			li.appendChild(accordion);
 			}
 		
-		li.appendChild(a);
 		parklist.appendChild(li);
 		
 		}  
 	}
 
-function newMapPopupLink(i) {
-	var a = document.createElement("a");
-	a.href = "javascript:pop('" + i + "');";
-	return a;
+function clickMoney(index) {
+	var li = liPark(index);
+	var a = li.firstElementChild.getElementsByTagName("a")[0];
+	a.firstElementChild.classList.toggle("hide");
+	a.lastElementChild.classList.toggle("hide");
+	var accordion = li.lastElementChild;
+	if (a.firstElementChild.classList.contains("hide")) {
+		accordion.classList.add("show");
+		pop(index);
+		}
+	else {
+		accordion.classList.remove("show");
+		}
 	}
 
 function pop(index) {
 	var thisMarker = markers[index];
 	var where = thisMarker.getLatLng();
 	var zoom = map.getZoom();
-	if (zoom < 15) {zoom = 15;};
+	if (zoom < 15) {zoom = 15;}
 	map.setView(where, zoom, {animation: true});
 	thisMarker.openPopup();
 	}

@@ -18,6 +18,9 @@ a {
 ul {
 	list-style: none;
 }
+.hide {
+	display: none;
+}
 /*------------------------------------------------------------------------------*/
 /* page heading */
 header {
@@ -61,104 +64,74 @@ nav a {
 }
 #parklist li {
 	margin-bottom: 1px;
-}
-#parklist a {
-	display: block;
-}
-/*------------------------------------------------------------------------------*/
-/* park info tiles */
-.info, .back {
 	width: 14.5em;
-	height: 5.25em;
+	min-height: 5em;
 	padding: 0.25em 0.375em;
 }
-.info {
-	text-shadow: 1px 1px white;
+#parklist li > a {
+	display: block;
 }
-#parklist li.highlight .info, .info:hover {
+#parklist p {
+	text-shadow: 1px 1px white;	
+}
+#parklist li.highlight, #parklist li:hover {
 	padding-right: 0.125em;
 	border-right: 0.25em solid black;
 }
-.info p:nth-child(1) {
-	font-weight: bold;
-}
-.info p:nth-child(5) {
+#parklist li a p:nth-child(1) {
+	font-size: 0.875em !important;
 	font-weight: 600;
+}
+#parklist li a p:nth-child(5) {
+	font-size: 0.875em !important;
+	font-weight: 500;
 	text-align: right;
+}
+.accordion {
+	display: none;
+	padding: 0.375em;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-right: 0.25em;
+}
+.accordion.show {
+	display: block;
 }
 /*------------------------------------------------------------------------------*/
 /* "shared" properties of mixed items */
 #parklist, #map {
 	height: 100%;
 }
-nav, #parklist p {
-	font-size: 0.875em;
+nav, #parklist p, .accordion {
+	font-size: 0.8em;
 }
 /*------------------------------------------------------------------------------*/
 /* just colors */
 body {
 	background-color: darkgray;
 }
-.info {
+#parklist li {
 	background-color: #f0fff0;
 }
-h1, nav a:hover {
+h1, nav a:hover, .accordion {
 	color: white;
 }
-.info {
+#parklist li a {
 	color: black;
 }
-.info p:nth-child(5), .mapIcon {
+#parklist li a p:nth-child(5) a {
 	color: #048004;
 }
 nav, nav a {
 	background-color: black;
 	color: silver;
 }
-.back {
+.accordion {
 	background-color: #044004;
-	color: white;
 }
 header {
 	background: linear-gradient(to bottom right, #048004, #044004);
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
-}
-/*------------------------------------------------------------------------------*/
-/* flipper */
-.flipper {
-	perspective: 567px;
-	cursor: pointer;
-	width: 15.25em;
-	height: 5.75em;
-}
-.flipper.flip .front {
-	transform: rotateY(180deg);
-}
-.flipper.flip .back {
-	transform: rotateY(0deg);
-}
-.front, .back {
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transition: 0.6s;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-.front {
-	z-index: 2;
-	/* for firefox 31 */
-	transform: rotateY(0deg);
-}
-.back {
-	transform: rotateY(-180deg);
-	display: block; /* Fallback for non-webkit */
-	display: -webkit-box;
-	max-height: 5.91em;
-	line-height: 1.29;
-	-webkit-line-clamp: 5;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
