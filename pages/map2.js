@@ -47,7 +47,10 @@ function getFeature(feature, layer) {
 		ids.push(feature.id);
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {riseOnHover: true}).addTo(map);
-		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {closeButton: false});
+		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {
+			closeButton: false,
+			maxHeight: 300
+			});
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
 		thisMarker.on("popupopen", function(e) {clickPark(e)});
 		thisMarker.on("popupclose", function(e) {clickPark(e)});
@@ -72,8 +75,8 @@ function clickPark(e) {
 	if (li.classList.contains("highlight")) {
 		li.classList.remove("highlight");
 		// todo: make a function for this second line ("contains", etc.)
-		var a = li.firstElementChild.getElementsByTagName("a");
-		if (a.length !=0 && a[0].firstElementChild.classList.contains("hide")) {clickMoney(index);}
+//		var a = li.firstElementChild.getElementsByTagName("a");
+//		if (a.length !=0 && a[0].firstElementChild.classList.contains("hide")) {clickMoney(index);}
 		}
 	else {
 		li.classList.add("highlight");
@@ -110,12 +113,16 @@ function showFeatures() {
 					else {
 						needInfo = true
 						p.innerHTML = 
-							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-caret-right'></i><i class='fa fa-caret-left hide'></i></a>";
+							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-info-circle'></i></a>";
 						;}
 					break;
 				case "pool":
-					p.textContent = thisPark[feature];
-					if (thisPark[feature] == "") {p.innerHTML = "&nbsp;";} else {p.textContent += " pool";}
+					if (thisPark[feature] == "") {
+						p.innerHTML = "&nbsp;";
+						} 
+					else {
+						p.textContent = thisPark[feature] + " pool";
+						}
 					break;
 				default:
 					p.textContent = thisPark[feature];
@@ -125,35 +132,26 @@ function showFeatures() {
 		li.appendChild(a);
 		
 		if (needInfo) {
-			var moneyInfo = document.createElement("div");
-			moneyInfo.className = "info";
-			moneyInfo.textContent = "description of improvements would go here";
+			thisMarker.park.info = "description of improvements would go here";
 			if (longTextNeeded) {
-				moneyInfo.textContent +=
+				thisMarker.park.info +=
 					", but this can easily be expanded to monster-size to fit a lot more text than can posibly go in one box of this size, run-on sentences and all, in the beginning, etc., and I guess I need to put even more stuff in here to prove my point, eh?";
 				longTextNeeded = false;
 				}
-			li.appendChild(moneyInfo);
 			}
 		
 		parklist.appendChild(li);
 		
 		}  
+
 	}
 
 function clickMoney(index) {
-	var li = liPark(index);
-	var a = li.firstElementChild.getElementsByTagName("a")[0];
-	a.firstElementChild.classList.toggle("hide");
-	a.lastElementChild.classList.toggle("hide");
-	var moneyInfo = li.lastElementChild;
-	if (a.firstElementChild.classList.contains("hide")) {
-		moneyInfo.classList.add("show");
-		pop(index);
-		}
-	else {
-		moneyInfo.classList.remove("show");
-		}
+	thisMarker = markers[index];
+	thisMarker.setPopupContent(
+		"<h3>" + thisMarker.park.name + "</h3>" +
+		thisMarker.park.info);
+	pop(index);
 	}
 
 function pop(index) {
