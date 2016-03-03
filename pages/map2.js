@@ -94,7 +94,7 @@ function showFeatures() {
 		var a = document.createElement("a");
 		a.href = "javascript:pop(" + i + ");";
 		
-		var details = false;
+		var needInfo = false;
 		
 		var thisPark = JSON.parse(JSON.stringify(thisMarker.park));
 		for (feature in thisPark) {
@@ -105,12 +105,12 @@ function showFeatures() {
 					break;
 				case "millage":
 					if (thisPark[feature] == "none") {
-						p.textContent = "";
+						p.innerHTML = "&nbsp;";
 						} 
 					else {
-						details = true
+						needInfo = true
 						p.innerHTML = 
-							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-caret-down'></i><i class='fa fa-caret-up hide'></i></a>";
+							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-caret-right'></i><i class='fa fa-caret-left hide'></i></a>";
 						;}
 					break;
 				case "pool":
@@ -124,16 +124,16 @@ function showFeatures() {
 			} 
 		li.appendChild(a);
 		
-		if (details) {
-			var accordion = document.createElement("div");
-			accordion.className = "accordion";
-			accordion.textContent = "description of improvements would go here";
+		if (needInfo) {
+			var moneyInfo = document.createElement("div");
+			moneyInfo.className = "info";
+			moneyInfo.textContent = "description of improvements would go here";
 			if (longTextNeeded) {
-				accordion.textContent +=
+				moneyInfo.textContent +=
 					", but this can easily be expanded to monster-size to fit a lot more text than can posibly go in one box of this size, run-on sentences and all, in the beginning, etc., and I guess I need to put even more stuff in here to prove my point, eh?";
 				longTextNeeded = false;
 				}
-			li.appendChild(accordion);
+			li.appendChild(moneyInfo);
 			}
 		
 		parklist.appendChild(li);
@@ -146,13 +146,13 @@ function clickMoney(index) {
 	var a = li.firstElementChild.getElementsByTagName("a")[0];
 	a.firstElementChild.classList.toggle("hide");
 	a.lastElementChild.classList.toggle("hide");
-	var accordion = li.lastElementChild;
+	var moneyInfo = li.lastElementChild;
 	if (a.firstElementChild.classList.contains("hide")) {
-		accordion.classList.add("show");
+		moneyInfo.classList.add("show");
 		pop(index);
 		}
 	else {
-		accordion.classList.remove("show");
+		moneyInfo.classList.remove("show");
 		}
 	}
 

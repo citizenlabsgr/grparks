@@ -65,7 +65,7 @@ nav a {
 #parklist li {
 	margin-bottom: 1px;
 	width: 14.5em;
-	min-height: 5em;
+	height: 5em;
 	padding: 0.25em 0.375em;
 }
 #parklist li > a {
@@ -78,24 +78,26 @@ nav a {
 	padding-right: 0.125em;
 	border-right: 0.25em solid black;
 }
-#parklist li a p:nth-child(1) {
+#parklist li p:nth-child(1) {
 	font-size: 0.875em !important;
 	font-weight: 600;
 }
-#parklist li a p:nth-child(5) {
+#parklist li p:nth-child(5) {
 	font-size: 0.875em !important;
 	font-weight: 500;
 	text-align: right;
 }
-.accordion {
+.info {
 	display: none;
 	padding: 0.375em;
+	margin-right: 0.25em;
+	overflow: auto;
+	height: 6.125em; /* (5.5 / .8) - .75*/;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	margin-right: 0.25em;
 }
-.accordion.show {
+.info.show {
 	display: block;
 }
 /*------------------------------------------------------------------------------*/
@@ -103,7 +105,7 @@ nav a {
 #parklist, #map {
 	height: 100%;
 }
-nav, #parklist p, .accordion {
+nav, #parklist p, .info {
 	font-size: 0.8em;
 }
 /*------------------------------------------------------------------------------*/
@@ -114,7 +116,7 @@ body {
 #parklist li {
 	background-color: #f0fff0;
 }
-h1, nav a:hover, .accordion {
+h1, nav a:hover, .info {
 	color: white;
 }
 #parklist li a {
@@ -127,7 +129,7 @@ nav, nav a {
 	background-color: black;
 	color: silver;
 }
-.accordion {
+.info {
 	background-color: #044004;
 }
 header {
