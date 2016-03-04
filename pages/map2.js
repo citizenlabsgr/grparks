@@ -4,7 +4,7 @@ var CITY_PARKS_DATA = "https://raw.githubusercontent.com/friendlycode/gr-parks/g
 var CITY_MAP_LAYER_COLOR = "yellow";
 var CITY_PARKS_LAYER_COLOR = "#ff7800";
 
-loadJSON(CITY_BOUNDARY_DATA, cityLoaded);
+loadJSON(CITY_BOUNDARY_DATA, mapCity);
 
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
@@ -16,7 +16,7 @@ function loadJSON(url, callback) {
     xobj.send(null);  
  	}
  
-function cityLoaded(response) {
+function mapCity(response) {
 	var city = JSON.parse(response);
 	var view = window.location.search.substring(1);
 	if (view == "") {view = "github.kedo1cp3";} else {view = "mapbox." + view;}
@@ -41,15 +41,15 @@ function cityLoaded(response) {
 			clickable: false
 			}
 		}).addTo(map);
-	loadJSON(CITY_PARKS_DATA, parksLoaded);
+	loadJSON(CITY_PARKS_DATA, mapParks);
 	}
 	
-function parksLoaded(response) {
+function mapParks(response) {
 	parks = JSON.parse(response);
 	ids = [];
 	markers = [];
 	L.geoJson(parks, {
-		onEachFeature: getFeature, 
+		onEachFeature: makeMarker, 
 		style: {
 			color: CITY_PARKS_LAYER_COLOR, 
 			weight: 1, 
@@ -59,10 +59,10 @@ function parksLoaded(response) {
 		}).addTo(map);
 	parks = undefined;
 	ids = undefined;
-	showFeatures();
+	makeParkList();
 	}
 
-function getFeature(feature, layer) {
+function makeMarker(feature, layer) {
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
 		ids.push(feature.id);
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
@@ -102,7 +102,7 @@ function parkClicked(e, open) {
 		}
 	}
 	
-function showFeatures() {
+function makeParkList() {
 	
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	var longTextNeeded = true;
