@@ -62,7 +62,7 @@ nav a {
 #parklist li {
 	margin-bottom: 1px;
 	width: 14.5em;
-	height: 5.125em;
+	height: 5.25em;
 	padding: 0.25em 0.5em 0.25em 0.375em;
 }
 @media only screen and (max-width: 767px) {

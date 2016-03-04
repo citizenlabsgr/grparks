@@ -1,4 +1,10 @@
-loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson", loadedGR);
+// "constants"
+var CITY_BOUNDARY_DATA = "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson";
+var CITY_PARKS_DATA = "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson";
+var CITY_MAP_LAYER_COLOR = "yellow";
+var CITY_PARKS_LAYER_COLOR = "#ff7800";
+
+loadJSON(CITY_BVOUNDARY_DATA, cityLoaded);
 
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
@@ -10,7 +16,7 @@ function loadJSON(url, callback) {
     xobj.send(null);  
  	}
  
-function loadedGR(response) {
+function cityLoaded(response) {
 	var city = JSON.parse(response);
 	var view = window.location.search.substring(1);
 	if (view == "") {view = "github.kedo1cp3";} else {view = "mapbox." + view;}
@@ -28,15 +34,29 @@ function loadedGR(response) {
 		id: view,
 		accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		}).addTo(map);
-	L.geoJson(city, {style: {color: "yellow", weight: 1, clickable: false}}).addTo(map);
-	loadJSON("https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson", loadedParks);
+	L.geoJson(city, {
+		style: {
+			color: CITY_MAP_LAYER_COLOR, 
+			weight: 1, 
+			clickable: false
+			}
+		}).addTo(map);
+	loadJSON(CITY_PARKS_DATA, parksLoaded);
 	}
 	
-function loadedParks(response) {
+function parksLoaded(response) {
 	parks = JSON.parse(response);
 	ids = [];
 	markers = [];
-	L.geoJson(parks, {onEachFeature: getFeature, style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false}}).addTo(map);
+	L.geoJson(parks, {
+		onEachFeature: getFeature, 
+		style: {
+			color: CITY_PARKS_LAYER_COLOR, 
+			weight: 1, 
+			opacity: 0.65, 
+			clickable: false
+			}
+		}).addTo(map);
 	parks = undefined;
 	ids = undefined;
 	showFeatures();
@@ -52,8 +72,8 @@ function getFeature(feature, layer) {
 			{closeButton: false, maxHeight: 300}
 			);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
-		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
-		thisMarker.on("popupclose", function(e) {clickPark(e), false});
+		thisMarker.on("popupopen", function(e) {parkClicked(e, true)});
+		thisMarker.on("popupclose", function(e) {parkClicked(e), false});
 		thisMarker.park = {
 			"name": feature.properties.name, 
 			"type": feature.properties.type + " " + feature.properties.leisure,
@@ -73,7 +93,7 @@ function liPark(index) {
 	return (parklist.getElementsByTagName("li")[index]);
 	}
 
-function clickPark(e, open) {
+function parkClicked(e, open) {
 	var index = e.target.index;
 	liPark(index).classList.toggle("highlight");
 	if (!open) {
@@ -112,7 +132,7 @@ function showFeatures() {
 					else {
 						needInfo = true
 						p.innerHTML = 
-							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-info-circle fa-lg'></i></a>";
+							"<a href='#' title='Details of improvements' onclick='moneyClicked(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-info-circle fa-lg'></i></a>";
 						;}
 					break;
 				case "pool":
@@ -145,7 +165,7 @@ function showFeatures() {
 
 	}
 
-function clickMoney(index) {
+function moneyClicked(index) {
 	thisMarker = markers[index];
 	thisMarker.setPopupContent(h3ParkName(thisMarker.park) + thisMarker.park.info);
 	pop(index);
