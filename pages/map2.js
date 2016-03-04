@@ -75,8 +75,7 @@ function liPark(index) {
 
 function clickPark(e, open) {
 	var index = e.target.index;
-	var li = liPark(index);
-	li.classList.toggle("highlight");
+	liPark(index).classList.toggle("highlight");
 	if (!open) {
 		thisMarker = markers[index];
 		thisMarker.setPopupContent(h3ParkName(thisMarker.park));
