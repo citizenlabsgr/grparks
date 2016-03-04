@@ -4,7 +4,7 @@ var CITY_PARKS_DATA = "https://raw.githubusercontent.com/friendlycode/gr-parks/g
 var CITY_MAP_LAYER_COLOR = "yellow";
 var CITY_PARKS_LAYER_COLOR = "#ff7800";
 
-loadJSON(CITY_BVOUNDARY_DATA, cityLoaded);
+loadJSON(CITY_BOUNDARY_DATA, cityLoaded);
 
 function loadJSON(url, callback) {   
 	var xobj = new XMLHttpRequest();
