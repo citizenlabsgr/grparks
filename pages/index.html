@@ -4,8 +4,8 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<script src="map.js"></script>
-	<link rel="stylesheet" href="map.css" />
+	<script src="map2.js"></script>
+	<link rel="stylesheet" href="map2.css" />
 	<title>Grand Rapids Parks and Recreation Investments</title>
 	
 	<!--[if lt IE 9]>
@@ -31,37 +31,14 @@
 		<h1>Parks and Recreation Investments</h1>
 	</header>
 	<nav>
-		<input type="radio" id="rbmap" name="view" value="map" onchange="javascript:toggle(this);" checked="true">
-			<label for="rbmap" title="View map"><i class="fa fa-map"></i>&nbsp;map</label>
-		<input type="radio" id="rbgrid" name="view" value="grid" onchange="javascript:toggle(this);">
-			<label for="rbgrid" title="View grid"><i class="fa fa-table"></i>&nbsp;grid</label>
-		<input type="radio" id="rbtiles" name="view" value="tiles" onchange="javascript:toggle(this);">
-			<label for="rbtiles" title="View tiles"><i class="fa fa-th"></i>&nbsp;tiles</label>
 		<ul>
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
 		</ul>
 	</nav>
-	<section id="main">
+	<section>
 		<ul id="parklist"></ul>
 		<div id="map"></div>
-	</section>
-	<section id="grid" class="hide">
-		<table>
-			<thead>
-				<tr>
-					<th>Park</th>
-					<th>Type</th>
-					<th>Acreage</th>
-					<th>Pool</th>
-					<th>Millage</th>
-				</tr>
-			</thead>
-			<tbody id="tbody"></tbody>
-		</table>
-	</section>
-	<section id="tiles" class="hide">
-		<div id="tilelist"></div>
 	</section>
 </body>
 </html>

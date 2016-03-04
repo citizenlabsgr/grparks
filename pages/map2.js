@@ -47,13 +47,13 @@ function getFeature(feature, layer) {
 		ids.push(feature.id);
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {riseOnHover: true}).addTo(map);
-		thisMarker.bindPopup("<h3>" + feature.properties.name + "</h3>", {
-			closeButton: false,
-			maxHeight: 300
-			});
+		thisMarker.bindPopup(
+			h3ParkName(feature.properties), 
+			{closeButton: false, maxHeight: 300}
+			);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
-		thisMarker.on("popupopen", function(e) {clickPark(e)});
-		thisMarker.on("popupclose", function(e) {clickPark(e)});
+		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
+		thisMarker.on("popupclose", function(e) {clickPark(e), false});
 		thisMarker.park = {
 			"name": feature.properties.name, 
 			"type": feature.properties.type + " " + feature.properties.leisure,
@@ -65,21 +65,21 @@ function getFeature(feature, layer) {
 		}
 	}
 
+function h3ParkName(info) {
+	return ("<h3>" + info.name + "</h3>");
+	}
+
 function liPark(index) {
 	return (parklist.getElementsByTagName("li")[index]);
 	}
 
-function clickPark(e) {
+function clickPark(e, open) {
 	var index = e.target.index;
 	var li = liPark(index);
-	if (li.classList.contains("highlight")) {
-		li.classList.remove("highlight");
-		// todo: make a function for this second line ("contains", etc.)
-//		var a = li.firstElementChild.getElementsByTagName("a");
-//		if (a.length !=0 && a[0].firstElementChild.classList.contains("hide")) {clickMoney(index);}
-		}
-	else {
-		li.classList.add("highlight");
+	li.classList.toggle("highlight");
+	if (!open) {
+		thisMarker = markers[index];
+		thisMarker.setPopupContent(h3ParkName(thisMarker.park));
 		}
 	}
 	
@@ -113,7 +113,7 @@ function showFeatures() {
 					else {
 						needInfo = true
 						p.innerHTML = 
-							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-info-circle'></i></a>";
+							"<a href='#' title='Details of improvements' onclick='clickMoney(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-info-circle fa-lg'></i></a>";
 						;}
 					break;
 				case "pool":
@@ -148,9 +148,7 @@ function showFeatures() {
 
 function clickMoney(index) {
 	thisMarker = markers[index];
-	thisMarker.setPopupContent(
-		"<h3>" + thisMarker.park.name + "</h3>" +
-		thisMarker.park.info);
+	thisMarker.setPopupContent(h3ParkName(thisMarker.park) + thisMarker.park.info);
 	pop(index);
 	}
 
