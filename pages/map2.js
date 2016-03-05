@@ -20,7 +20,7 @@ function mapCity(response) {
 	var city = JSON.parse(response);
 	var view = window.location.search.substring(1);
 	if (view == "") {view = "github.kedo1cp3";} else {view = "mapbox." + view;}
-	map = L.map("map").setView([42.9614844, -85.6556833], 12);
+	map = L.map("map", {center: [42.9614844, -85.6556833], zoom: 12});
 	L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
 		attribution: 
 			"<a target='_blank' href='" +
@@ -72,8 +72,8 @@ function makeMarker(feature, layer) {
 			{closeButton: false, maxHeight: 300}
 			);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
-		thisMarker.on("popupopen", function(e) {parkClicked(e, true)});
-		thisMarker.on("popupclose", function(e) {parkClicked(e), false});
+		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
+		thisMarker.on("popupclose", function(e) {clickPark(e), false});
 		thisMarker.park = {
 			"name": feature.properties.name, 
 			"type": feature.properties.type + " " + feature.properties.leisure,
@@ -93,7 +93,7 @@ function liPark(index) {
 	return (parklist.getElementsByTagName("li")[index]);
 	}
 
-function parkClicked(e, open) {
+function clickPark(e, open) {
 	var index = e.target.index;
 	liPark(index).classList.toggle("highlight");
 	if (!open) {
@@ -115,6 +115,7 @@ function makeParkList() {
 		var li = document.createElement("li");
 		var a = document.createElement("a");
 		a.href = "javascript:pop(" + i + ");";
+		a.title = thisMarker.park.name;
 		
 		var needInfo = false;
 		
