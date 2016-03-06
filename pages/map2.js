@@ -19,6 +19,7 @@ window.onload = function() {
 	var theParks = new customLayer(constants.PARKS_DATA_URL, constants.PARKS_STYLE);
 	theParks.addMarker = makeMarker;
 	theParks.getData(makeParkList);
+	
 	}
 
 baseMap = {
@@ -80,9 +81,15 @@ function makeMarker(feature, layer) {
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
 			};
-		thisMarker.header = "<h3>" + thisMarker.park.name + "</h3>";
-		thisMarker.info = "description of improvements would go here";
-		thisMarker.bindPopup(thisMarker.header, {closeButton: false, maxHeight: 300});
+		function header() {return "<h3>" + thisMarker.park.name + "</h3>";}
+		var oldSetPopup = thisMarker.setPopupContent;
+		thisMarker.setPopupContent = newSetPopup;
+		function newSetPopup(long) {
+			var msg = header();
+			if (long) {msg += "description of improvements would go here";}
+			oldSetPopup.call(thisMarker, msg);
+			}
+		thisMarker.bindPopup(header(), {closeButton: false, maxHeight: 300});
 		markers.push(thisMarker);
 		}
 	}
@@ -94,14 +101,12 @@ function liPark(index) {
 function clickPark(e, open) {
 	var index = e.target.index;
 	liPark(index).classList.toggle("highlight");
-	if (!open) {
-		var thisMarker = markers[index];
-		thisMarker.setPopupContent(thisMarker.header);
-		}
+	if (!open) {markers[index].setPopupContent(false);}
 	}
 	
 function makeParkList() {
 	
+	ids = undefined;
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	
 	for (i = 0; i < markers.length; i++) {
@@ -112,7 +117,7 @@ function makeParkList() {
 				
 		var a = document.createElement("a");
 		a.href = "javascript:pop(" + i + ");";
-		a.title = thisMarker.park.name;
+		a.title = thisPark.name;
 		
 		for (feature in thisPark) {
 			var p = document.createElement("p");
@@ -141,7 +146,7 @@ function makeParkList() {
 					p.textContent = thisPark[feature];
 				}
 			a.appendChild(p);
-			} 
+			}
 		
 		var li = document.createElement("li");
 		li.appendChild(a);		
@@ -152,8 +157,7 @@ function makeParkList() {
 	}
 
 function moneyClicked(index) {
-	var thisMarker = markers[index];
-	thisMarker.setPopupContent(thisMarker.header + thisMarker.info);
+	markers[index].setPopupContent(true);
 	pop(index);
 	}
 
