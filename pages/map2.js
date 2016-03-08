@@ -72,7 +72,7 @@ function makeMarker(feature, layer) {
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
 		ids.push(feature.id);
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
-		var thisMarker = L.marker(layer.getBounds().getCenter(), {icon: new newIcon({iconUrl: "images/marker-icons/" + feature.properties.type.split(" ")[0] + ".png"}), riseOnHover: true}).addTo(baseMap.map);
+		var thisMarker = L.marker(layer.getBounds().getCenter(), {icon: new newIcon({iconUrl: "images/marker-icons/" + feature.properties.type.split(" ")[0].toLowerCase() + ".png"}), riseOnHover: true}).addTo(baseMap.map);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
 		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
 		thisMarker.on("popupclose", function(e) {clickPark(e), false});
@@ -144,9 +144,6 @@ function makeParkList() {
 						p.textContent = thisPark[feature] + " pool";
 						}
 					break;
-				case "type":
-					p.textContent = thisPark[feature];
-					p.className = thisPark[feature].split(" ")[0];
 				default:
 					p.textContent = thisPark[feature];
 				}
@@ -154,6 +151,7 @@ function makeParkList() {
 			}
 		
 		var li = document.createElement("li");
+		li.className = thisPark.type.split(" ")[0].toLowerCase();
 		li.appendChild(a);		
 		parklist.appendChild(li);
 		

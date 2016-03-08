@@ -75,6 +75,18 @@ nav a {
 	padding-right: 0.125em;
 	border-right: 0.375em solid black;
 }
+#parklist li.highlight.community, #parklist li.community:hover {
+	border-right-color: #7f4d4c;
+}
+#parklist li.highlight.mini, #parklist li.mini:hover {
+	border-right-color: #667f4d;
+}
+#parklist li.highlight.neighborhood, #parklist li.neighborhood:hover {
+	border-right-color: #4d597f;
+}
+#parklist li.highlight.urban, #parklist li.urban:hover {
+	border-right-color: #7f734c;
+}
 #parklist li > a {
 	display: block;
 }
@@ -123,16 +135,4 @@ header {
 	background: linear-gradient(to bottom right, #048004, #044004);
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
-}
-p.Community {
-	color: #7f4d4c;
-}
-p.Mini {
-	color: #667f4d;
-}
-p.Neighborhood {
-	color: #4d597f;
-}
-p.Urban {
-	color: #7f734c;
 }
