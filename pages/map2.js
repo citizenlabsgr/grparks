@@ -13,8 +13,7 @@ window.onload = function() {
 	
 	baseMap.init("map", constants.CITY_CENTER);
 	
-	var theCity = new customLayer(constants.CITY_BOUNDARY_DATA_URL, constants.CITY_BOUNDARY_STYLE);
-	theCity.getData();
+	var theCity = new customLayer(constants.CITY_BOUNDARY_DATA_URL, constants.CITY_BOUNDARY_STYLE).getData();
 	
 	var theParks = new customLayer(constants.PARKS_DATA_URL, constants.PARKS_STYLE);
 	theParks.addMarker = makeMarker;
@@ -44,8 +43,10 @@ baseMap = {
 	}
 
 function customLayer(url, style) {
+	
 	this.style = style;
 	this.url = url;
+	
 	this.getData = function(callback) {
 		this.callback = callback;
 		var xobj = new XMLHttpRequest();
@@ -57,22 +58,40 @@ function customLayer(url, style) {
 			};
 	    xobj.send(null);  	
 		}
+	
 	this.draw = function(response) {
 		var data = JSON.parse(response);
 		L.geoJson(data, {onEachFeature: this.addMarker, style: this.style}).addTo(baseMap.map);
 		if (!(this.callback === undefined)) {this.callback();}
 		}
+	
 	function addMarker() {}
 	function callback() {}
+	
+	return this;
+	
 	}
 
-var newIcon = L.Icon.Default.extend({options: {}});
+function shortType(park) {
+	return park.type.split(" ")[0].toLowerCase();
+	}
 
 function makeMarker(feature, layer) {
+	
+	var newIcon = L.Icon.Default.extend({options: {}});
+	
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
+	
 		ids.push(feature.id);
+		
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
-		var thisMarker = L.marker(layer.getBounds().getCenter(), {icon: new newIcon({iconUrl: "images/marker-icons/" + feature.properties.type.split(" ")[0].toLowerCase() + ".png"}), riseOnHover: true}).addTo(baseMap.map);
+		
+		var thisMarker = L.marker(layer.getBounds().getCenter(), {
+			icon: new newIcon({
+				iconUrl: "images/marker-icons/" + shortType(feature.properties) + ".png"}
+				), 
+			riseOnHover: true
+			}).addTo(baseMap.map);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
 		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
 		thisMarker.on("popupclose", function(e) {clickPark(e), false});
@@ -92,8 +111,11 @@ function makeMarker(feature, layer) {
 			oldSetPopup.call(thisMarker, msg);
 			}
 		thisMarker.bindPopup(header(), {closeButton: false, maxHeight: 300});
+		
 		markers.push(thisMarker);
+		
 		}
+	
 	}
 
 function liPark(index) {
@@ -109,6 +131,7 @@ function clickPark(e, open) {
 function makeParkList() {
 	
 	ids = undefined;
+	
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	
 	for (i = 0; i < markers.length; i++) {
@@ -151,7 +174,7 @@ function makeParkList() {
 			}
 		
 		var li = document.createElement("li");
-		li.className = thisPark.type.split(" ")[0].toLowerCase();
+		li.className = shortType(thisPark);
 		li.appendChild(a);		
 		parklist.appendChild(li);
 		
