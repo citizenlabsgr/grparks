@@ -124,3 +124,15 @@ header {
 	background: -webkit-linear-gradient(left top, #048004, #044004);
 	background: -moz-linear-gradient(bottom right, #048004, #044004);
 }
+p.Community {
+	color: #7f4d4c;
+}
+p.Mini {
+	color: #667f4d;
+}
+p.Neighborhood {
+	color: #4d597f;
+}
+p.Urban {
+	color: #7f734c;
+}
