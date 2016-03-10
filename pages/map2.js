@@ -54,17 +54,17 @@ function customLayer(url, style) {
 		xobj.open('GET', this.url, true);
 		var x = this;
 		xobj.onreadystatechange = function () {
-			if (xobj.readyState == 4 && xobj.status == "200") {x.draw(xobj.responseText);}
+			if (xobj.readyState == 4 && xobj.status == "200") {
+				L.geoJson(JSON.parse(xobj.responseText), {
+					onEachFeature: x.addMarker, 
+					style: x.style
+					}).addTo(baseMap.map);
+				if (!(x.callback === undefined)) {x.callback();}
+				}
 			};
 	    xobj.send(null);  	
 		}
-	
-	this.draw = function(response) {
-		var data = JSON.parse(response);
-		L.geoJson(data, {onEachFeature: this.addMarker, style: this.style}).addTo(baseMap.map);
-		if (!(this.callback === undefined)) {this.callback();}
-		}
-	
+		
 	function addMarker() {}
 	function callback() {}
 	
