@@ -65,6 +65,7 @@ nav a {
 	height: 5.5em;
 	padding: 0.25em 0.625em 0.25em 0.375em;
 	position: relative;
+	opacity: 0.67;
 }
 @media only screen and (max-width: 767px) {
 	#parklist li {
@@ -75,6 +76,7 @@ nav a {
 #parklist li.highlight, #parklist li:hover {
 	padding-right: 0.125em;
 	border-right: 0.5em solid black;
+	opacity: 1;
 }
 #parklist li.highlight.community, #parklist li.community:hover {
 	border-right-color: #7f4d4c;
