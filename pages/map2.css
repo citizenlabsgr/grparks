@@ -65,7 +65,7 @@ nav a {
 	height: 5.5em;
 	padding: 0.25em 0.625em 0.25em 0.375em;
 	position: relative;
-	opacity: 0.67;
+	opacity: 0.75;
 }
 @media only screen and (max-width: 767px) {
 	#parklist li {
