@@ -62,41 +62,28 @@ nav a {
 #parklist li {
 	margin-bottom: 1px;
 	width: 12em;
-	height: 5.5em;
-	padding: 0.25em 0.625em 0.25em 0.375em;
+	height: 4.25em;
+	padding: 0.25em 0.375em 0.25em 0.375em;
 	position: relative;
 	opacity: 0.75;
 }
 @media only screen and (max-width: 767px) {
 	#parklist li {
-		height: 6.5em;
+		height: 5.25em;
 		width: 8em;
 	}
 }
 #parklist li.highlight, #parklist li:hover {
-	padding-right: 0.125em;
-	border-right: 0.5em solid black;
 	opacity: 1;
-}
-#parklist li.highlight.community, #parklist li.community:hover {
-	border-right-color: #7f4d4c;
-}
-#parklist li.highlight.mini, #parklist li.mini:hover {
-	border-right-color: #667f4d;
-}
-#parklist li.highlight.neighborhood, #parklist li.neighborhood:hover {
-	border-right-color: #4d597f;
-}
-#parklist li.highlight.urban, #parklist li.urban:hover {
-	border-right-color: #7f734c;
 }
 #parklist li > a {
 	display: block;
 }
 #parklist p {
+	margin-left: 20px;
 	text-shadow: 1px 1px white;	
 }
-#parklist li p:nth-child(1) {
+#parklist li p:nth-child(2) {
 	font-size: 0.875em !important;
 	font-weight: 600;
 }
@@ -106,10 +93,7 @@ nav a {
 	text-align: right;
 	position: absolute;
 	bottom: calc(0.25em / 0.875);
-	right: calc(0.625em / 0.875);
-}
-#parklist li.highlight p:nth-child(5), #parklist li:hover p:nth-child(5) {
-	right: calc(0.125em / 0.875);
+	right: calc(0.375em / 0.875);
 }
 /*------------------------------------------------------------------------------*/
 /* "shared" properties of mixed items */
@@ -163,7 +147,7 @@ header {
     line-height: 18px;
     color: #555;
 }
-.legend img {
+.legend img, #parklist img {
     width: 12px;
     height: 17px;
     float: left;

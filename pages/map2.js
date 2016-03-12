@@ -4,7 +4,8 @@ var constants = {
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
-	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"]
+	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
+	MARKER_ICON_PATH: "images/marker-icons/"
 	};
 
 var ids = [], markers = [];
@@ -48,15 +49,15 @@ baseMap = {
 		legend.onAdd = function (map) {
 		
 		    var div = L.DomUtil.create("div", "info legend");
-			div.innerHTML= "<h3>Parks</h3>";
+			div.innerHTML= "<h3>Park Types</h3>";
 		
 		    for (i = 0; i < constants.PARK_TYPES.length; i++) {
-		        div.innerHTML +=
-		            "<img src='images/marker-icons/" + constants.PARK_TYPES[i].toLowerCase() + ".png'></img>" +
-		            constants.PARK_TYPES[i] + "<br>";
+		    	div.appendChild(imgFromMarkerType(constants.PARK_TYPES[i]));
+		        div.innerHTML += constants.PARK_TYPES[i] + "<br>";
 		    	}
 	 
 		    return div;
+			
 			};
 			
 		legend.addTo(this.map);
@@ -94,8 +95,18 @@ function customLayer(url, style) {
 	
 	}
 
-function shortType(park) {
-	return park.type.split(" ")[0].toLowerCase();
+function firstWord(words) {
+	return words.split(" ")[0].toLowerCase();
+	}
+
+function srcFromMarkerType(type) {
+	return constants.MARKER_ICON_PATH + firstWord(type) + ".png";
+	}
+
+function imgFromMarkerType(type) {
+	var img = document.createElement("img");
+	img.src = srcFromMarkerType(type);
+	return img;
 	}
 
 function makeMarker(feature, layer) {
@@ -109,9 +120,7 @@ function makeMarker(feature, layer) {
 		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {
-			icon: new newIcon({
-				iconUrl: "images/marker-icons/" + shortType(feature.properties) + ".png"}
-				), 
+			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
 			riseOnHover: true
 			}).addTo(baseMap.map);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
@@ -119,7 +128,6 @@ function makeMarker(feature, layer) {
 		thisMarker.on("popupclose", function(e) {clickPark(e), false});
 		thisMarker.park = {
 			"name": feature.properties.name, 
-			"type": feature.properties.type + " " + feature.properties.leisure,
 			"acreage": feature.properties.acreage,
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
@@ -132,6 +140,7 @@ function makeMarker(feature, layer) {
 			if (long) {msg += "description of improvements would go here";}
 			oldSetPopup.call(thisMarker, msg);
 			}
+		thisMarker.type = feature.properties.type;
 		thisMarker.bindPopup(header(), {closeButton: false, maxHeight: 300});
 		
 		markers.push(thisMarker);
@@ -166,7 +175,8 @@ function makeParkList() {
 		thisMarker.index = i;				
 		a.href = "javascript:pop(" + i + ");";
 		a.title = thisPark.name;
-		li.className = shortType(thisPark);
+		a.appendChild(imgFromMarkerType(thisMarker.type));
+		li.className = firstWord(thisMarker.type);
 		
 		for (feature in thisPark) {
 			var p = document.createElement("p");
@@ -180,7 +190,7 @@ function makeParkList() {
 						} 
 					else {
 						p.innerHTML = 
-							"<a href='#' title='Details of improvements' onclick='moneyClicked(" + i +  ");'>" + thisPark[feature] + "&nbsp;<i class='fa fa-info-circle fa-lg'></i></a>";
+							"<a href='#' title='Details of improvements' onclick='moneyClicked(" + i +  ");'>" + thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i></a>";
 						;}
 					break;
 				case "pool":
