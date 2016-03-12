@@ -132,7 +132,12 @@ function makeMarker(feature, layer) {
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
 			};
-		function header() {return "<h3>" + thisMarker.park.name + "</h3>";}
+		function header() {
+			return (
+				"<h3>" + thisMarker.park.name + "</h3>" +
+				"<p>" + thisMarker.type + "</p>"
+				);
+			}
 		var oldSetPopup = thisMarker.setPopupContent;
 		thisMarker.setPopupContent = newSetPopup;
 		function newSetPopup(long) {
@@ -140,7 +145,7 @@ function makeMarker(feature, layer) {
 			if (long) {msg += "description of improvements would go here";}
 			oldSetPopup.call(thisMarker, msg);
 			}
-		thisMarker.type = feature.properties.type;
+		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
 		thisMarker.bindPopup(header(), {closeButton: false, maxHeight: 300});
 		
 		markers.push(thisMarker);
