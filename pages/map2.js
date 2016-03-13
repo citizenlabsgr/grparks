@@ -8,21 +8,53 @@ var constants = {
 	MARKER_ICON_PATH: "images/marker-icons/"
 	};
 
-var ids = [], markers = [];
+var ids = [], markers = [], markerLayers = {};
 
-window.onload = function() {
-	
-	baseMap.init("map", constants.CITY_CENTER);
-	
-	var theCity = new customLayer(constants.CITY_BOUNDARY_DATA_URL, constants.CITY_BOUNDARY_STYLE).getData();
-	
-	var theParks = new customLayer(constants.PARKS_DATA_URL, constants.PARKS_STYLE);
-	theParks.addMarker = makeMarker;
-	theParks.getData(makeParkList);
-	
+var cityLayer = new L.layerGroup(), 
+	parkLayer = new L.layerGroup();
+
+for (i = 0; i < constants.PARK_TYPES.length; i++) {
+	var layer = new L.layerGroup();
+	markerLayers[markerLabel(constants.PARK_TYPES[i])] = layer;
 	}
 
+var theCity = new customLayer(
+	cityLayer, 
+	constants.CITY_BOUNDARY_DATA_URL, 
+	constants.CITY_BOUNDARY_STYLE
+	);
+theCity.getData();
+
+var theParks = new customLayer(
+	parkLayer, 
+	constants.PARKS_DATA_URL, 
+	constants.PARKS_STYLE
+	);
+theParks.addMarker = addMarker;
+theParks.getData();
+
+
+function isEverythingReady() {
+	if (baseMap.ready && theCity.ready && theParks.ready) {
+		ids = undefined;
+		makeParkList();
+		cityLayer.addTo(baseMap.map);
+		parkLayer.addTo(baseMap.map);
+		for (key in markerLayers) {markerLayers[key].addTo(baseMap.map);}
+		L.control.layers(null, markerLayers, {position: "topright"}).addTo(baseMap.map);
+		}
+	}
+
+
+window.onload = function() {
+	baseMap.init("map", constants.CITY_CENTER);
+	isEverythingReady();
+	}
+
+
 baseMap = {
+	
+	ready: false,
 	init: function(div, center) {
 		
 		var view = window.location.search.substring(1);
@@ -44,34 +76,40 @@ baseMap = {
 			accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 			}).addTo(this.map);
 			
-		var legend = L.control({position: "topright"});
-			
-		legend.onAdd = function (map) {
+//		var legend = L.control({position: "bottomright"});
+//			
+//		legend.onAdd = function (map) {
+//		
+//		    var div = L.DomUtil.create("div", "info legend");
+//			div.innerHTML= "<h3>Park Types</h3>";
+//		
+//		    for (i = 0; i < constants.PARK_TYPES.length; i++) {
+//		    	div.appendChild(imgFromMarkerType(constants.PARK_TYPES[i]));
+//		        div.innerHTML += constants.PARK_TYPES[i] + "<br>";
+//		    	}
+//	 
+//		    return div;
+//			
+//			};
+//			
+//		legend.addTo(this.map);
 		
-		    var div = L.DomUtil.create("div", "info legend");
-			div.innerHTML= "<h3>Park Types</h3>";
-		
-		    for (i = 0; i < constants.PARK_TYPES.length; i++) {
-		    	div.appendChild(imgFromMarkerType(constants.PARK_TYPES[i]));
-		        div.innerHTML += constants.PARK_TYPES[i] + "<br>";
-		    	}
-	 
-		    return div;
-			
-			};
-			
-		legend.addTo(this.map);
+		this.ready = true;
 		
 		}
 	}
 
-function customLayer(url, style) {
+
+function customLayer(layer, url, style) {
 	
+	this.layer = layer;
+	this.ready = false;
 	this.style = style;
 	this.url = url;
 	
-	this.getData = function(callback) {
-		this.callback = callback;
+	function addMarker() {}
+
+	this.getData = function() {
 		var xobj = new XMLHttpRequest();
 		if (xobj.overrideMimeType) {xobj.overrideMimeType("application/json");}
 		xobj.open('GET', this.url, true);
@@ -81,35 +119,20 @@ function customLayer(url, style) {
 				L.geoJson(JSON.parse(xobj.responseText), {
 					onEachFeature: x.addMarker, 
 					style: x.style
-					}).addTo(baseMap.map);
-				if (!(x.callback === undefined)) {x.callback();}
+					}).addTo(x.layer);
+				x.ready = true;
+				isEverythingReady();
 				}
 			};
 	    xobj.send(null);  	
 		}
 		
-	function addMarker() {}
-	function callback() {}
-	
 	return this;
 	
 	}
 
-function firstWord(words) {
-	return words.split(" ")[0].toLowerCase();
-	}
 
-function srcFromMarkerType(type) {
-	return constants.MARKER_ICON_PATH + firstWord(type) + ".png";
-	}
-
-function imgFromMarkerType(type) {
-	var img = document.createElement("img");
-	img.src = srcFromMarkerType(type);
-	return img;
-	}
-
-function makeMarker(feature, layer) {
+function addMarker(feature, layer) {
 	
 	var newIcon = L.Icon.Default.extend({options: {}});
 	
@@ -122,7 +145,7 @@ function makeMarker(feature, layer) {
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
 			riseOnHover: true
-			}).addTo(baseMap.map);
+			}).addTo(markerLayers[markerLabel(feature.properties.type.split(" ")[0])]);
 		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
 		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
 		thisMarker.on("popupclose", function(e) {clickPark(e), false});
@@ -154,19 +177,8 @@ function makeMarker(feature, layer) {
 	
 	}
 
-function liPark(index) {
-	return (parklist.getElementsByTagName("li")[index]);
-	}
 
-function clickPark(e, open) {
-	var index = e.target.index;
-	liPark(index).classList.toggle("highlight");
-	if (!open) {markers[index].setPopupContent(false);}
-	}
-	
 function makeParkList() {
-	
-	ids = undefined;
 	
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 	
@@ -181,7 +193,6 @@ function makeParkList() {
 		a.href = "javascript:pop(" + i + ");";
 		a.title = thisPark.name;
 		a.appendChild(imgFromMarkerType(thisMarker.type));
-		li.className = firstWord(thisMarker.type);
 		
 		for (feature in thisPark) {
 			var p = document.createElement("p");
@@ -219,6 +230,27 @@ function makeParkList() {
 
 	}
 
+
+function clickPark(e, open) {
+	var index = e.target.index;
+	liPark(index).classList.toggle("highlight");
+	if (!open) {markers[index].setPopupContent(false);}
+	}
+	
+function imgFromMarkerType(type) {
+	var img = document.createElement("img");
+	img.src = srcFromMarkerType(type);
+	return img;
+	}
+
+function liPark(index) {
+	return (parklist.getElementsByTagName("li")[index]);
+	}
+
+function markerLabel(type) {
+	return "<img src='" + srcFromMarkerType(type) + "' class='small'>" + type + " Parks";
+	}
+
 function moneyClicked(index) {
 	markers[index].setPopupContent(true);
 	pop(index);
@@ -231,4 +263,8 @@ function pop(index) {
 	if (zoom < 15) {zoom = 15;}
 	baseMap.map.setView(where, zoom, {animation: true});
 	thisMarker.openPopup();
+	}
+
+function srcFromMarkerType(type) {
+	return constants.MARKER_ICON_PATH + type.split(" ")[0].toLowerCase() + ".png";
 	}

@@ -154,6 +154,11 @@ header {
     margin-right: 8px;
     /*opacity: 0.7;*/
 }
+img.small {
+	width:  10px;
+	height: 14px;
+	margin: 0 4px;
+}
 .leaflet-popup-content p {
 	margin: 4px 0;
 }
