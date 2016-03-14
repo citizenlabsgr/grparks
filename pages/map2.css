@@ -79,6 +79,12 @@ nav a {
 #parklist li > a {
 	display: block;
 }
+#parklist img {
+    width: 12px;
+    height: 20px;
+    float: left;
+    margin-right: 8px;
+}
 #parklist p {
 	margin-left: 20px;
 	text-shadow: 1px 1px white;	
@@ -131,28 +137,6 @@ header {
 }
 /*------------------------------------------------------------------------------*/
 /* map */
-/*.info {
-    padding: 6px 8px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.75);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
-}
-.info h3 {
-    margin: 0 0 5px;
-    color: #777;
-}
-.legend {
-    line-height: 18px;
-    color: #555;
-}*/
-/*.legend img, */#parklist img {
-    width: 12px;
-    height: 20px;
-    float: left;
-    margin-right: 8px;
-}
 img.small {
 	width:  10px;
 	height: 16px;

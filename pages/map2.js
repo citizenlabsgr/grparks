@@ -40,7 +40,7 @@ function isEverythingReady() {
 		cityLayer.addTo(baseMap.map);
 		parkLayer.addTo(baseMap.map);
 		for (key in markerLayers) {markerLayers[key].addTo(baseMap.map);}
-		L.control.layers(null, markerLayers, {position: "topright"}).addTo(baseMap.map);
+		L.control.layers(null, markerLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		baseMap.map.on("overlayadd", function(e) {
 			markerLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "block";});
 			})
@@ -80,25 +80,7 @@ baseMap = {
 			id: view,
 			accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 			}).addTo(this.map);
-			
-//		var legend = L.control({position: "bottomright"});
-//			
-//		legend.onAdd = function (map) {
-//		
-//		    var div = L.DomUtil.create("div", "info legend");
-//			div.innerHTML= "<h3>Park Types</h3>";
-//		
-//		    for (i = 0; i < constants.PARK_TYPES.length; i++) {
-//		    	div.appendChild(imgFromMarkerType(constants.PARK_TYPES[i]));
-//		        div.innerHTML += constants.PARK_TYPES[i] + "<br>";
-//		    	}
-//	 
-//		    return div;
-//			
-//			};
-//			
-//		legend.addTo(this.map);
-		
+					
 		this.ready = true;
 		
 		}
