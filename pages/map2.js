@@ -42,14 +42,10 @@ function isEverythingReady() {
 		for (key in markerLayers) {markerLayers[key].addTo(baseMap.map);}
 		L.control.layers(null, markerLayers, {position: "topright"}).addTo(baseMap.map);
 		baseMap.map.on("overlayadd", function(e) {
-			markerLayers[e.name].eachLayer(function(layer) {
-				parklist.getElementsByTagName("li")[layer.index].style.display = "block";
-				});
+			markerLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "block";});
 			})
 		baseMap.map.on("overlayremove", function(e) {
-			markerLayers[e.name].eachLayer(function(layer) {
-				parklist.getElementsByTagName("li")[layer.index].style.display = "none";
-				});
+			markerLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "none";});
 			})
 		}
 	}
