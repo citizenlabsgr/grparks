@@ -131,7 +131,7 @@ header {
 }
 /*------------------------------------------------------------------------------*/
 /* map */
-.info {
+/*.info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
@@ -146,17 +146,16 @@ header {
 .legend {
     line-height: 18px;
     color: #555;
-}
-.legend img, #parklist img {
+}*/
+/*.legend img, */#parklist img {
     width: 12px;
-    height: 17px;
+    height: 20px;
     float: left;
     margin-right: 8px;
-    /*opacity: 0.7;*/
 }
 img.small {
 	width:  10px;
-	height: 14px;
+	height: 16px;
 	margin: 0 4px;
 }
 .leaflet-popup-content p {
