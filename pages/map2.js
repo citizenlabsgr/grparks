@@ -14,8 +14,7 @@ var cityLayer = new L.layerGroup(),
 	parkLayer = new L.layerGroup();
 
 for (i = 0; i < constants.PARK_TYPES.length; i++) {
-	var layer = new L.layerGroup();
-	markerLayers[markerLabel(constants.PARK_TYPES[i])] = layer;
+	markerLayers[markerLabel(constants.PARK_TYPES[i])] = new L.layerGroup();
 	}
 
 var theCity = new customLayer(
@@ -42,6 +41,16 @@ function isEverythingReady() {
 		parkLayer.addTo(baseMap.map);
 		for (key in markerLayers) {markerLayers[key].addTo(baseMap.map);}
 		L.control.layers(null, markerLayers, {position: "topright"}).addTo(baseMap.map);
+		baseMap.map.on("overlayadd", function(e) {
+			markerLayers[e.name].eachLayer(function(layer) {
+				parklist.getElementsByTagName("li")[layer.index].style.display = "block";
+				});
+			})
+		baseMap.map.on("overlayremove", function(e) {
+			markerLayers[e.name].eachLayer(function(layer) {
+				parklist.getElementsByTagName("li")[layer.index].style.display = "none";
+				});
+			})
 		}
 	}
 
