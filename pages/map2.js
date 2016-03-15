@@ -5,10 +5,11 @@ var constants = {
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
-	MARKER_ICON_PATH: "images/marker-icons/"
+	MARKER_ICON_PATH: "images/marker-icons/",
+	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Light": "mapbox.light", "Emerald": "mapbox.emerald"} // do not delete the first one ("Default")
 	};
 
-var ids = [], markers = [], markerLayers = {};
+var ids = [], markers = [], baseLayers = {}, markerLayers = {};
 
 var cityLayer = new L.layerGroup(), 
 	parkLayer = new L.layerGroup();
@@ -40,7 +41,7 @@ function isEverythingReady() {
 		cityLayer.addTo(baseMap.map);
 		parkLayer.addTo(baseMap.map);
 		for (key in markerLayers) {markerLayers[key].addTo(baseMap.map);}
-		L.control.layers(null, markerLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
+		L.control.layers(baseLayers, markerLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		baseMap.map.on("overlayadd", function(e) {
 			markerLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "block";});
 			})
@@ -62,25 +63,21 @@ baseMap = {
 	ready: false,
 	init: function(div, center) {
 		
-		var view = window.location.search.substring(1);
-		if (view == "") {view = "github.kedo1cp3";} else {view = "mapbox." + view;}
+		var a = 
+			"<a target='_blank' href='" +
+				"https://www.mapbox.com/about/maps/'>&copy; Mapbox</a> " +
+			"<a target='_blank' href='" +
+				"http://www.openstreetmap.org/copyright'>&copy; OpenStreetMap</a> " +
+			"<a target='_blank' href='" +
+				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
+			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
+	
+		for (key in constants.BASE_LAYERS) {
+			var layer = L.tileLayer(u, {id: constants.BASE_LAYERS[key], attribution: a, minZoom: 11, maxZoom: 17});
+			baseLayers[key] = layer;
+			}
 		
-		this.map = L.map(div, {center: center, zoom: 12});
-		
-		L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-			attribution: 
-				"<a target='_blank' href='" +
-					"https://www.mapbox.com/about/maps/'>&copy; Mapbox</a> " +
-				"<a target='_blank' href='" +
-					"http://www.openstreetmap.org/copyright'>&copy; OpenStreetMap</a> " +
-				"<a target='_blank' href='" +
-					"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
-			minZoom: 11,
-			maxZoom: 17,
-			id: view,
-			accessToken: "pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
-			}).addTo(this.map);
-					
+		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
 		this.ready = true;
 		
 		}
