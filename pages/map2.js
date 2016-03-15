@@ -219,12 +219,14 @@ function clickPark(e, open) {
 	var index = e.target.index;
 	liPark(index).classList.toggle("highlight");
 	if (open) {
-		if (markerClicked) {liPark(index).scrollIntoView();}	
+		if (markerClicked) {
+			liPark(index).scrollIntoView();
+			markerClicked = false
+			}	
 		}
 	else {
 		markers[index].setPopupContent(false);
 		}
-	markerClicked = false
 	}
 	
 function imgFromMarkerType(type) {
