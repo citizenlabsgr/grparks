@@ -9,7 +9,7 @@ var constants = {
 	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Light": "mapbox.light", "Emerald": "mapbox.emerald"} // do not delete the first one ("Default")
 	};
 
-var ids = [], markers = [], baseLayers = {}, markerLayers = {};
+var ids = [], markers = [], baseLayers = {}, markerLayers = {}, markerClicked = false;
 
 var cityLayer = new L.layerGroup(), 
 	parkLayer = new L.layerGroup();
@@ -130,7 +130,7 @@ function addMarker(feature, layer) {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
 			riseOnHover: true
 			}).addTo(markerLayers[markerLabel(feature.properties.type.split(" ")[0])]);
-		thisMarker.on("click", function(e) {liPark(e.target.index).scrollIntoView()});
+		thisMarker.on("click", function(e) {markerClicked = true});
 		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
 		thisMarker.on("popupclose", function(e) {clickPark(e), false});
 		thisMarker.park = {
@@ -218,7 +218,13 @@ function makeParkList() {
 function clickPark(e, open) {
 	var index = e.target.index;
 	liPark(index).classList.toggle("highlight");
-	if (!open) {markers[index].setPopupContent(false);}
+	if (open) {
+		if (markerClicked) {liPark(index).scrollIntoView();}	
+		}
+	else {
+		markers[index].setPopupContent(false);
+		}
+	markerClicked = false
 	}
 	
 function imgFromMarkerType(type) {
