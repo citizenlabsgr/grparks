@@ -1,6 +1,6 @@
 var constants = {
 	CITY_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson",
-	CITY_BOUNDARY_STYLE: {color: "yellow", stroke: false, clickable: false},
+	CITY_BOUNDARY_STYLE: {color: "yellow", fillOpacity: 0.15, stroke: false, clickable: false},
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
