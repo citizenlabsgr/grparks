@@ -1,12 +1,13 @@
 var constants = {
 	CITY_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson",
-	CITY_BOUNDARY_STYLE: {color: "yellow", weight: 1, opacity: 1, clickable: false},
+	CITY_BOUNDARY_STYLE: {color: "yellow", stroke: false, clickable: false},
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
 	MARKER_ICON_PATH: "images/marker-icons/",
-	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Light": "mapbox.light", "Emerald": "mapbox.emerald"} // do not delete the first one ("Default")
+	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Light": "mapbox.light", "Emerald": "mapbox.emerald"}, // do not delete the first one ("Default")
+	CHOROPLETH_COLORS: ['#feedde','#fdd0a2','#fdae6b','#fd8d3c','#e6550d','#a63603']
 	};
 
 var ids = [], markers = [], baseLayers = {}, markerLayers = {}, markerClicked = false;
@@ -146,12 +147,12 @@ function addMarker(feature, layer) {
 				);
 			}
 		var oldSetPopup = thisMarker.setPopupContent;
-		thisMarker.setPopupContent = newSetPopup;
 		function newSetPopup(long) {
 			var msg = header();
 			if (long) {msg += "description of improvements would go here";}
 			oldSetPopup.call(thisMarker, msg);
 			}
+		thisMarker.setPopupContent = newSetPopup;
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
 		thisMarker.bindPopup(header(), {closeButton: false, maxHeight: 300});
 		
