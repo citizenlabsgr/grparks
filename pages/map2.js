@@ -3,7 +3,7 @@ var constants = {
 	CITY_BOUNDARY_STYLE: {color: "yellow", fillOpacity: 0.15, stroke: false, clickable: false},
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
 	NEIGHBORHOOD_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson",
-	NEIGHVORHOOD_BOUNDARY_STYLE: {},
+	NEIGHBORHOOD_BOUNDARY_STYLE: {weight: 1, fill: false, clickable: false},
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
@@ -12,14 +12,14 @@ var constants = {
 	CHOROPLETH_COLORS: ['#feedde','#fdd0a2','#fdae6b','#fd8d3c','#e6550d','#a63603']
 	};
 
-var ids = [], markers = [], baseLayers = {}, markerLayers = {}, markerClicked = false;
+var ids = [], markers = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
 
 var cityLayer = new L.layerGroup(),
 	neighborhoodLayer = new L.layerGroup(),
 	parkLayer = new L.layerGroup();
 
 for (i = 0; i < constants.PARK_TYPES.length; i++) {
-	markerLayers[markerLabel(constants.PARK_TYPES[i])] = new L.layerGroup();
+	overlayLayers[markerLabel(constants.PARK_TYPES[i])] = new L.layerGroup();
 	}
 
 var theCity = new customLayer(
@@ -51,14 +51,9 @@ function isEverythingReady() {
 		makeParkList();
 		cityLayer.addTo(baseMap.map);
 		parkLayer.addTo(baseMap.map);
-		for (key in markerLayers) {markerLayers[key].addTo(baseMap.map);}
-		L.control.layers(baseLayers, markerLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
-		baseMap.map.on("overlayadd", function(e) {
-			markerLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "block";});
-			})
-		baseMap.map.on("overlayremove", function(e) {
-			markerLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "none";});
-			})
+		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
+		overlayLayers["Neighborhoods"] = neighborhoodLayer;
+		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		}
 	}
 
@@ -89,6 +84,13 @@ baseMap = {
 			}
 		
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
+		this.map.on("overlayadd", function(e) {
+			if (e.name != "Neighborhoods") {overlayLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "block";});}
+			})
+		this.map.on("overlayremove", function(e) {
+			if (e.name != "Neighborhoods") {overlayLayers[e.name].eachLayer(function(layer) {liPark(layer.index).style.display = "none";});}
+			})
+
 		this.ready = true;
 		
 		}
@@ -134,13 +136,11 @@ function addMarker(feature, layer) {
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
 	
 		ids.push(feature.id);
-		
-//		if (!feature.properties.millage) {feature.properties.millage = "none";};
-		
+				
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
 			riseOnHover: true
-			}).addTo(markerLayers[markerLabel(feature.properties.type.split(" ")[0])]);
+			}).addTo(overlayLayers[markerLabel(feature.properties.type.split(" ")[0])]);
 		thisMarker.on("click", function(e) {markerClicked = true});
 		thisMarker.on("popupopen", function(e) {clickPark(e, true)});
 		thisMarker.on("popupclose", function(e) {clickPark(e), false});
@@ -151,7 +151,7 @@ function addMarker(feature, layer) {
 			"millage": feature.properties.millage		
 			};
 		thisMarker.dollars = Number(feature.properties.millage.replace(".00", "").replace("$", "").replace(",", ""));
-//		console.log(thisMarker.dollars);
+
 		function header() {
 			return (
 				"<h3>" + thisMarker.park.name + "</h3>" +
