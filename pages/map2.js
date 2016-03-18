@@ -2,17 +2,20 @@ var constants = {
 	CITY_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson",
 	CITY_BOUNDARY_STYLE: {color: "yellow", fillOpacity: 0.15, stroke: false, clickable: false},
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
+	NEIGHBORHOOD_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson",
+	NEIGHVORHOOD_BOUNDARY_STYLE: {},
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
 	MARKER_ICON_PATH: "images/marker-icons/",
-	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Light": "mapbox.light", "Emerald": "mapbox.emerald"}, // do not delete the first one ("Default")
+	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Grayscale": "mapbox.light", "Emerald": "mapbox.emerald"}, // do not delete the first one ("Default")
 	CHOROPLETH_COLORS: ['#feedde','#fdd0a2','#fdae6b','#fd8d3c','#e6550d','#a63603']
 	};
 
 var ids = [], markers = [], baseLayers = {}, markerLayers = {}, markerClicked = false;
 
-var cityLayer = new L.layerGroup(), 
+var cityLayer = new L.layerGroup(),
+	neighborhoodLayer = new L.layerGroup(),
 	parkLayer = new L.layerGroup();
 
 for (i = 0; i < constants.PARK_TYPES.length; i++) {
@@ -26,17 +29,24 @@ var theCity = new customLayer(
 	);
 theCity.getData();
 
+var theNeighborhoods = new customLayer(
+	neighborhoodLayer,
+	constants.NEIGHBORHOOD_BOUNDARY_DATA_URL,
+	constants.NEIGHBORHOOD_BOUNDARY_STYLE
+	);
+theNeighborhoods.getData();
+
 var theParks = new customLayer(
 	parkLayer, 
 	constants.PARKS_DATA_URL, 
 	constants.PARKS_STYLE
 	);
-theParks.addMarker = addMarker;
+theParks.onEachFeature = addMarker;
 theParks.getData();
 
 
 function isEverythingReady() {
-	if (baseMap.ready && theCity.ready && theParks.ready) {
+	if (baseMap.ready && theCity.ready && theParks.ready && theNeighborhoods.ready) {
 		ids = undefined;
 		makeParkList();
 		cityLayer.addTo(baseMap.map);
@@ -92,7 +102,7 @@ function customLayer(layer, url, style) {
 	this.style = style;
 	this.url = url;
 	
-	function addMarker() {}
+	function onEachFeature() {}
 
 	this.getData = function() {
 		var xobj = new XMLHttpRequest();
@@ -102,7 +112,7 @@ function customLayer(layer, url, style) {
 		xobj.onreadystatechange = function () {
 			if (xobj.readyState == 4 && xobj.status == "200") {
 				L.geoJson(JSON.parse(xobj.responseText), {
-					onEachFeature: x.addMarker, 
+					onEachFeature: x.onEachFeature, 
 					style: x.style
 					}).addTo(x.layer);
 				x.ready = true;
@@ -125,7 +135,7 @@ function addMarker(feature, layer) {
 	
 		ids.push(feature.id);
 		
-		if (!feature.properties.millage) {feature.properties.millage = "none";};
+//		if (!feature.properties.millage) {feature.properties.millage = "none";};
 		
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
@@ -140,6 +150,8 @@ function addMarker(feature, layer) {
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
 			};
+		thisMarker.dollars = Number(feature.properties.millage.replace(".00", "").replace("$", "").replace(",", ""));
+//		console.log(thisMarker.dollars);
 		function header() {
 			return (
 				"<h3>" + thisMarker.park.name + "</h3>" +
@@ -186,7 +198,8 @@ function makeParkList() {
 					p.textContent = thisPark[feature] + " acres";
 					break;
 				case "millage":
-					if (thisPark[feature] == "none") {
+//					if (thisPark[feature] == "none") {
+					if (!thisPark[feature]) {
 						p.innerHTML = "&nbsp;";
 						} 
 					else {
