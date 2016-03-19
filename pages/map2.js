@@ -1,6 +1,6 @@
 var constants = {
 	CITY_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson",
-	CITY_BOUNDARY_STYLE: {color: "yellow", fillOpacity: 0.15, stroke: false, clickable: false},
+	CITY_BOUNDARY_STYLE: {color: "gray", weight: 3, fill: false, clickable: false},
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
 	NEIGHBORHOOD_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson",
 	NEIGHBORHOOD_BOUNDARY_STYLE: {weight: 1, fill: false, clickable: false},
@@ -9,10 +9,10 @@ var constants = {
 	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
 	MARKER_ICON_PATH: "images/marker-icons/",
 	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Grayscale": "mapbox.light", "Emerald": "mapbox.emerald"}, // do not delete the first one ("Default")
-	CHOROPLETH_COLORS: ['#feedde','#fdd0a2','#fdae6b','#fd8d3c','#e6550d','#a63603']
+	CHOROPLETH_COLORS: ['#ffffff','#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f']
 	};
 
-var ids = [], markers = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
+var ids = [], markers = [], neighborhoods = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
 
 var cityLayer = new L.layerGroup(),
 	neighborhoodLayer = new L.layerGroup(),
@@ -34,6 +34,10 @@ var theNeighborhoods = new customLayer(
 	constants.NEIGHBORHOOD_BOUNDARY_DATA_URL,
 	constants.NEIGHBORHOOD_BOUNDARY_STYLE
 	);
+theNeighborhoods.onEachFeature = function(feature, layer) {
+	var x = {poly: layer, name: feature.properties.NEBRH, dollars: 0};
+	neighborhoods.push(x);
+	}
 theNeighborhoods.getData();
 
 var theParks = new customLayer(
@@ -46,7 +50,7 @@ theParks.getData();
 
 
 function isEverythingReady() {
-	if (baseMap.ready && theCity.ready && theParks.ready && theNeighborhoods.ready) {
+	if (baseMap.ready && theCity.ready && theNeighborhoods.ready && theParks.ready) {
 		ids = undefined;
 		makeParkList();
 		cityLayer.addTo(baseMap.map);
@@ -54,6 +58,19 @@ function isEverythingReady() {
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
 		overlayLayers["Neighborhoods"] = neighborhoodLayer;
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
+		for (i = 0; i < neighborhoods.length; i++) {
+//			console.log(neighborhoods[i].name + ": " + neighborhoods[i].dollars);
+			function getColor(d) {
+			    return d > 1000000 ? constants.CHOROPLETH_COLORS[5] :
+			           d > 750000  ? constants.CHOROPLETH_COLORS[4] :
+			           d > 500000  ? constants.CHOROPLETH_COLORS[3] :
+			           d > 250000  ? constants.CHOROPLETH_COLORS[2] :
+			           d > 0   ? constants.CHOROPLETH_COLORS[1] :
+			                      constants.CHOROPLETH_COLORS[0];
+				}
+			console.log(neighborhoods[i].name + ": " + getColor(neighborhoods[i].dollars));
+			neighborhoods[i].poly.setStyle({fill: true, fillColor: getColor(neighborhoods[i].dollars)});
+			}
 		}
 	}
 
@@ -150,7 +167,9 @@ function addMarker(feature, layer) {
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
 			};
-		thisMarker.dollars = Number(feature.properties.millage.replace(".00", "").replace("$", "").replace(",", ""));
+		thisMarker.dollars = Number(
+			feature.properties.millage.replace(".00", "").replace("$", "").replace(",", "")
+			);
 
 		function header() {
 			return (
@@ -189,8 +208,8 @@ function makeParkList() {
 		thisMarker.index = i;				
 		a.href = "javascript:pop(" + i + ");";
 		a.title = thisPark.name;
-		a.appendChild(imgFromMarkerType(thisMarker.type));
-		
+		a.appendChild(imgFromMarkerType(thisMarker.type));		
+
 		for (feature in thisPark) {
 			var p = document.createElement("p");
 			switch (feature) {
@@ -198,7 +217,6 @@ function makeParkList() {
 					p.textContent = thisPark[feature] + " acres";
 					break;
 				case "millage":
-//					if (thisPark[feature] == "none") {
 					if (!thisPark[feature]) {
 						p.innerHTML = "&nbsp;";
 						} 
@@ -223,6 +241,22 @@ function makeParkList() {
 		
 		li.appendChild(a);		
 		parklist.appendChild(li);
+		
+		for (i2 = 0; i2 < neighborhoods.length; i2++) {
+		    var polyPoints = neighborhoods[i2].poly.getLatLngs();       
+		    var x = thisMarker.getLatLng().lat, y = thisMarker.getLatLng().lng;
+		
+		    var inside = false;
+		    for (var i3 = 0, j3 = polyPoints.length - 1; i3 < polyPoints.length; j3 = i3++) {
+		        var xi = polyPoints[i3].lat, yi = polyPoints[i3].lng;
+		        var xj = polyPoints[j3].lat, yj = polyPoints[j3].lng;
+		
+		        var intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+		        if (intersect) inside = !inside;
+		    	}
+		
+		    if (inside) {neighborhoods[i2].dollars += thisMarker.dollars;}
+			}
 		
 		}  
 
