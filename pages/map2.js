@@ -1,47 +1,56 @@
 var constants = {
+	
 	CITY_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson",
 	CITY_BOUNDARY_STYLE: {color: "gray", weight: 3, fill: false, clickable: false},
 	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
+	
 	NEIGHBORHOOD_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson",
-	NEIGHBORHOOD_BOUNDARY_STYLE: {weight: 1, fill: false, clickable: false},
+	NEIGHBORHOOD_BOUNDARY_STYLE: {weight: 1, fill: false, fillOpacity: 0.5, clickable: false},
+	
 	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
 	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
+	
 	MARKER_ICON_PATH: "images/marker-icons/",
+	
 	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Grayscale": "mapbox.light", "Emerald": "mapbox.emerald"}, // do not delete the first one ("Default")
-	CHOROPLETH_COLORS: ['#ffffff','#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f']
+	
+	CHOROPLETH_COLOR: function(dollars) {
+	    return dollars > 1000000 ? '#54278f' :
+	           dollars >  750000 ? '#756bb1' :
+	           dollars >  500000 ? '#9e9ac8' :
+	           dollars >  250000 ? '#cbc9e2' :
+	           dollars >       0 ? '#f2f0f7' :
+	           					   'transparent';
+		}
+	
 	};
 
 var ids = [], markers = [], neighborhoods = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
 
-var cityLayer = new L.layerGroup(),
-	neighborhoodLayer = new L.layerGroup(),
-	parkLayer = new L.layerGroup();
-
+// overlay layers are for the park markers and the neighborhoods
+// here we set up park markers layers first, neighborhoods gets added later because it is not shown by default
 for (i = 0; i < constants.PARK_TYPES.length; i++) {
 	overlayLayers[markerLabel(constants.PARK_TYPES[i])] = new L.layerGroup();
 	}
 
 var theCity = new customLayer(
-	cityLayer, 
 	constants.CITY_BOUNDARY_DATA_URL, 
 	constants.CITY_BOUNDARY_STYLE
 	);
 theCity.getData();
 
 var theNeighborhoods = new customLayer(
-	neighborhoodLayer,
 	constants.NEIGHBORHOOD_BOUNDARY_DATA_URL,
 	constants.NEIGHBORHOOD_BOUNDARY_STYLE
 	);
 theNeighborhoods.onEachFeature = function(feature, layer) {
-	var x = {poly: layer, name: feature.properties.NEBRH, dollars: 0};
-	neighborhoods.push(x);
+	var thisNeighborhood = {shape: layer, name: feature.properties.NEBRH, dollars: 0};
+	neighborhoods.push(thisNeighborhood);
 	}
 theNeighborhoods.getData();
 
 var theParks = new customLayer(
-	parkLayer, 
 	constants.PARKS_DATA_URL, 
 	constants.PARKS_STYLE
 	);
@@ -53,23 +62,13 @@ function isEverythingReady() {
 	if (baseMap.ready && theCity.ready && theNeighborhoods.ready && theParks.ready) {
 		ids = undefined;
 		makeParkList();
-		cityLayer.addTo(baseMap.map);
-		parkLayer.addTo(baseMap.map);
+		theCity.layer.addTo(baseMap.map);
+		theParks.layer.addTo(baseMap.map);
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-		overlayLayers["Neighborhoods"] = neighborhoodLayer;
+		overlayLayers["Neighborhoods"] = theNeighborhoods.layer;
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		for (i = 0; i < neighborhoods.length; i++) {
-//			console.log(neighborhoods[i].name + ": " + neighborhoods[i].dollars);
-			function getColor(d) {
-			    return d > 1000000 ? constants.CHOROPLETH_COLORS[5] :
-			           d > 750000  ? constants.CHOROPLETH_COLORS[4] :
-			           d > 500000  ? constants.CHOROPLETH_COLORS[3] :
-			           d > 250000  ? constants.CHOROPLETH_COLORS[2] :
-			           d > 0   ? constants.CHOROPLETH_COLORS[1] :
-			                      constants.CHOROPLETH_COLORS[0];
-				}
-			console.log(neighborhoods[i].name + ": " + getColor(neighborhoods[i].dollars));
-			neighborhoods[i].poly.setStyle({fill: true, fillColor: getColor(neighborhoods[i].dollars)});
+			neighborhoods[i].shape.setStyle({fill: true, fillColor: constants.CHOROPLETH_COLOR(neighborhoods[i].dollars)});
 			}
 		}
 	}
@@ -114,9 +113,9 @@ baseMap = {
 	}
 
 
-function customLayer(layer, url, style) {
+function customLayer(url, style) {
 	
-	this.layer = layer;
+	this.layer = undefined;
 	this.ready = false;
 	this.style = style;
 	this.url = url;
@@ -130,6 +129,7 @@ function customLayer(layer, url, style) {
 		var x = this;
 		xobj.onreadystatechange = function () {
 			if (xobj.readyState == 4 && xobj.status == "200") {
+				x.layer = new L.layerGroup();
 				L.geoJson(JSON.parse(xobj.responseText), {
 					onEachFeature: x.onEachFeature, 
 					style: x.style
@@ -243,7 +243,7 @@ function makeParkList() {
 		parklist.appendChild(li);
 		
 		for (i2 = 0; i2 < neighborhoods.length; i2++) {
-		    var polyPoints = neighborhoods[i2].poly.getLatLngs();       
+		    var polyPoints = neighborhoods[i2].shape.getLatLngs();       
 		    var x = thisMarker.getLatLng().lat, y = thisMarker.getLatLng().lng;
 		
 		    var inside = false;
