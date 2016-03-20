@@ -340,6 +340,7 @@ function resetNeighborhood() {
 	}
 
 function setNeighborhood(e) {
+	resetNeighborhood();
 	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
 	info.update(e.target.feature.properties);
 	}
