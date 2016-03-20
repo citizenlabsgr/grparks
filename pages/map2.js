@@ -74,9 +74,9 @@ var theNeighborhoods = new customLayer(
 	);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
-		click: setNeighborhoodHighlight,
-		mouseover: setNeighborhoodHighlight,
-		mouseout: resetNeighborhoodHighlight
+		click: setNeighborhood,
+		mouseover: setNeighborhood,
+		mouseout: resetNeighborhood
 		});
 	feature.properties.money = 0;
 	neighborhoods.push(layer);
@@ -315,8 +315,7 @@ function overlayChanged(e, show) {
 			} 
 		else {
 			info.removeFrom(baseMap.map);
-			info.update();
-			theNeighborhoods.layer.getLayers()[0].setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);	
+			resetNeighborhood();
 			}
 		}
 	else {
@@ -335,14 +334,14 @@ function pop(index) {
 	thisMarker.openPopup();
 	}
 
-function setNeighborhoodHighlight(e) {
-	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
-	info.update(e.target.feature.properties);
+function resetNeighborhood() {
+	theNeighborhoods.layer.getLayers()[0].setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);
+	info.update();
 	}
 
-function resetNeighborhoodHighlight(e) {
-	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);
-	info.update();
+function setNeighborhood(e) {
+	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
+	info.update(e.target.feature.properties);
 	}
 
 function srcFromMarkerType(type) {
