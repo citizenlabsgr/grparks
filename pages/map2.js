@@ -74,8 +74,8 @@ var theNeighborhoods = new customLayer(
 	);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
-		click: highlightNeighborhood,
-		mouseover: highlightNeighborhood,
+		click: setNeighborhoodHighlight,
+		mouseover: setNeighborhoodHighlight,
 		mouseout: resetNeighborhoodHighlight
 		});
 	feature.properties.money = 0;
@@ -138,18 +138,6 @@ baseMap = {
 			})
 		this.ready = true;
 		}
-	}
-
-
-function highlightNeighborhood(e) {
-	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
-	info.update(e.target.feature.properties);
-	}
-
-
-function resetNeighborhoodHighlight(e) {
-	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);
-	info.update();
 	}
 
 
@@ -322,7 +310,13 @@ function moneyClicked(index) {
 
 function overlayChanged(e, show) {
 	if (e.name == "Neighborhoods") {
-		if (show) {info.addTo(baseMap.map);} else {info.removeFrom(baseMap.map);}
+		if (show) {
+			info.addTo(baseMap.map);
+			} 
+		else {
+			info.removeFrom(baseMap.map);
+			info.update();
+			}
 		}
 	else {
 		overlayLayers[e.name].eachLayer(function(layer) {
@@ -338,6 +332,16 @@ function pop(index) {
 	if (zoom < 15) {zoom = 15;}
 	baseMap.map.setView(where, zoom, {animation: true});
 	thisMarker.openPopup();
+	}
+
+function setNeighborhoodHighlight(e) {
+	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
+	info.update(e.target.feature.properties);
+	}
+
+function resetNeighborhoodHighlight(e) {
+	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);
+	info.update();
 	}
 
 function srcFromMarkerType(type) {
