@@ -316,6 +316,7 @@ function overlayChanged(e, show) {
 		else {
 			info.removeFrom(baseMap.map);
 			info.update();
+			theNeighborhoods.layer.getLayers()[0].setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);	
 			}
 		}
 	else {
