@@ -31,9 +31,12 @@ var constants = {
 
 var ids = [], markers = [], neighborhoods = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
 
-var legend = L.control({position: 'bottomleft'});
-legend.onAdd = function(map) {
-	var div = L.DomUtil.create('div', 'info legend'),
+var info = L.control({position: 'bottomleft'});
+info.onAdd = function(map) {
+	var div = L.DomUtil.create("div", "info");
+	this.hood = L.DomUtil.create('div');
+	this.update();
+	var legend = L.DomUtil.create('div'),
 		labels = [],
 		from, to;
 	for (var i = 0; i < constants.CHOROPLETH_MONEY.length; i++) {
@@ -43,18 +46,13 @@ legend.onAdd = function(map) {
 			'<i style="background:' + constants.CHOROPLETH_COLOR(from) + '"></i> $' +
 			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
 		}
-	div.innerHTML = labels.join('<br>');
+	legend.innerHTML = labels.join('<br>');
+	div.appendChild(this.hood);
+	div.appendChild(legend);
 	return div;
-	}
-
-var info = L.control({position: 'bottomright'});
-info.onAdd = function(map) {
-	this._div = L.DomUtil.create('div', 'info');
-	this.update();
-	return this._div;
 	};
 info.update = function(props) {
-	this._div.innerHTML = '<h4>Neighborhood Investment</h4>' +  (props ?
+	this.hood.innerHTML = '<h4>Neighborhood Investment</h4>' +  (props ?
 		'<b>' + props.NEBRH + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a neighbhood');
 	};
 
@@ -76,6 +74,7 @@ var theNeighborhoods = new customLayer(
 	);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
+		click: highlightNeighborhood,
 		mouseover: highlightNeighborhood,
 		mouseout: resetNeighborhoodHighlight
 		});
@@ -323,14 +322,7 @@ function moneyClicked(index) {
 
 function overlayChanged(e, show) {
 	if (e.name == "Neighborhoods") {
-		if (show) {
-			legend.addTo(baseMap.map);
-			info.addTo(baseMap.map);
-			}
-		else {
-			legend.removeFrom(baseMap.map);
-			info.removeFrom(baseMap.map);
-			}
+		if (show) {info.addTo(baseMap.map);} else {info.removeFrom(baseMap.map);}
 		}
 	else {
 		overlayLayers[e.name].eachLayer(function(layer) {
