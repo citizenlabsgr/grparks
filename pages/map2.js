@@ -1,14 +1,14 @@
 var settings = {
 	choropleth: {
 		color: function(amount) {
-		    return amount > 1000000 ? '#7a0177' :
-		           amount >  750000 ? '#c51b8a' :
-		           amount >  500000 ? '#f768a1' :
-		           amount >  250000 ? '#fbb4b9' :
-		           amount >       0 ? '#feebe2' :
+		    return amount >= 1000000 ? '#7a0177' :
+		           amount >=  750000 ? '#c51b8a' :
+		           amount >=  500000 ? '#f768a1' :
+		           amount >=  250000 ? '#fbb4b9' :
+		           amount >=       1 ? '#feebe2' :
 		           					   'transparent';
 			},
-		money: [0, 250000, 500000, 750000, 1000000]
+		money: [1, 250000, 500000, 750000, 1000000]
 		},
 	city: {
 		center: {lat: 42.9614844, lon: -85.6556833},
@@ -40,8 +40,8 @@ mapInfo.onAdd = function(map) {
 		labels = [],
 		from, to;
 	for (var i = 0; i < settings.choropleth.money.length; i++) {
-		from = settings.choropleth.money[i] + 1;
-		to = settings.choropleth.money[i + 1];
+		from = settings.choropleth.money[i];
+		to = settings.choropleth.money[i + 1] - 1;
 		labels.push(
 			'<i style="background:' + settings.choropleth.color(from) + '"></i> $' +
 			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
