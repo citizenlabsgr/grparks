@@ -31,8 +31,8 @@ var constants = {
 
 var ids = [], markers = [], neighborhoods = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
 
-var info = L.control({position: 'bottomleft'});
-info.onAdd = function(map) {
+var mapInfo = L.control({position: 'bottomleft'});
+mapInfo.onAdd = function(map) {
 	var div = L.DomUtil.create("div", "info");
 	this.hood = L.DomUtil.create('div');
 	this.update();
@@ -51,7 +51,7 @@ info.onAdd = function(map) {
 	div.appendChild(legend);
 	return div;
 	};
-info.update = function(props) {
+mapInfo.update = function(props) {
 	this.hood.innerHTML = '<h4>Neighborhood Investment</h4>' +  (props ?
 		'<b>' + props.NEBRH + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a neighbhood');
 	};
@@ -59,16 +59,16 @@ info.update = function(props) {
 // overlay layers are for the park markers and the neighborhoods
 // here we set up park markers layers first, neighborhoods gets added later because it is not shown by default
 for (i = 0; i < constants.PARK_TYPES.length; i++) {
-	overlayLayers[markerLabel(constants.PARK_TYPES[i])] = new L.layerGroup();
+	overlayLayers[labelMarker(constants.PARK_TYPES[i])] = new L.layerGroup();
 	}
 
-var theCity = new customLayer(
+var theCity = new geojsonLayer(
 	constants.CITY_BOUNDARY_DATA_URL, 
 	constants.CITY_BOUNDARY_STYLE
 	);
 theCity.getData();
 
-var theNeighborhoods = new customLayer(
+var theNeighborhoods = new geojsonLayer(
 	constants.NEIGHBORHOOD_BOUNDARY_DATA_URL,
 	constants.NEIGHBORHOOD_BOUNDARY_STYLE
 	);
@@ -83,7 +83,7 @@ theNeighborhoods.onEachFeature = function(feature, layer) {
 	}
 theNeighborhoods.getData();
 
-var theParks = new customLayer(
+var theParks = new geojsonLayer(
 	constants.PARKS_DATA_URL, 
 	constants.PARKS_STYLE
 	);
@@ -141,7 +141,7 @@ baseMap = {
 	}
 
 
-function customLayer(url, style) {
+function geojsonLayer(url, style) {
 	this.layer;
 	this.ready = false;
 	this.style = style;
@@ -176,7 +176,7 @@ function addMarker(feature, layer) {
 		var thisMarker = L.marker(layer.getBounds().getCenter(), {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
 			riseOnHover: true
-			}).addTo(overlayLayers[markerLabel(feature.properties.type.split(" ")[0])]);
+			}).addTo(overlayLayers[labelMarker(feature.properties.type.split(" ")[0])]);
 		thisMarker.money = Number(
 			feature.properties.millage.replace(".00", "").replace("$", "").replace(",", "")
 			);
@@ -295,12 +295,12 @@ function imgFromMarkerType(type) {
 	return img;
 	}
 
-function liPark(index) {
-	return (parklist.getElementsByTagName("li")[index]);
+function labelMarker(type) {
+	return "<img src='" + srcFromMarkerType(type) + "' class='small'>" + type;
 	}
 
-function markerLabel(type) {
-	return "<img src='" + srcFromMarkerType(type) + "' class='small'>" + type;
+function liPark(index) {
+	return (parklist.getElementsByTagName("li")[index]);
 	}
 
 function moneyClicked(index) {
@@ -311,10 +311,10 @@ function moneyClicked(index) {
 function overlayChanged(e, show) {
 	if (e.name == "Neighborhoods") {
 		if (show) {
-			info.addTo(baseMap.map);
+			mapInfo.addTo(baseMap.map);
 			} 
 		else {
-			info.removeFrom(baseMap.map);
+			mapInfo.removeFrom(baseMap.map);
 			resetNeighborhood();
 			}
 		}
@@ -336,13 +336,13 @@ function pop(index) {
 
 function resetNeighborhood() {
 	theNeighborhoods.layer.getLayers()[0].setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);
-	info.update();
+	mapInfo.update();
 	}
 
 function setNeighborhood(e) {
 	resetNeighborhood();
 	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
-	info.update(e.target.feature.properties);
+	mapInfo.update(e.target.feature.properties);
 	}
 
 function srcFromMarkerType(type) {
