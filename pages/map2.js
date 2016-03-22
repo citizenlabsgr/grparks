@@ -1,33 +1,33 @@
-var constants = {
-	
-	CITY_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson",
-	CITY_BOUNDARY_STYLE: {color: "gray", weight: 3, fill: false, clickable: false},
-	CITY_CENTER: {lat: 42.9614844, lon: -85.6556833},
-	
-	NEIGHBORHOOD_BOUNDARY_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson",
-	NEIGHBORHOOD_BOUNDARY_STYLE: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
-	NEIGHBORHOOD_BOUNDARY_HIGHLIGHT: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
-	
-	PARKS_DATA_URL: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson",
-	PARKS_STYLE: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
-	PARK_TYPES: ["Community", "Mini", "Neighborhood", "Urban"],
-	
-	MARKER_ICON_PATH: "images/marker-icons/",
-	
-	BASE_LAYERS: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Grayscale": "mapbox.light", "Emerald": "mapbox.emerald"}, // do not delete the first one ("Default")
-
-	CHOROPLETH_MONEY: [0, 250000, 500000, 750000, 1000000],
-	CHOROPLETH_COLOR: function(amount) {
-	    return amount > 1000000 ? '#7a0177' :
-	           amount >  750000 ? '#c51b8a' :
-	           amount >  500000 ? '#f768a1' :
-	           amount >  250000 ? '#fbb4b9' :
-	           amount >       0 ? '#feebe2' :
-	           					   'transparent';
+var settings = {
+	choropleth: {
+		color: function(amount) {
+		    return amount > 1000000 ? '#7a0177' :
+		           amount >  750000 ? '#c51b8a' :
+		           amount >  500000 ? '#f768a1' :
+		           amount >  250000 ? '#fbb4b9' :
+		           amount >       0 ? '#feebe2' :
+		           					   'transparent';
+			},
+		money: [0, 250000, 500000, 750000, 1000000]
+		},
+	city: {
+		center: {lat: 42.9614844, lon: -85.6556833},
+		style: {color: "gray", weight: 3, fill: false, clickable: false},
+		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson"
+		},
+	icons: "images/marker-icons/",
+	maps: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Grayscale": "mapbox.light", "Emerald": "mapbox.emerald"},
+	neighborhoods: {
+		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
+		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
+		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
+		},
+	parks: {
+		style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
+		types: ["Community", "Mini", "Neighborhood", "Urban"],
+		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson"
 		}
-	
-	};
-
+	}
 
 var ids = [], markers = [], neighborhoods = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
 
@@ -39,11 +39,11 @@ mapInfo.onAdd = function(map) {
 	var legend = L.DomUtil.create('div'),
 		labels = [],
 		from, to;
-	for (var i = 0; i < constants.CHOROPLETH_MONEY.length; i++) {
-		from = constants.CHOROPLETH_MONEY[i] + 1;
-		to = constants.CHOROPLETH_MONEY[i + 1];
+	for (var i = 0; i < settings.choropleth.money.length; i++) {
+		from = settings.choropleth.money[i] + 1;
+		to = settings.choropleth.money[i + 1];
 		labels.push(
-			'<i style="background:' + constants.CHOROPLETH_COLOR(from) + '"></i> $' +
+			'<i style="background:' + settings.choropleth.color(from) + '"></i> $' +
 			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
 		}
 	legend.innerHTML = labels.join('<br>');
@@ -58,20 +58,14 @@ mapInfo.update = function(props) {
 
 // overlay layers are for the park markers and the neighborhoods
 // here we set up park markers layers first, neighborhoods gets added later because it is not shown by default
-for (i = 0; i < constants.PARK_TYPES.length; i++) {
-	overlayLayers[labelMarker(constants.PARK_TYPES[i])] = new L.layerGroup();
+for (i = 0; i < settings.parks.types.length; i++) {
+	overlayLayers[labelMarker(settings.parks.types[i])] = new L.layerGroup();
 	}
 
-var theCity = new geojsonLayer(
-	constants.CITY_BOUNDARY_DATA_URL, 
-	constants.CITY_BOUNDARY_STYLE
-	);
+var theCity = new geojsonLayer(settings.city.url, settings.city.style);
 theCity.getData();
 
-var theNeighborhoods = new geojsonLayer(
-	constants.NEIGHBORHOOD_BOUNDARY_DATA_URL,
-	constants.NEIGHBORHOOD_BOUNDARY_STYLE
-	);
+var theNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.neighborhoods.style);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
 		click: setNeighborhood,
@@ -83,10 +77,7 @@ theNeighborhoods.onEachFeature = function(feature, layer) {
 	}
 theNeighborhoods.getData();
 
-var theParks = new geojsonLayer(
-	constants.PARKS_DATA_URL, 
-	constants.PARKS_STYLE
-	);
+var theParks = new geojsonLayer(settings.parks.url, settings.parks.style);
 theParks.onEachFeature = addMarker;
 theParks.getData();
 
@@ -103,7 +94,7 @@ function isEverythingReady() {
 		for (i = 0; i < neighborhoods.length; i++) {
 			neighborhoods[i].setStyle({
 				fill: true, 
-				fillColor: constants.CHOROPLETH_COLOR(neighborhoods[i].feature.properties.money)
+				fillColor: settings.choropleth.color(neighborhoods[i].feature.properties.money)
 				});
 			}
 		}
@@ -111,7 +102,7 @@ function isEverythingReady() {
 
 
 window.onload = function() {
-	baseMap.init("map", constants.CITY_CENTER);
+	baseMap.init("map", settings.city.center);
 	isEverythingReady();
 	}
 
@@ -127,8 +118,8 @@ baseMap = {
 			"<a target='_blank' href='" +
 				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
 			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
-		for (key in constants.BASE_LAYERS) {
-			var layer = L.tileLayer(u, {id: constants.BASE_LAYERS[key], attribution: a, minZoom: 11, maxZoom: 17});
+		for (key in settings.maps) {
+			var layer = L.tileLayer(u, {id: settings.maps[key], attribution: a, minZoom: 11, maxZoom: 17});
 			baseLayers[key] = layer;
 			}
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
@@ -335,16 +326,16 @@ function pop(index) {
 	}
 
 function resetNeighborhood() {
-	theNeighborhoods.layer.getLayers()[0].setStyle(constants.NEIGHBORHOOD_BOUNDARY_STYLE);
+	theNeighborhoods.layer.getLayers()[0].setStyle(settings.neighborhoods.style);
 	mapInfo.update();
 	}
 
 function setNeighborhood(e) {
 	resetNeighborhood();
-	e.target.setStyle(constants.NEIGHBORHOOD_BOUNDARY_HIGHLIGHT);
+	e.target.setStyle(settings.neighborhoods.highlight);
 	mapInfo.update(e.target.feature.properties);
 	}
 
 function srcFromMarkerType(type) {
-	return constants.MARKER_ICON_PATH + type.split(" ")[0].toLowerCase() + ".png";
+	return settings.icons + type.split(" ")[0].toLowerCase() + ".png";
 	}
