@@ -173,7 +173,7 @@ function addMarker(feature, layer) {
 			);
 		thisMarker.on({
 			click: function(e) {markerClicked = true;},
-			mouseover: function(e) {e.target.openPopup();},
+//			mouseover: function(e) {e.target.openPopup();},
 			popupopen: function(e) {clickPark(e, true);},
 			popupclose: function(e) {clickPark(e, false);}
 			});
