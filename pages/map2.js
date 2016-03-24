@@ -16,7 +16,7 @@ var settings = {
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson"
 		},
 	icons: "images/marker-icons/",
-	maps: {"Default": "github.kedo1cp3", "Streets": "mapbox.streets", "Grayscale": "mapbox.light", "Emerald": "mapbox.emerald"},
+	maps: {"Default": "mapbox.emerald", "Grayscale": "mapbox.light"},
 	neighborhoods: {
 		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
 		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
@@ -276,7 +276,7 @@ function clickPark(e, open) {
 			}	
 		}
 	else {
-		markers[index].setLongPopupContent(false);
+		markers[index].setLongPopupContent(true);
 		}
 	}
 	
