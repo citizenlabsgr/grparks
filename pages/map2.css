@@ -123,7 +123,7 @@ h1, nav a:hover {
 #parklist li a {
 	color: black;
 }
-#parklist li a p:nth-child(5) a {
+#parklist li a p:nth-child(5) {
 	color: #048004;
 }
 nav, nav a {

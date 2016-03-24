@@ -173,6 +173,7 @@ function addMarker(feature, layer) {
 			);
 		thisMarker.on({
 			click: function(e) {markerClicked = true;},
+			mouseover: function(e) {e.target.openPopup();},
 			popupopen: function(e) {clickPark(e, true);},
 			popupclose: function(e) {clickPark(e, false);}
 			});
@@ -182,19 +183,24 @@ function addMarker(feature, layer) {
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
 			};
-		function header() {
-			return (
-				"<h3>" + thisMarker.park.name + "</h3>" +
-				"<p>" + thisMarker.type + "</p>"
-				);
-			}
-		thisMarker.setLongPopupContent = function(long) {
-			var msg = header();
-			if (long) {msg += "description of improvements would go here";}
-			thisMarker.setPopupContent(msg);
-			}
+//		function header() {
+//			return (
+//				"<h3>" + thisMarker.park.name + "</h3>" +
+//				"<p>" + thisMarker.type + "</p>"
+//				);
+//			}
+//		thisMarker.setLongPopupContent = function(long) {
+//			var msg = header();
+//			if (long) {msg += "description of improvements would go here";}
+//			thisMarker.setPopupContent(msg);
+//			}
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
-		thisMarker.bindPopup(header(), {closeButton: false, maxHeight: 300});
+		thisMarker.bindPopup(
+			"<h3>" + thisMarker.park.name + "</h3>" + 
+			"<p>" + thisMarker.type + "</p>" + 
+			"description of improvements would go here",
+			{closeButton: false, maxHeight: 300}
+			);
 		markers.push(thisMarker);
 		}
 	}
@@ -228,8 +234,9 @@ function makeParkList() {
 						} 
 					else {
 						p.innerHTML = 
-							"<a href='#' title='Details of improvements' onclick='moneyClicked(" + i +  ");'>" + thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i></a>";
-						;}
+//							"<a href='#' title='Details of improvements' onclick='moneyClicked(" + i +  ");'>" + 
+							thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i>";//</a>";
+						}
 					break;
 				case "pool":
 					if (thisPark[feature] == "") {
@@ -275,9 +282,9 @@ function clickPark(e, open) {
 			markerClicked = false
 			}	
 		}
-	else {
-		markers[index].setLongPopupContent(true);
-		}
+//	else {
+//		markers[index].setLongPopupContent(true);
+//		}
 	}
 	
 function imgFromMarkerType(type) {
@@ -294,10 +301,10 @@ function liPark(index) {
 	return (parklist.getElementsByTagName("li")[index]);
 	}
 
-function moneyClicked(index) {
-	markers[index].setLongPopupContent(true);
-	pop(index);
-	}
+//function moneyClicked(index) {
+//	markers[index].setLongPopupContent(true);
+//	pop(index);
+//	}
 
 function overlayChanged(e, show) {
 	if (e.name == "Neighborhoods") {
