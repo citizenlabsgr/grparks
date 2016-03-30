@@ -89,7 +89,7 @@ function isEverythingReady() {
 		theCity.layer.addTo(baseMap.map);
 		theParks.layer.addTo(baseMap.map);
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-		overlayLayers["Neighborhoods"] = theNeighborhoods.layer;
+		overlayLayers["Upgrade $"] = theNeighborhoods.layer;
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		for (i = 0; i < neighborhoods.length; i++) {
 			neighborhoods[i].setStyle({
@@ -307,7 +307,7 @@ function liPark(index) {
 //	}
 
 function overlayChanged(e, show) {
-	if (e.name == "Neighborhoods") {
+	if (e.name == "Upgrade $") {
 		if (show) {
 			mapInfo.addTo(baseMap.map);
 			} 
