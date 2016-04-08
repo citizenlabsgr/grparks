@@ -26,6 +26,11 @@ var settings = {
 		style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 		types: ["Community", "Mini", "Neighborhood", "Urban"],
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson"
+		},
+	wards: {
+		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
+		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
+		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
 		}
 	}
 
@@ -65,6 +70,10 @@ for (i = 0; i < settings.parks.types.length; i++) {
 var theCity = new geojsonLayer(settings.city.url, settings.city.style);
 theCity.getData();
 
+var theWards = new geojsonLayer(settings.wards.url, settings.wards.style);
+theWards.onEachFeature = function(feature, layer) {}
+theWards.getData();
+
 var theNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.neighborhoods.style);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
@@ -83,13 +92,15 @@ theParks.getData();
 
 
 function isEverythingReady() {
-	if (baseMap.ready && theCity.ready && theNeighborhoods.ready && theParks.ready) {
+	if (baseMap.ready && theCity.ready && theWards.ready && theNeighborhoods.ready && theParks.ready) {
 		ids = undefined;
 		makeParkList();
 		theCity.layer.addTo(baseMap.map);
 		theParks.layer.addTo(baseMap.map);
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-		overlayLayers["Upgrade $"] = theNeighborhoods.layer;
+//		overlayLayers["Upgrade $"] = theNeighborhoods.layer;
+		theWards.layer.addTo(baseLayers["$/Ward"]);
+		theNeighborhoods.layer.addTo(baseLayers["$/Neighborhood"]);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		for (i = 0; i < neighborhoods.length; i++) {
 			neighborhoods[i].setStyle({
@@ -122,6 +133,10 @@ baseMap = {
 			var layer = L.tileLayer(u, {id: settings.maps[key], attribution: a, minZoom: 11, maxZoom: 17});
 			baseLayers[key] = layer;
 			}
+		baseLayers["$/Ward"] = new L.layerGroup();
+		baseLayers["$/Neighborhood"] = new L.layerGroup();
+		baseLayers["Grayscale"].addTo(baseLayers["$/Ward"]);
+		baseLayers["Grayscale"].addTo(baseLayers["$/Neighborhood"]);
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
 		this.map.on({
 			overlayadd: function(e) {overlayChanged(e, true);},

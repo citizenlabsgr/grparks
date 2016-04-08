@@ -145,6 +145,16 @@ img.small {
 .leaflet-popup-content p {
 	margin: 4px 0;
 }
+.leaflet-control-layers-base:before {
+	content: "Views";
+	color: black;
+	font-weight: bold;
+}
+.leaflet-control-layers-overlays::before {
+	content: "Parks";
+	color: black;
+	font-weight: bold;
+}
 .info {
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
