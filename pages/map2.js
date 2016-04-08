@@ -34,7 +34,9 @@ var settings = {
 		}
 	}
 
-var ids = [], markers = [], neighborhoods = [], baseLayers = {}, overlayLayers = {}, markerClicked = false;
+var ids = [], markers = [], neighborhoods = [], 
+	baseLayers = {}, overlayLayers = {}, 
+	grayscale, markerClicked = false;
 
 var mapInfo = L.control({position: 'bottomleft'});
 mapInfo.onAdd = function(map) {
@@ -61,8 +63,6 @@ mapInfo.update = function(props) {
 		'<b>' + props.NEBRH + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a neighbhood');
 	};
 
-// overlay layers are for the park markers and the neighborhoods
-// here we set up park markers layers first, neighborhoods gets added later because it is not shown by default
 for (i = 0; i < settings.parks.types.length; i++) {
 	overlayLayers[labelMarker(settings.parks.types[i])] = new L.layerGroup();
 	}
@@ -98,7 +98,6 @@ function isEverythingReady() {
 		theCity.layer.addTo(baseMap.map);
 		theParks.layer.addTo(baseMap.map);
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-//		overlayLayers["Upgrade $"] = theNeighborhoods.layer;
 		theWards.layer.addTo(baseLayers["$/Ward"]);
 		theNeighborhoods.layer.addTo(baseLayers["$/Neighborhood"]);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
@@ -129,16 +128,26 @@ baseMap = {
 			"<a target='_blank' href='" +
 				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
 			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
-		for (key in settings.maps) {
-			var layer = L.tileLayer(u, {id: settings.maps[key], attribution: a, minZoom: 11, maxZoom: 17});
-			baseLayers[key] = layer;
-			}
+		baseLayers["Default"] = new L.tileLayer(u, {id: settings.maps["Default"], attribution: a, minZoom: 11, maxZoom: 17});
+		grayscale = L.tileLayer(u, {id: settings.maps["Grayscale"], attribution: a, minZoom: 11, maxZoom: 17});
 		baseLayers["$/Ward"] = new L.layerGroup();
 		baseLayers["$/Neighborhood"] = new L.layerGroup();
-		baseLayers["Grayscale"].addTo(baseLayers["$/Ward"]);
-		baseLayers["Grayscale"].addTo(baseLayers["$/Neighborhood"]);
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
 		this.map.on({
+			baselayerchange: function(e) {
+				try {
+					mapInfo.removeFrom(baseMap.map);
+					resetNeighborhood();
+					}
+				catch(err) {}
+				if (e.name == "Default") {
+					baseMap.map.removeLayer(grayscale);
+					}
+				else {
+					baseMap.map.addLayer(grayscale);
+					mapInfo.addTo(baseMap.map);
+					}
+				},
 			overlayadd: function(e) {overlayChanged(e, true);},
 			overlayremove: function(e) {overlayChanged(e, false);}
 			})
@@ -188,7 +197,6 @@ function addMarker(feature, layer) {
 			);
 		thisMarker.on({
 			click: function(e) {markerClicked = true;},
-//			mouseover: function(e) {e.target.openPopup();},
 			popupopen: function(e) {clickPark(e, true);},
 			popupclose: function(e) {clickPark(e, false);}
 			});
@@ -198,17 +206,6 @@ function addMarker(feature, layer) {
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage		
 			};
-//		function header() {
-//			return (
-//				"<h3>" + thisMarker.park.name + "</h3>" +
-//				"<p>" + thisMarker.type + "</p>"
-//				);
-//			}
-//		thisMarker.setLongPopupContent = function(long) {
-//			var msg = header();
-//			if (long) {msg += "description of improvements would go here";}
-//			thisMarker.setPopupContent(msg);
-//			}
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
 		thisMarker.bindPopup(
 			"<h3>" + thisMarker.park.name + "</h3>" + 
@@ -249,8 +246,7 @@ function makeParkList() {
 						} 
 					else {
 						p.innerHTML = 
-//							"<a href='#' title='Details of improvements' onclick='moneyClicked(" + i +  ");'>" + 
-							thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i>";//</a>";
+							thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i>";
 						}
 					break;
 				case "pool":
@@ -297,9 +293,6 @@ function clickPark(e, open) {
 			markerClicked = false
 			}	
 		}
-//	else {
-//		markers[index].setLongPopupContent(true);
-//		}
 	}
 	
 function imgFromMarkerType(type) {
@@ -316,26 +309,10 @@ function liPark(index) {
 	return (parklist.getElementsByTagName("li")[index]);
 	}
 
-//function moneyClicked(index) {
-//	markers[index].setLongPopupContent(true);
-//	pop(index);
-//	}
-
 function overlayChanged(e, show) {
-	if (e.name == "Upgrade $") {
-		if (show) {
-			mapInfo.addTo(baseMap.map);
-			} 
-		else {
-			mapInfo.removeFrom(baseMap.map);
-			resetNeighborhood();
-			}
-		}
-	else {
-		overlayLayers[e.name].eachLayer(function(layer) {
-			liPark(layer.index).style.display = show ? "block" : "none";
-			});
-		}
+	overlayLayers[e.name].eachLayer(function(layer) {
+		liPark(layer.index).style.display = show ? "block" : "none";
+		});
 	}
 
 function pop(index) {
