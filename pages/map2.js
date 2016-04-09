@@ -42,7 +42,7 @@ var mapInfo = L.control({position: 'bottomleft'});
 mapInfo.onAdd = function(map) {
 	var div = L.DomUtil.create("div", "info");
 	this.hood = L.DomUtil.create('div');
-	this.update();
+//	this.update("");
 	var legend = L.DomUtil.create('div'),
 		labels = [],
 		from, to;
@@ -58,9 +58,10 @@ mapInfo.onAdd = function(map) {
 	div.appendChild(legend);
 	return div;
 	};
-mapInfo.update = function(props) {
-	this.hood.innerHTML = '<h4>Neighborhood Investment</h4>' +  (props ?
-		'<b>' + props.NEBRH + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a neighbhood');
+mapInfo.update = function(type, props) {
+	typeSingle = type.slice(0, -1);
+	this.hood.innerHTML = '<h4>' + typeSingle + ' Investment</h4>' +  (props ?
+		'<b>' + props.NEBRH + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a ' + typeSingle.toLowerCase());
 	};
 
 for (i = 0; i < settings.parks.types.length; i++) {
@@ -77,9 +78,9 @@ theWards.getData();
 var theNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.neighborhoods.style);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
-		click: setNeighborhood,
-		mouseover: setNeighborhood,
-		mouseout: resetNeighborhood
+		click: function(e) {setMapInfo("Neighborhoods", e);},
+		mouseover: function(e) {setMapInfo("Neighborhoods", e);},
+		mouseout: function(e) {resetMapInfo("Neighborhoods");}
 		});
 	feature.properties.money = 0;
 	neighborhoods.push(layer);
@@ -98,8 +99,8 @@ function isEverythingReady() {
 		theCity.layer.addTo(baseMap.map);
 		theParks.layer.addTo(baseMap.map);
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-		theWards.layer.addTo(baseLayers["$/Ward"]);
-		theNeighborhoods.layer.addTo(baseLayers["$/Neighborhood"]);
+		theWards.layer.addTo(baseLayers["Wards"]);
+		theNeighborhoods.layer.addTo(baseLayers["Neighborhoods"]);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		for (i = 0; i < neighborhoods.length; i++) {
 			neighborhoods[i].setStyle({
@@ -130,14 +131,15 @@ baseMap = {
 			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
 		baseLayers["Default"] = new L.tileLayer(u, {id: settings.maps["Default"], attribution: a, minZoom: 11, maxZoom: 17});
 		grayscale = L.tileLayer(u, {id: settings.maps["Grayscale"], attribution: a, minZoom: 11, maxZoom: 17});
-		baseLayers["$/Ward"] = new L.layerGroup();
-		baseLayers["$/Neighborhood"] = new L.layerGroup();
+		baseLayers["Wards"] = new L.layerGroup();
+		baseLayers["Neighborhoods"] = new L.layerGroup();
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
 		this.map.on({
 			baselayerchange: function(e) {
+				// todo: allow for Wards, too
 				try {
 					mapInfo.removeFrom(baseMap.map);
-					resetNeighborhood();
+					resetMapInfo();
 					}
 				catch(err) {}
 				if (e.name == "Default") {
@@ -146,6 +148,7 @@ baseMap = {
 				else {
 					baseMap.map.addLayer(grayscale);
 					mapInfo.addTo(baseMap.map);
+					mapInfo.update(e.name);
 					}
 				},
 			overlayadd: function(e) {overlayChanged(e, true);},
@@ -324,15 +327,17 @@ function pop(index) {
 	thisMarker.openPopup();
 	}
 
-function resetNeighborhood() {
+function resetMapInfo(type) {
+	// todo: allow for Wards, too
 	theNeighborhoods.layer.getLayers()[0].setStyle(settings.neighborhoods.style);
-	mapInfo.update();
+	mapInfo.update(type);
 	}
 
-function setNeighborhood(e) {
-	resetNeighborhood();
+function setMapInfo(type, e) {
+	resetMapInfo(type);
+	// todo: allow for Wards, too
 	e.target.setStyle(settings.neighborhoods.highlight);
-	mapInfo.update(e.target.feature.properties);
+	mapInfo.update(type, e.target.feature.properties);
 	}
 
 function srcFromMarkerType(type) {
