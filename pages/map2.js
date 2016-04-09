@@ -319,8 +319,8 @@ function overlayChanged(e, show) {
 	}
 
 function polygonContainsMarker(marker, polygons) {
-	for (i = 0; i < polygons.length; i++) {
-	    var polyPoints = polygons[i].getLatLngs();       
+	for (i1 = 0; i1 < polygons.length; i1++) {
+	    var polyPoints = polygons[i1].getLatLngs();       
 	    var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
 	    var inside = false;
 	    for (var i2 = 0, j2 = polyPoints.length - 1; i2 < polyPoints.length; j2 = i2++) {
@@ -330,8 +330,8 @@ function polygonContainsMarker(marker, polygons) {
 	        if (intersect) inside = !inside;
 	    	}
 	    if (inside) {
-	    	polygons[i].feature.properties.money += marker.money;
-	    	return i;
+	    	polygons[i1].feature.properties.money += marker.money;
+	    	return i1;
 	    	break;
 	    	}
 		}
