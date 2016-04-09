@@ -112,13 +112,8 @@ function isEverythingReady() {
 		theWards.layer.addTo(baseLayers["Wards"]);
 		theNeighborhoods.layer.addTo(baseLayers["Neighborhoods"]);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
-		// todo: make it work for wards, too
-		for (i = 0; i < neighborhoods.length; i++) {
-			neighborhoods[i].setStyle({
-				fill: true, 
-				fillColor: settings.choropleth.color(neighborhoods[i].feature.properties.money)
-				});
-			}
+		colorUnits(wards);
+		colorUnits(neighborhoods);
 		}
 	}
 
@@ -298,6 +293,15 @@ function clickPark(e, open) {
 		}
 	}
 	
+function colorUnits(units) {
+	for (i = 0; i < units.length; i++) {
+		units[i].setStyle({
+			fill: true, 
+			fillColor: settings.choropleth.color(units[i].feature.properties.money)
+			});
+		}
+	}
+
 function imgFromMarkerType(type) {
 	var img = document.createElement("img");
 	img.src = srcFromMarkerType(type);
