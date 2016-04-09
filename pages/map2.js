@@ -18,8 +18,6 @@ var settings = {
 	icons: "images/marker-icons/",
 	maps: {"Default": "mapbox.emerald", "Grayscale": "mapbox.light"},
 	neighborhoods: {
-		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
-		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
 		},
 	parks: {
@@ -27,22 +25,24 @@ var settings = {
 		types: ["Community", "Mini", "Neighborhood", "Urban"],
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson"
 		},
-	wards: {
+	polygon: {
 		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
 		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
-		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
+		},
+	wards: {
+		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
+//		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
 		}
 	}
 
-var ids = [], markers = [], neighborhoods = [], 
+var ids = [], markers = [], neighborhoods = [], wards = [],
 	baseLayers = {}, overlayLayers = {}, 
 	grayscale, markerClicked = false;
 
 var mapInfo = L.control({position: 'bottomleft'});
 mapInfo.onAdd = function(map) {
 	var div = L.DomUtil.create("div", "info");
-	this.hood = L.DomUtil.create('div');
-//	this.update("");
+	this.heading = L.DomUtil.create('div');
 	var legend = L.DomUtil.create('div'),
 		labels = [],
 		from, to;
@@ -54,14 +54,14 @@ mapInfo.onAdd = function(map) {
 			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
 		}
 	legend.innerHTML = labels.join('<br>');
-	div.appendChild(this.hood);
+	div.appendChild(this.heading);
 	div.appendChild(legend);
 	return div;
 	};
-mapInfo.update = function(type, props) {
-	typeSingle = type.slice(0, -1);
-	this.hood.innerHTML = '<h4>' + typeSingle + ' Investment</h4>' +  (props ?
-		'<b>' + props.NEBRH + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a ' + typeSingle.toLowerCase());
+mapInfo.update = function(units, props) {
+	singular = units.slice(0, -1);
+	this.heading.innerHTML = '<h4>' + singular + ' Investment</h4>' +  (props ?
+		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a ' + singular.toLowerCase());
 	};
 
 for (i = 0; i < settings.parks.types.length; i++) {
@@ -71,17 +71,27 @@ for (i = 0; i < settings.parks.types.length; i++) {
 var theCity = new geojsonLayer(settings.city.url, settings.city.style);
 theCity.getData();
 
-var theWards = new geojsonLayer(settings.wards.url, settings.wards.style);
-theWards.onEachFeature = function(feature, layer) {}
+var theWards = new geojsonLayer(settings.wards.url, settings.polygon.style);
+theWards.onEachFeature = function(feature, layer) {
+	layer.on({
+		click: function(e) {setMapInfo("Wards", e);},
+		mouseover: function(e) {setMapInfo("Wards", e);},
+		mouseout: function(e) {resetMapInfo("Wards");}
+		});
+	feature.properties.label = "Ward " + feature.properties.NEBRH.substring(0, 5);
+	feature.properties.money = 0;
+	wards.push(layer);
+	}
 theWards.getData();
 
-var theNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.neighborhoods.style);
+var theNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.polygon.style);
 theNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
 		click: function(e) {setMapInfo("Neighborhoods", e);},
 		mouseover: function(e) {setMapInfo("Neighborhoods", e);},
 		mouseout: function(e) {resetMapInfo("Neighborhoods");}
 		});
+	feature.properties.label = feature.properties.NEBRH;
 	feature.properties.money = 0;
 	neighborhoods.push(layer);
 	}
@@ -102,6 +112,7 @@ function isEverythingReady() {
 		theWards.layer.addTo(baseLayers["Wards"]);
 		theNeighborhoods.layer.addTo(baseLayers["Neighborhoods"]);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
+		// todo: make it work for wards, too
 		for (i = 0; i < neighborhoods.length; i++) {
 			neighborhoods[i].setStyle({
 				fill: true, 
@@ -136,7 +147,6 @@ baseMap = {
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
 		this.map.on({
 			baselayerchange: function(e) {
-				// todo: allow for Wards, too
 				try {
 					mapInfo.removeFrom(baseMap.map);
 					resetMapInfo();
@@ -269,19 +279,9 @@ function makeParkList() {
 		li.appendChild(a);		
 		parklist.appendChild(li);
 		
-		for (i2 = 0; i2 < neighborhoods.length; i2++) {
-		    var polyPoints = neighborhoods[i2].getLatLngs();       
-		    var x = thisMarker.getLatLng().lat, y = thisMarker.getLatLng().lng;
-		    var inside = false;
-		    for (var i3 = 0, j3 = polyPoints.length - 1; i3 < polyPoints.length; j3 = i3++) {
-		        var xi = polyPoints[i3].lat, yi = polyPoints[i3].lng;
-		        var xj = polyPoints[j3].lat, yj = polyPoints[j3].lng;
-		        var intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-		        if (intersect) inside = !inside;
-		    	}
-		    if (inside) {neighborhoods[i2].feature.properties.money += thisMarker.money;}
-			}
-		
+		thisMarker.ward = polygonContainsMarker(thisMarker, wards);
+		thisMarker.neighborhood = polygonContainsMarker(thisMarker, neighborhoods);
+
 		}  
 
 	}
@@ -318,6 +318,26 @@ function overlayChanged(e, show) {
 		});
 	}
 
+function polygonContainsMarker(marker, polygons) {
+	for (i = 0; i < polygons.length; i++) {
+	    var polyPoints = polygons[i].getLatLngs();       
+	    var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
+	    var inside = false;
+	    for (var i2 = 0, j2 = polyPoints.length - 1; i2 < polyPoints.length; j2 = i2++) {
+	        var xi = polyPoints[i2].lat, yi = polyPoints[i2].lng;
+	        var xj = polyPoints[j2].lat, yj = polyPoints[j2].lng;
+	        var intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+	        if (intersect) inside = !inside;
+	    	}
+	    if (inside) {
+	    	polygons[i].feature.properties.money += marker.money;
+	    	return i;
+	    	break;
+	    	}
+		}
+	return -1;
+	}
+
 function pop(index) {
 	var thisMarker = markers[index],
 		where = thisMarker.getLatLng(),
@@ -327,17 +347,17 @@ function pop(index) {
 	thisMarker.openPopup();
 	}
 
-function resetMapInfo(type) {
-	// todo: allow for Wards, too
-	theNeighborhoods.layer.getLayers()[0].setStyle(settings.neighborhoods.style);
-	mapInfo.update(type);
+function resetMapInfo(units) {
+	var layer;
+	if (units == "Wards") {layer = theWards.layer;} else {layer = theNeighborhoods.layer;}
+	layer.getLayers()[0].setStyle(settings.polygon.style);
+	mapInfo.update(units);
 	}
 
-function setMapInfo(type, e) {
-	resetMapInfo(type);
-	// todo: allow for Wards, too
-	e.target.setStyle(settings.neighborhoods.highlight);
-	mapInfo.update(type, e.target.feature.properties);
+function setMapInfo(units, e) {
+	resetMapInfo(units);
+	e.target.setStyle(settings.polygon.highlight);
+	mapInfo.update(units, e.target.feature.properties);
 	}
 
 function srcFromMarkerType(type) {
