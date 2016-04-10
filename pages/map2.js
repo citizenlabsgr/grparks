@@ -25,7 +25,7 @@ var settings = {
 		types: ["Community", "Mini", "Neighborhood", "Urban"],
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson"
 		},
-	polygon: {
+	polygons: {
 		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
 		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
 		},
@@ -46,6 +46,7 @@ mapInfo.onAdd = function(map) {
 	var legend = L.DomUtil.create('div'),
 		labels = [],
 		from, to;
+	labels.push("<i style='background: transparent'></i> None");
 	for (var i = 0; i < settings.choropleth.money.length; i++) {
 		from = settings.choropleth.money[i];
 		to = settings.choropleth.money[i + 1] - 1;
@@ -68,11 +69,11 @@ for (i = 0; i < settings.parks.types.length; i++) {
 	overlayLayers[labelMarker(settings.parks.types[i])] = new L.layerGroup();
 	}
 
-var theCity = new geojsonLayer(settings.city.url, settings.city.style);
-theCity.getData();
+var geojsonCity = new geojsonLayer(settings.city.url, settings.city.style);
+geojsonCity.getData();
 
-var theWards = new geojsonLayer(settings.wards.url, settings.polygon.style);
-theWards.onEachFeature = function(feature, layer) {
+var geojsonWards = new geojsonLayer(settings.wards.url, settings.polygons.style);
+geojsonWards.onEachFeature = function(feature, layer) {
 	layer.on({
 		click: function(e) {setMapInfo("Wards", e);},
 		mouseover: function(e) {setMapInfo("Wards", e);},
@@ -82,10 +83,10 @@ theWards.onEachFeature = function(feature, layer) {
 	feature.properties.money = 0;
 	wards.push(layer);
 	}
-theWards.getData();
+geojsonWards.getData();
 
-var theNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.polygon.style);
-theNeighborhoods.onEachFeature = function(feature, layer) {
+var geojsonNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.polygons.style);
+geojsonNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
 		click: function(e) {setMapInfo("Neighborhoods", e);},
 		mouseover: function(e) {setMapInfo("Neighborhoods", e);},
@@ -95,22 +96,28 @@ theNeighborhoods.onEachFeature = function(feature, layer) {
 	feature.properties.money = 0;
 	neighborhoods.push(layer);
 	}
-theNeighborhoods.getData();
+geojsonNeighborhoods.getData();
 
-var theParks = new geojsonLayer(settings.parks.url, settings.parks.style);
-theParks.onEachFeature = addMarker;
-theParks.getData();
+var geojsonParks = new geojsonLayer(settings.parks.url, settings.parks.style);
+geojsonParks.onEachFeature = addMarker;
+geojsonParks.getData();
 
 
 function isEverythingReady() {
-	if (baseMap.ready && theCity.ready && theWards.ready && theNeighborhoods.ready && theParks.ready) {
+	if (
+		baseMap.ready && 
+		geojsonCity.ready && 
+		geojsonWards.ready && 
+		geojsonNeighborhoods.ready && 
+		geojsonParks.ready
+		) {
 		ids = undefined;
 		makeParkList();
-		theCity.layer.addTo(baseMap.map);
-		theParks.layer.addTo(baseMap.map);
+		geojsonCity.layer.addTo(baseMap.map);
+		geojsonParks.layer.addTo(baseMap.map);
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-		theWards.layer.addTo(baseLayers["Wards"]);
-		theNeighborhoods.layer.addTo(baseLayers["Neighborhoods"]);
+		geojsonWards.layer.addTo(baseLayers["Wards"]);
+		geojsonNeighborhoods.layer.addTo(baseLayers["Neighborhoods"]);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		colorUnits(wards);
 		colorUnits(neighborhoods);
@@ -196,7 +203,14 @@ function addMarker(feature, layer) {
 	var newIcon = L.Icon.Default.extend({options: {}});
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
 		ids.push(feature.id);
-		var thisMarker = L.marker(layer.getBounds().getCenter(), {
+		var center;
+		if (feature.properties.latitude && feature.properties.longitude) {
+			center = L.latLng(feature.properties.latitude, feature.properties.longitude);
+			}
+		else {
+			center = layer.getBounds().getCenter();
+			}
+		var thisMarker = L.marker(center, {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
 			riseOnHover: true
 			}).addTo(overlayLayers[labelMarker(feature.properties.type.split(" ")[0])]);
@@ -277,6 +291,11 @@ function makeParkList() {
 		thisMarker.ward = polygonContainsMarker(thisMarker, wards);
 		thisMarker.neighborhood = polygonContainsMarker(thisMarker, neighborhoods);
 
+//		var n = "", w = "";
+//		if (thisMarker.ward != -1) {w = wards[thisMarker.ward].feature.properties.label;}
+//		if (thisMarker.neighborhood != -1) {n = neighborhoods[thisMarker.neighborhood].feature.properties.label;}
+//		console.log('"' + thisMarker.park.name + '","' + thisMarker.type + '",' + thisMarker.money + ',"' + n + '","' + w + '"');
+//
 		}  
 
 	}
@@ -359,14 +378,14 @@ function pop(index) {
 
 function resetMapInfo(units) {
 	var layer;
-	if (units == "Wards") {layer = theWards.layer;} else {layer = theNeighborhoods.layer;}
-	layer.getLayers()[0].setStyle(settings.polygon.style);
+	if (units == "Wards") {layer = geojsonWards.layer;} else {layer = geojsonNeighborhoods.layer;}
+	layer.getLayers()[0].setStyle(settings.polygons.style);
 	mapInfo.update(units);
 	}
 
 function setMapInfo(units, e) {
 	resetMapInfo(units);
-	e.target.setStyle(settings.polygon.highlight);
+	e.target.setStyle(settings.polygons.highlight);
 	mapInfo.update(units, e.target.feature.properties);
 	}
 
