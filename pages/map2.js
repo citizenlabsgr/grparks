@@ -319,7 +319,13 @@ function liPark(index) {
 function overlayChanged(e, show) {
 	overlayLayers[e.name].eachLayer(function(layer) {
 		liPark(layer.index).style.display = show ? "block" : "none";
+		var adjustment;
+		if (show) {adjustment = layer.money;} else {adjustment = -layer.money;}
+		if (layer.neighborhood != -1) {neighborhoods[layer.neighborhood].feature.properties.money += adjustment;}
+		if (layer.ward != -1) {wards[layer.ward].feature.properties.money += adjustment;}
 		});
+	colorUnits(wards);
+	colorUnits(neighborhoods);
 	}
 
 function polygonContainsMarker(marker, polygons) {
