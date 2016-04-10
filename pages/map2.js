@@ -1,3 +1,4 @@
+"use strict";
 var settings = {
 	choropleth: {
 		color: function(amount) {
@@ -27,16 +28,16 @@ var settings = {
 		},
 	polygons: {
 		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
-		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true},
+		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true}
 		},
 	wards: {
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
 //		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
 		}
-	}
+	};
 
 var ids = [], markers = [], neighborhoods = [], wards = [],
-	baseLayers = {}, overlayLayers = {}, 
+	baseLayers = {}, overlayLayers = {},
 	grayscale, markerClicked = false;
 
 var mapInfo = L.control({position: 'bottomleft'});
@@ -47,7 +48,8 @@ mapInfo.onAdd = function(map) {
 		labels = [],
 		from, to;
 	labels.push("<i style='background: transparent'></i> None");
-	for (var i = 0; i < settings.choropleth.money.length; i++) {
+	var i;
+	for (i = 0; i < settings.choropleth.money.length; i++) {
 		from = settings.choropleth.money[i];
 		to = settings.choropleth.money[i + 1] - 1;
 		labels.push(
@@ -60,11 +62,12 @@ mapInfo.onAdd = function(map) {
 	return div;
 	};
 mapInfo.update = function(units, props) {
-	singular = units.slice(0, -1);
+	var singular = units.slice(0, -1);
 	this.heading.innerHTML = '<h4>' + singular + ' Investment</h4>' +  (props ?
 		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a ' + singular.toLowerCase());
 	};
 
+var i;
 for (i = 0; i < settings.parks.types.length; i++) {
 	overlayLayers[labelMarker(settings.parks.types[i])] = new L.layerGroup();
 	}
@@ -82,7 +85,7 @@ geojsonWards.onEachFeature = function(feature, layer) {
 	feature.properties.label = "Ward " + feature.properties.NEBRH.substring(0, 5);
 	feature.properties.money = 0;
 	wards.push(layer);
-	}
+	};
 geojsonWards.getData();
 
 var geojsonNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.polygons.style);
@@ -95,7 +98,7 @@ geojsonNeighborhoods.onEachFeature = function(feature, layer) {
 	feature.properties.label = feature.properties.NEBRH;
 	feature.properties.money = 0;
 	neighborhoods.push(layer);
-	}
+	};
 geojsonNeighborhoods.getData();
 
 var geojsonParks = new geojsonLayer(settings.parks.url, settings.parks.style);
@@ -105,19 +108,20 @@ geojsonParks.getData();
 
 function isEverythingReady() {
 	if (
-		baseMap.ready && 
-		geojsonCity.ready && 
-		geojsonWards.ready && 
-		geojsonNeighborhoods.ready && 
+		baseMap.ready &&
+		geojsonCity.ready &&
+		geojsonWards.ready &&
+		geojsonNeighborhoods.ready &&
 		geojsonParks.ready
 		) {
 		ids = undefined;
 		makeParkList();
 		geojsonCity.layer.addTo(baseMap.map);
 		geojsonParks.layer.addTo(baseMap.map);
+		var key;
 		for (key in overlayLayers) {overlayLayers[key].addTo(baseMap.map);}
-		geojsonWards.layer.addTo(baseLayers["Wards"]);
-		geojsonNeighborhoods.layer.addTo(baseLayers["Neighborhoods"]);
+		geojsonWards.layer.addTo(baseLayers.Wards);
+		geojsonNeighborhoods.layer.addTo(baseLayers.Neighborhoods);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
 		colorUnits(wards);
 		colorUnits(neighborhoods);
@@ -128,13 +132,13 @@ function isEverythingReady() {
 window.onload = function() {
 	baseMap.init("map", settings.city.center);
 	isEverythingReady();
-	}
+	};
 
 
-baseMap = {
+var baseMap = {
 	ready: false,
 	init: function(div, center) {
-		var a = 
+		var a =
 			"<a target='_blank' href='" +
 				"https://www.mapbox.com/about/maps/'>&copy; Mapbox</a> " +
 			"<a target='_blank' href='" +
@@ -142,11 +146,11 @@ baseMap = {
 			"<a target='_blank' href='" +
 				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
 			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
-		baseLayers["Default"] = new L.tileLayer(u, {id: settings.maps["Default"], attribution: a, minZoom: 11, maxZoom: 17});
-		grayscale = L.tileLayer(u, {id: settings.maps["Grayscale"], attribution: a, minZoom: 11, maxZoom: 17});
-		baseLayers["Wards"] = new L.layerGroup();
-		baseLayers["Neighborhoods"] = new L.layerGroup();
-		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers["Default"]});					
+		baseLayers.Default = new L.tileLayer(u, {id: settings.maps.Default, attribution: a, minZoom: 11, maxZoom: 17});
+		grayscale = L.tileLayer(u, {id: settings.maps.Grayscale, attribution: a, minZoom: 11, maxZoom: 17});
+		baseLayers.Wards = new L.layerGroup();
+		baseLayers.Neighborhoods = new L.layerGroup();
+		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers.Default});
 		this.map.on({
 			baselayerchange: function(e) {
 				try {
@@ -165,10 +169,10 @@ baseMap = {
 				},
 			overlayadd: function(e) {overlayChanged(e, true);},
 			overlayremove: function(e) {overlayChanged(e, false);}
-			})
+			});
 		this.ready = true;
 		}
-	}
+	};
 
 
 function geojsonLayer(url, style) {
@@ -186,29 +190,30 @@ function geojsonLayer(url, style) {
 			if (xobj.readyState == 4 && xobj.status == "200") {
 				x.layer = new L.layerGroup();
 				L.geoJson(JSON.parse(xobj.responseText), {
-					onEachFeature: x.onEachFeature, 
+					onEachFeature: x.onEachFeature,
 					style: x.style
 					}).addTo(x.layer);
 				x.ready = true;
 				isEverythingReady();
 				}
 			};
-	    xobj.send(null);  	
-		}
+	    xobj.send(null);
+		};
 	return this;
 	}
 
 
 function addMarker(feature, layer) {
+	var thisMarker;
 	var newIcon = L.Icon.Default.extend({options: {}});
-	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
+	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {
 		ids.push(feature.id);
 		var center = layer.getBounds().getCenter();
 		if (feature.properties.latitude && feature.properties.longitude) {
 			center = L.latLng(feature.properties.latitude, feature.properties.longitude);
 			}
-		var thisMarker = L.marker(center, {
-			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
+		thisMarker = L.marker(center, {
+			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}),
 			riseOnHover: true
 			}).addTo(overlayLayers[labelMarker(feature.properties.type.split(" ")[0])]);
 		thisMarker.money = Number(
@@ -220,17 +225,17 @@ function addMarker(feature, layer) {
 			popupclose: function(e) {clickPark(e, false);}
 			});
 		thisMarker.park = {
-			"name": feature.properties.name, 
+			"name": feature.properties.name,
 			"acreage": feature.properties.acreage,
 			"pool": feature.properties.pool,
-			"millage": feature.properties.millage		
+			"millage": feature.properties.millage
 			};
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
 		var improvements = "description of improvements would go here";
 		if (feature.properties.description) {improvements = feature.properties.description;}
 		thisMarker.bindPopup(
-			"<h3>" + thisMarker.park.name + "</h3>" + 
-			"<p>" + thisMarker.type + "</p>" + 
+			"<h3>" + thisMarker.park.name + "</h3>" +
+			"<p>" + thisMarker.type + "</p>" +
 			improvements,
 			{closeButton: false, maxHeight: 300}
 			);
@@ -240,23 +245,24 @@ function addMarker(feature, layer) {
 
 
 function makeParkList() {
-	
+
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
-	
+
+	var p, feature, thisMarker, thisPark, a, li;
 	for (i = 0; i < markers.length; i++) {
-		
-		var thisMarker = markers[i],
-			thisPark = JSON.parse(JSON.stringify(thisMarker.park)),
-			a = document.createElement("a"),
-			li = document.createElement("li");
-			
-		thisMarker.index = i;				
+
+		thisMarker = markers[i];
+		thisPark = JSON.parse(JSON.stringify(thisMarker.park));
+		a = document.createElement("a");
+		li = document.createElement("li");
+
+		thisMarker.index = i;
 		a.href = "javascript:pop(" + i + ");";
 		a.title = thisPark.name;
-		a.appendChild(imgFromMarkerType(thisMarker.type));		
+		a.appendChild(imgFromMarkerType(thisMarker.type));
 
 		for (feature in thisPark) {
-			var p = document.createElement("p");
+			p = document.createElement("p");
 			switch (feature) {
 				case "acreage":
 					p.textContent = thisPark[feature] + " acres";
@@ -264,16 +270,16 @@ function makeParkList() {
 				case "millage":
 					if (!thisPark[feature]) {
 						p.innerHTML = "&nbsp;";
-						} 
+						}
 					else {
-						p.innerHTML = 
+						p.innerHTML =
 							thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i>";
 						}
 					break;
 				case "pool":
 					if (thisPark[feature] == "") {
 						p.innerHTML = "&nbsp;";
-						} 
+						}
 					else {
 						p.textContent = thisPark[feature] + " pool";
 						}
@@ -283,10 +289,10 @@ function makeParkList() {
 				}
 			a.appendChild(p);
 			}
-		
-		li.appendChild(a);		
+
+		li.appendChild(a);
 		parklist.appendChild(li);
-		
+
 		thisMarker.ward = polygonContainsMarker(thisMarker, wards);
 		thisMarker.neighborhood = polygonContainsMarker(thisMarker, neighborhoods);
 
@@ -295,7 +301,7 @@ function makeParkList() {
 //		if (thisMarker.neighborhood != -1) {n = neighborhoods[thisMarker.neighborhood].feature.properties.label;}
 //		console.log('"' + thisMarker.park.name + '","' + thisMarker.type + '",' + thisMarker.money + ',"' + n + '","' + w + '"');
 //
-		}  
+		}
 
 	}
 
@@ -306,15 +312,15 @@ function clickPark(e, open) {
 	if (open) {
 		if (markerClicked) {
 			liPark(index).scrollIntoView();
-			markerClicked = false
-			}	
+			markerClicked = false;
+			}
 		}
 	}
-	
+
 function colorUnits(units) {
 	for (i = 0; i < units.length; i++) {
 		units[i].setStyle({
-			fill: true, 
+			fill: true,
 			fillColor: settings.choropleth.color(units[i].feature.properties.money)
 			});
 		}
@@ -347,14 +353,18 @@ function overlayChanged(e, show) {
 	}
 
 function polygonContainsMarker(marker, polygons) {
+	var i1, polyPoints, x, y, i2, j2, xi, yi, xj, yj, inside, intersect;
 	for (i1 = 0; i1 < polygons.length; i1++) {
-	    var polyPoints = polygons[i1].getLatLngs();       
-	    var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
-	    var inside = false;
-	    for (var i2 = 0, j2 = polyPoints.length - 1; i2 < polyPoints.length; j2 = i2++) {
-	        var xi = polyPoints[i2].lat, yi = polyPoints[i2].lng;
-	        var xj = polyPoints[j2].lat, yj = polyPoints[j2].lng;
-	        var intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+	    polyPoints = polygons[i1].getLatLngs();
+	    x = marker.getLatLng().lat;
+	    y = marker.getLatLng().lng;
+	    inside = false;
+	    for (i2 = 0, j2 = polyPoints.length - 1; i2 < polyPoints.length; j2 = i2++) {
+	        xi = polyPoints[i2].lat;
+	        yi = polyPoints[i2].lng;
+	        xj = polyPoints[j2].lat;
+	        yj = polyPoints[j2].lng;
+	        intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
 	        if (intersect) inside = !inside;
 	    	}
 	    if (inside) {
