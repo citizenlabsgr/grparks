@@ -1,4 +1,5 @@
 "use strict";
+
 var settings = {
 	choropleth: {
 		color: function(amount) {
@@ -38,7 +39,7 @@ var settings = {
 
 var ids = [], markers = [], neighborhoods = [], wards = [],
 	baseLayers = {}, overlayLayers = {},
-	grayscale, markerClicked = false;
+	i, grayscale, markerClicked = false, thisMarker;
 
 var mapInfo = L.control({position: 'bottomleft'});
 mapInfo.onAdd = function(map) {
@@ -48,7 +49,6 @@ mapInfo.onAdd = function(map) {
 		labels = [],
 		from, to;
 	labels.push("<i style='background: transparent'></i> None");
-	var i;
 	for (i = 0; i < settings.choropleth.money.length; i++) {
 		from = settings.choropleth.money[i];
 		to = settings.choropleth.money[i + 1] - 1;
@@ -67,7 +67,6 @@ mapInfo.update = function(units, props) {
 		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a ' + singular.toLowerCase());
 	};
 
-var i;
 for (i = 0; i < settings.parks.types.length; i++) {
 	overlayLayers[labelMarker(settings.parks.types[i])] = new L.layerGroup();
 	}
@@ -204,7 +203,6 @@ function geojsonLayer(url, style) {
 
 
 function addMarker(feature, layer) {
-	var thisMarker;
 	var newIcon = L.Icon.Default.extend({options: {}});
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {
 		ids.push(feature.id);
@@ -248,7 +246,7 @@ function makeParkList() {
 
 	markers.sort(function(a, b){return (a.park.name.toUpperCase() > b.park.name.toUpperCase()) ? 1 : -1;});
 
-	var p, feature, thisMarker, thisPark, a, li;
+	var p, feature, thisPark, a, li;
 	for (i = 0; i < markers.length; i++) {
 
 		thisMarker = markers[i];
@@ -377,8 +375,8 @@ function polygonContainsMarker(marker, polygons) {
 	}
 
 function pop(index) {
-	var thisMarker = markers[index],
-		where = thisMarker.getLatLng(),
+	thisMarker = markers[index];
+	var where = thisMarker.getLatLng(),
 		zoom = baseMap.map.getZoom();
 	if (zoom < 15) {zoom = 15;}
 	baseMap.map.setView(where, zoom, {animation: true});
