@@ -203,12 +203,9 @@ function addMarker(feature, layer) {
 	var newIcon = L.Icon.Default.extend({options: {}});
 	if (ids.indexOf(feature.id) == -1 && feature.properties && feature.properties.name) {		
 		ids.push(feature.id);
-		var center;
+		var center = layer.getBounds().getCenter();
 		if (feature.properties.latitude && feature.properties.longitude) {
 			center = L.latLng(feature.properties.latitude, feature.properties.longitude);
-			}
-		else {
-			center = layer.getBounds().getCenter();
 			}
 		var thisMarker = L.marker(center, {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}), 
@@ -229,10 +226,12 @@ function addMarker(feature, layer) {
 			"millage": feature.properties.millage		
 			};
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
+		var improvements = "description of improvements would go here";
+		if (feature.properties.description) {improvements = feature.properties.description;}
 		thisMarker.bindPopup(
 			"<h3>" + thisMarker.park.name + "</h3>" + 
 			"<p>" + thisMarker.type + "</p>" + 
-			"description of improvements would go here",
+			improvements,
 			{closeButton: false, maxHeight: 300}
 			);
 		markers.push(thisMarker);
