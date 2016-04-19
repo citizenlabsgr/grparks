@@ -48,12 +48,12 @@ mapInfo.onAdd = function(map) {
 	var legend = L.DomUtil.create('div'),
 		labels = [],
 		from, to;
-	labels.push("<i style='background: transparent'></i> None");
+	labels.push("<i style='background: transparent'></i>None");
 	for (i = 0; i < settings.choropleth.money.length; i++) {
 		from = settings.choropleth.money[i];
 		to = settings.choropleth.money[i + 1] - 1;
 		labels.push(
-			'<i style="background:' + settings.choropleth.color(from) + '"></i> $' +
+			'<i style="background:' + settings.choropleth.color(from) + '"></i>$' +
 			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
 		}
 	legend.innerHTML = labels.join('<br>');
