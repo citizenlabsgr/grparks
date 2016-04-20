@@ -2,7 +2,8 @@ var gulp = require('gulp'),
     plumber = require('plumber'),
     gulp_concat = require('gulp-concat'),
     gulp_uglify = require('gulp-uglify'),
-    gulp_uglifycss = require('gulp-uglifycss');
+    gulp_uglifycss = require('gulp-uglifycss'),
+    run_sequence = require('run-sequence');
 
 gulp.task('build:js', function() {
   return gulp.src([
@@ -22,3 +23,8 @@ gulp.task('build:css', function() {
     .pipe(gulp_uglifycss())
     .pipe(gulp.dest('./'));
 });
+
+gulp.task('build', function() {
+  run_sequence('build:js');
+  run_sequence('build:css');
+})
