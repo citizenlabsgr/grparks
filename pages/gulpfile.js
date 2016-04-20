@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 
 gulp.task('build:js', function() {
   return gulp.src([
-    '_src/**/*.js'
+    '_src/js/**/*.js'
   ])
     .pipe(gulp_concat('app.min.js'))
     .pipe(gulp_uglify())
