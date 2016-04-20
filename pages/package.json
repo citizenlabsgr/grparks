@@ -1,0 +1,8 @@
+{
+  "name": "friendlycode.grparks.taskrunner",
+  "version": "0.0.1",
+  "description": "Taskrunner for FriendlyCode's grparks project",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
