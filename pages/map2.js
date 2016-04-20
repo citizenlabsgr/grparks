@@ -81,7 +81,7 @@ geojsonWards.onEachFeature = function(feature, layer) {
 		mouseover: function(e) {setMapInfo("Wards", e);},
 		mouseout: function(e) {resetMapInfo("Wards");}
 		});
-	feature.properties.label = "Ward " + feature.properties.NEBRH.substring(0, 5);
+	feature.properties.label = "Ward " + feature.properties.WARD;
 	feature.properties.money = 0;
 	wards.push(layer);
 	};
