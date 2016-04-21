@@ -81,8 +81,7 @@ ci: check test tests
 run: geojson
 
 .PHONY: web-build
-web-build: .depends-dev gulp-build
-gulp-build:
+web-build: .depends-dev
 	cd pages && gulp build
 
 .PHONY: geojson
