@@ -32,7 +32,6 @@ var settings = {
 		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true}
 		},
 	wards: {
-//		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
 		}
 	};
