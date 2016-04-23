@@ -5,8 +5,8 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<script src="map2.js"></script>
-	<link rel="stylesheet" href="map2.css" />
+	<script src="map.js"></script>
+	<link rel="stylesheet" href="map.css" />
 	<title>Grand Rapids Parks and Recreation Investments</title>
 	
 	<!--[if lt IE 9]>
@@ -35,11 +35,14 @@
 		<ul>
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
+			<li><a href="#about">About</a></li>
 		</ul>
 	</nav>
 	<section>
 		<ul id="parklist"></ul>
 		<div id="map"></div>
 	</section>
+	<div id="about"><a href="#" class="close">&times;</a>This is the about box</div>
+	<div id="mask" onclick="document.location='#';"></div>
 </body>
 </html>

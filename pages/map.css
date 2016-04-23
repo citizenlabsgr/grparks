@@ -177,3 +177,46 @@ img.small {
 	margin-right: 8px;
 	opacity: 0.65;
 }
+/*------------------------------------------------------------------------------*/
+/* about */
+#mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background: rgba(0, 0, 0, 0.6);
+	display: none;
+}
+#about {
+	height: 80%;
+	width: 80%;
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	z-index: 1001;
+	display: none;
+	background: white;
+	color: black;
+	padding: 10px;
+	border-radius: 10px;
+}
+#about:target, #about:target + #mask {
+	display: block;
+}
+.close {
+    display:block;
+    position:absolute;
+    top:-15px;
+    right:-15px;
+    background:red;
+    color:white;
+    height:30px;
+    width:30px;
+    line-height:26px;
+    font-size:24px;
+    text-align:center;
+    font-weight:bold;
+    border-radius:15px;
+}
