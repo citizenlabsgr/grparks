@@ -199,6 +199,12 @@ img.small {
 	z-index: 1001;
 	display: none;
 }
+@media only screen and (max-width: 30em) {
+	#overlay {
+		width: 80%;
+		margin-left: -40%;
+	}
+}
 #overlay:target, #overlay:target + #mask {
 	display: block;
 }
