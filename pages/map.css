@@ -190,11 +190,12 @@ img.small {
 	display: none;
 }
 #overlay {
-	height: 80%;
-	width: 80%;
-	position: absolute;
-	top: 10%;
-	left: 10%;
+	height: 70%;
+	width: 30em;
+	position: fixed;
+	top: 15%;
+	left: 50%;
+	margin-left: -15em;
 	z-index: 1001;
 	display: none;
 }
