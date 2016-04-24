@@ -237,7 +237,7 @@ iframe {
 }
 #about section {
 	top: 2.75em;
-	width: 95%;
+	width: calc(100% - 2em);
 	padding: 1em;
 	overflow: scroll;
 }
