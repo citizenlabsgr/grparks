@@ -218,9 +218,9 @@ img.small {
     height:30px;
     width:30px;
     line-height:26px;
-    font-size:24px;
+/*    font-size:24px;*/
     text-align:center;
-    font-weight:bold;
+    /*font-weight:bold;*/
     border-radius:15px;
 }
 iframe {
