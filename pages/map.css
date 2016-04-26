@@ -211,17 +211,15 @@ img.small {
 .close {
     display:block;
     position:absolute;
-    top:-15px;
-    right:-15px;
+    top:-12px;
+    right:-12px;
     background:red;
     color:white;
-    height:30px;
-    width:30px;
-    line-height:26px;
-/*    font-size:24px;*/
+    height:24px;
+    width:24px;
+    line-height:20px;
     text-align:center;
-    /*font-weight:bold;*/
-    border-radius:15px;
+    border-radius:12px;
 }
 iframe {
 	border: none;
