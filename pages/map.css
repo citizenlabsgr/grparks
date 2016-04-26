@@ -41,7 +41,7 @@ h1 {
 		font-size: 1.2em;
 	}
 }
-@media only screen and (max-width: 413px) {
+@media only screen and (max-width: 374px) {
 	header img {
 		height: 45px;
 		width: 104px;
