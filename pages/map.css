@@ -68,6 +68,13 @@ nav a {
 	opacity: 0.75;
 }
 @media only screen and (max-width: 767px) {
+	header img {
+		height: 45px;
+		width: 104px;
+	}
+	h1 {
+		font-size: 1.2em;
+	}
 	#parklist li {
 		height: 5.25em;
 		width: 8em;
