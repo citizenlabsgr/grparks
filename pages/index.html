@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="styles.min.css" />
@@ -33,12 +34,15 @@
 		<ul>
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
+			<li><a href="#overlay" title="Help/About"><i class="fa fa-question-circle fa-lg"></i></a></li>
 		</ul>
 	</nav>
 	<section>
 		<ul id="parklist"></ul>
 		<div id="map"></div>
 	</section>
+	<div id="overlay"><a href="#" class="close" title="close"><i class="fa fa-times fa-lg"></i></a><iframe src="about.html"></iframe></div>
+	<div id="mask" onclick="document.location='#';"></div>
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	<script src="app.min.js"></script>
 </body>
