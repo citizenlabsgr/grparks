@@ -83,6 +83,10 @@ ci: check test tests
 .PHONY: run
 run: geojson
 
+.PHONY: web-build
+web-build: .depends-dev
+	cd pages && gulp build
+
 .PHONY: geojson
 geojson: parks.geojson
 parks.geojson: depends parks.osm_json
@@ -131,6 +135,7 @@ $(DEPENDS_CI): Makefile
 $(DEPENDS_DEV): Makefile
 	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8radius pygments docutils pdoc pylint wheel
+	cd pages && npm install
 	touch $(DEPENDS_DEV)  # flag to indicate dependencies are installed
 
 # Documentation ##############################################################

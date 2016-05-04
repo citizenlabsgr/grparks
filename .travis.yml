@@ -7,6 +7,7 @@ install:
 script:
 - make ci
 - make run
+- make web-build
 after_success:
 - coveralls
 - ocular
@@ -29,6 +30,7 @@ after_script: >
     # Rebuild the repository from the generated files and push to GitHub pages
     cd pages ;
     touch .nojekyll ;
+    echo '_src' >.gitignore ;
     git init ;
     git add . ;
     git commit -m "Deploy Travis CI build $TRAVIS_BUILD_NUMBER to GitHub pages" ;

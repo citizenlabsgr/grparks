@@ -41,3 +41,11 @@ dist
 /*.csv
 /*.osm_json
 /*.geojson*
+
+# Node
+node_modules
+npm-debug.log
+
+# Built Files
+app.min.js
+styles.min.css

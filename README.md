@@ -43,6 +43,12 @@ To run all checks after making code changes:
 $ make ci
 ```
 
+To build JS and CSS files for web:
+
+```
+$ make web-build
+```
+
 ## Deployment
 
 Each [Travis CI](https://travis-ci.org/friendlycode/grparks) build deploys to the [gh-pages](https://github.com/friendlycode/grparks/tree/gh-pages) branch.
