@@ -68,6 +68,9 @@ ALL := $(ENV)/.all
 
 # Main Targets ###############################################################
 
+CKAN_ID := b4efaad7-2e38-4b9e-8bf6-a50113a589d1
+CKAN_URL := http://data.grcity.us/dataset/grand-rapids-parks-millage/resource/$(CKAN_ID)
+
 .PHONY: all
 all: depends doc $(ALL)
 $(ALL): $(SOURCES)
@@ -92,6 +95,12 @@ parks.geojson: depends parks.osm_json
 osm_json: parks.osm_json
 parks.osm_json: depends data/millage.csv
 	$(PYTHON) $(PACKAGE)/main.py data/millage.csv
+
+ifdef TRAVIS
+.PHONY: data/millage.csv
+endif
+data/millage.csv:
+	curl $(CKAN_URL) | grep -m 1 -o 'http:.*\.csv' | xargs curl > $@
 
 # Development Installation ###################################################
 
