@@ -55,7 +55,7 @@ mapInfo.onAdd = function(map) {
 			'<i style="background:' + settings.choropleth.color(from) + '"></i>$' +
 			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
 		}
-	legend.innerHTML = labels.join('<br>');
+	legend.innerHTML = "<hr>" + labels.join('<br>');
 	div.appendChild(this.heading);
 	div.appendChild(legend);
 	return div;
@@ -63,7 +63,7 @@ mapInfo.onAdd = function(map) {
 mapInfo.update = function(units, props) {
 	var singular = units.slice(0, -1);
 	this.heading.innerHTML = '<h4>' + singular + ' Investment</h4>' +  (props ?
-		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") : 'Hover over a ' + singular.toLowerCase());
+		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") + (singular == "Ward" ? ", " + props.acres.toFixed(1) + " acres" : "") : 'Hover over a ' + singular.toLowerCase());
 	};
 
 for (i = 0; i < settings.parks.types.length; i++) {
@@ -81,6 +81,7 @@ geojsonWards.onEachFeature = function(feature, layer) {
 		mouseout: function(e) {resetMapInfo("Wards");}
 		});
 	feature.properties.label = "Ward " + feature.properties.WARD;
+	feature.properties.acres = 0;
 	feature.properties.money = 0;
 	wards.push(layer);
 	};
@@ -94,6 +95,7 @@ geojsonNeighborhoods.onEachFeature = function(feature, layer) {
 		mouseout: function(e) {resetMapInfo("Neighborhoods");}
 		});
 	feature.properties.label = feature.properties.NEBRH;
+	feature.properties.acres = 0;
 	feature.properties.money = 0;
 	neighborhoods.push(layer);
 	};
@@ -121,6 +123,7 @@ function isEverythingReady() {
 		geojsonWards.layer.addTo(baseLayers.Wards);
 		geojsonNeighborhoods.layer.addTo(baseLayers.Neighborhoods);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
+		// todo: will have to color wards differently
 		colorUnits(wards);
 		colorUnits(neighborhoods);
 		}
@@ -223,7 +226,7 @@ function addMarker(feature, layer) {
 			});
 		thisMarker.park = {
 			"name": feature.properties.name,
-			"acreage": feature.properties.acreage,
+			"acreage": Number(feature.properties.acreage),
 			"pool": feature.properties.pool,
 			"millage": feature.properties.millage
 			};
@@ -296,8 +299,8 @@ function makeParkList() {
 //		var n = "", w = "";
 //		if (thisMarker.ward != -1) {w = wards[thisMarker.ward].feature.properties.label;}
 //		if (thisMarker.neighborhood != -1) {n = neighborhoods[thisMarker.neighborhood].feature.properties.label;}
-//		console.log('"' + thisMarker.park.name + '","' + thisMarker.type + '",' + thisMarker.money + ',"' + n + '","' + w + '"');
-//
+//		console.log('"' + thisMarker.park.name + '","' + thisMarker.type + '",' + thisMarker.money + ',' + thisMarker.park.acreage + ',"' + n + '","' + w + '"');
+
 		}
 
 	}
@@ -315,6 +318,7 @@ function clickPark(e, open) {
 	}
 
 function colorUnits(units) {
+	// todo: will have to color wards differently
 	for (i = 0; i < units.length; i++) {
 		units[i].setStyle({
 			fill: true,
@@ -338,13 +342,28 @@ function liPark(index) {
 	}
 
 function overlayChanged(e, show) {
-	overlayLayers[e.name].eachLayer(function(layer) {
-		liPark(layer.index).style.display = show ? "block" : "none";
-		var adjustment;
-		if (show) {adjustment = layer.money;} else {adjustment = -layer.money;}
-		if (layer.neighborhood != -1) {neighborhoods[layer.neighborhood].feature.properties.money += adjustment;}
-		if (layer.ward != -1) {wards[layer.ward].feature.properties.money += adjustment;}
+	overlayLayers[e.name].eachLayer(function(thisMarker) {
+		liPark(thisMarker.index).style.display = show ? "block" : "none";
+		var acresAdjustment, moneyAdjustment;
+		if (show) {
+			acresAdjustment = thisMarker.park.acreage;
+			moneyAdjustment = thisMarker.money;
+			} 
+		else {
+			acresAdjustment = -thisMarker.park.acreage;
+			moneyAdjustment = -thisMarker.money;
+			}
+		// some parks aren't in a neighborhood or a ward (-1)
+		if (thisMarker.neighborhood != -1) {
+			neighborhoods[thisMarker.neighborhood].feature.properties.acres += acresAdjustment;
+			neighborhoods[thisMarker.neighborhood].feature.properties.money += moneyAdjustment;
+			}
+		if (thisMarker.ward != -1) {
+			wards[thisMarker.ward].feature.properties.acres += acresAdjustment;
+			wards[thisMarker.ward].feature.properties.money += moneyAdjustment;
+			}
 		});
+	// todo: will have to recompute breaks and color wards differently
 	colorUnits(wards);
 	colorUnits(neighborhoods);
 	}
@@ -365,6 +384,7 @@ function polygonContainsMarker(marker, polygons) {
 	        if (intersect) inside = !inside;
 	    	}
 	    if (inside) {
+	    	polygons[i1].feature.properties.acres += marker.park.acreage;
 	    	polygons[i1].feature.properties.money += marker.money;
 	    	return i1;
 	    	break;
