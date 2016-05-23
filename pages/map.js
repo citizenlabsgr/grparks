@@ -318,11 +318,42 @@ function clickPark(e, open) {
 	}
 
 function colorUnits(units) {
-	// todo: will have to color wards differently
+	var brew = new classyBrew();
+	var values = [];
 	for (i = 0; i < units.length; i++) {
+		var m = units[i].feature.properties.money;
+//		if (m >= 1) {
+			values.push(m);
+//			}
+		}
+	brew.setSeries(values);
+	var numClasses = 6;
+	if (units == wards) {numClasses = 3;}
+//	if (values.length < numClasses) {numClasses = values.length;}
+	brew.setNumClasses(numClasses);
+	brew.setColorCode("Blues");
+//	try {
+//		console.log(
+		brew.classify("jenks");
+//		);
+//		console.log(brew.getColors());
+//		}
+//	catch(err) {}
+	for (i = 0; i < units.length; i++) {
+		var c = "transparent";
+		var m = units[i].feature.properties.money;
+//		if (m >= 1) {
+//			try {
+				c = brew.getColorInRange(m);
+//				console.log(m + ", " + c);
+//				}
+//			catch(err) {c = "transparent";}
+//			}
 		units[i].setStyle({
 			fill: true,
-			fillColor: settings.choropleth.color(units[i].feature.properties.money)
+			fillColor: c
+			//fillColor: settings.choropleth.color(m)
+			//fillColor: settings.choropleth.color(units[i].feature.properties.money)
 			});
 		}
 	}
