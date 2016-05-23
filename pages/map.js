@@ -322,33 +322,18 @@ function colorUnits(units) {
 	var values = [];
 	for (i = 0; i < units.length; i++) {
 		var m = units[i].feature.properties.money;
-//		if (m >= 1) {
-			values.push(m);
-//			}
+		values.push(m);
 		}
 	brew.setSeries(values);
 	var numClasses = 6;
 	if (units == wards) {numClasses = 3;}
-//	if (values.length < numClasses) {numClasses = values.length;}
 	brew.setNumClasses(numClasses);
 	brew.setColorCode("Blues");
-//	try {
-//		console.log(
-		brew.classify("jenks");
-//		);
-//		console.log(brew.getColors());
-//		}
-//	catch(err) {}
+	brew.classify("jenks");
 	for (i = 0; i < units.length; i++) {
 		var c = "transparent";
 		var m = units[i].feature.properties.money;
-//		if (m >= 1) {
-//			try {
-				c = brew.getColorInRange(m);
-//				console.log(m + ", " + c);
-//				}
-//			catch(err) {c = "transparent";}
-//			}
+		c = brew.getColorInRange(m);
 		units[i].setStyle({
 			fill: true,
 			fillColor: c

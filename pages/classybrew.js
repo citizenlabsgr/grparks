@@ -348,14 +348,23 @@
 				// [4-5.99, 6-7.99, 8-9]
 				var i = 0;
 				for(i; i < this.range.length; i++) {
-					if(num >= this.range[i] && this.range[i + 1]) {
-						if(num < this.range[i + 1]) {
+//					if(num >= this.range[i] && typeof this.range[i + 1] !== undefined) {
+//						if(num < this.range[i + 1]) {
+//							return this.colorSchemes[this.colorCode][this.numClasses][i];
+//						}
+//					} else if(num == this.range[i]) {
+//						return this.colorSchemes[this.colorCode][this.numClasses][i - 1];
+//					} else {
+//						return false;
+//					}
+					if(num == this.range[i]) {
+						if (i == 0) {
+							return "transparent";
+						} else {
 							return this.colorSchemes[this.colorCode][this.numClasses][i];
 						}
-					} else if(num == this.range[i]) {
+					} else if(num < this.range[i]) {
 						return this.colorSchemes[this.colorCode][this.numClasses][i - 1];
-					} else {
-						return false;
 					}
 				} 
 			};
