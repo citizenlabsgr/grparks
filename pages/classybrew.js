@@ -358,7 +358,7 @@
 //						return false;
 //					}
 					if(num == this.range[i]) {
-						if (i == 0) {
+						if (i == 0 && num == 0) {
 							return "transparent";
 						} else {
 							return this.colorSchemes[this.colorCode][this.numClasses][i];

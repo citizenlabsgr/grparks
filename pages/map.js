@@ -1,17 +1,6 @@
 "use strict";
 
 var settings = {
-	choropleth: {
-		color: function(amount) {
-		    return amount >= 1000000 ? '#7a0177' :
-		           amount >=  750000 ? '#c51b8a' :
-		           amount >=  500000 ? '#f768a1' :
-		           amount >=  250000 ? '#fbb4b9' :
-		           amount >=       1 ? '#feebe2' :
-		           					   'transparent';
-			},
-		money: [1, 250000, 500000, 750000, 1000000]
-		},
 	city: {
 		center: {lat: 42.9614844, lon: -85.6556833},
 		style: {color: "gray", weight: 3, fill: false, clickable: false},
@@ -38,33 +27,56 @@ var settings = {
 
 var ids = [], markers = [], neighborhoods = [], wards = [],
 	baseLayers = {}, overlayLayers = {},
-	i, grayscale, markerClicked = false, thisMarker;
+	activeBase ="Default", grayscale, i, markerClicked = false, thisMarker;
 
 var mapInfo = L.control({position: 'bottomleft'});
 mapInfo.onAdd = function(map) {
 	var div = L.DomUtil.create("div", "info");
 	this.heading = L.DomUtil.create('div');
-	var legend = L.DomUtil.create('div'),
-		labels = [],
-		from, to;
-	labels.push("<i style='background: transparent'></i>None");
-	for (i = 0; i < settings.choropleth.money.length; i++) {
-		from = settings.choropleth.money[i];
-		to = settings.choropleth.money[i + 1] - 1;
-		labels.push(
-			'<i style="background:' + settings.choropleth.color(from) + '"></i>$' +
-			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
-		}
-	legend.innerHTML = "<hr>" + labels.join('<br>');
+	this.legend = L.DomUtil.create('div');
 	div.appendChild(this.heading);
-	div.appendChild(legend);
+	div.appendChild(this.legend);
 	return div;
 	};
-mapInfo.update = function(units, props) {
-	var singular = units.slice(0, -1);
+mapInfo.updateHeading = function(props) {
+	var singular = activeBase.slice(0, -1);
 	this.heading.innerHTML = '<h4>' + singular + ' Investment</h4>' +  (props ?
 		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") + (singular == "Ward" ? ", " + props.acres.toFixed(1) + " acres" : "") : 'Hover over a ' + singular.toLowerCase());
 	};
+mapInfo.updateLegend = function() {
+	var brew = new classyBrew();
+	var values = [];
+	var units = neighborhoods;
+	if (activeBase == "Wards") {units = wards;}
+	for (i = 0; i < units.length; i++) {
+		values.push(units[i].feature.properties.money);
+		}
+	brew.setSeries(values);
+	var numClasses = 5;
+	if (activeBase == "Wards") {numClasses = 3;}
+	brew.setNumClasses(numClasses);
+	brew.setColorCode("Blues");
+	var breaks = brew.classify("jenks");
+	var colors = brew.getColors();
+	console.log(breaks);
+	console.log(colors);
+	for (i = 0; i < units.length; i++) {
+		units[i].setStyle({
+			fill: true,
+			fillColor: brew.getColorInRange(units[i].feature.properties.money)
+			});
+		}
+	var	labels = [], from, to;
+	labels.push("<i style='background: transparent'></i>None");
+	for (i = 0; i < breaks.length; i++) {
+		from = breaks[i];
+		to = breaks[i + 1] - 1;
+		labels.push(
+			'<i style="background:' + colors[i] + '"></i>$' +
+			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
+		}	
+	this.legend.innerHTML = "<hr>" + labels.join('<br>');
+	}
 
 for (i = 0; i < settings.parks.types.length; i++) {
 	overlayLayers[labelMarker(settings.parks.types[i])] = new L.layerGroup();
@@ -76,9 +88,9 @@ geojsonCity.getData();
 var geojsonWards = new geojsonLayer(settings.wards.url, settings.polygons.style);
 geojsonWards.onEachFeature = function(feature, layer) {
 	layer.on({
-		click: function(e) {setMapInfo("Wards", e);},
-		mouseover: function(e) {setMapInfo("Wards", e);},
-		mouseout: function(e) {resetMapInfo("Wards");}
+		click: function(e) {setMapInfo(e);},
+		mouseover: function(e) {setMapInfo(e);},
+		mouseout: function(e) {resetMapInfo();}
 		});
 	feature.properties.label = "Ward " + feature.properties.WARD;
 	feature.properties.acres = 0;
@@ -90,9 +102,9 @@ geojsonWards.getData();
 var geojsonNeighborhoods = new geojsonLayer(settings.neighborhoods.url, settings.polygons.style);
 geojsonNeighborhoods.onEachFeature = function(feature, layer) {
 	layer.on({
-		click: function(e) {setMapInfo("Neighborhoods", e);},
-		mouseover: function(e) {setMapInfo("Neighborhoods", e);},
-		mouseout: function(e) {resetMapInfo("Neighborhoods");}
+		click: function(e) {setMapInfo(e);},
+		mouseover: function(e) {setMapInfo(e);},
+		mouseout: function(e) {resetMapInfo();}
 		});
 	feature.properties.label = feature.properties.NEBRH;
 	feature.properties.acres = 0;
@@ -123,9 +135,6 @@ function isEverythingReady() {
 		geojsonWards.layer.addTo(baseLayers.Wards);
 		geojsonNeighborhoods.layer.addTo(baseLayers.Neighborhoods);
 		L.control.layers(baseLayers, overlayLayers, {position: "topright", collapsed: false}).addTo(baseMap.map);
-		// todo: will have to color wards differently
-		colorUnits(wards);
-		colorUnits(neighborhoods);
 		}
 	}
 
@@ -154,9 +163,11 @@ var baseMap = {
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers.Default});
 		this.map.on({
 			baselayerchange: function(e) {
+				activeBase = e.name;
 				try {
 					mapInfo.removeFrom(baseMap.map);
-					resetMapInfo();
+					// todo: might not need the next statement
+//					resetMapInfo();
 					}
 				catch(err) {}
 				if (e.name == "Default") {
@@ -165,7 +176,8 @@ var baseMap = {
 				else {
 					baseMap.map.addLayer(grayscale);
 					mapInfo.addTo(baseMap.map);
-					mapInfo.update(e.name);
+					mapInfo.updateHeading();
+					mapInfo.updateLegend();
 					}
 				},
 			overlayadd: function(e) {overlayChanged(e, true);},
@@ -231,7 +243,8 @@ function addMarker(feature, layer) {
 			"millage": feature.properties.millage
 			};
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
-		var improvements = "description of improvements would go here";
+		var improvements = "";
+		if (thisMarker.money != 0) {improvements = "description of improvements would go here";}
 		if (feature.properties.description) {improvements = feature.properties.description;}
 		thisMarker.bindPopup(
 			"<h3>" + thisMarker.park.name + "</h3>" +
@@ -317,32 +330,6 @@ function clickPark(e, open) {
 		}
 	}
 
-function colorUnits(units) {
-	var brew = new classyBrew();
-	var values = [];
-	for (i = 0; i < units.length; i++) {
-		var m = units[i].feature.properties.money;
-		values.push(m);
-		}
-	brew.setSeries(values);
-	var numClasses = 6;
-	if (units == wards) {numClasses = 3;}
-	brew.setNumClasses(numClasses);
-	brew.setColorCode("Blues");
-	brew.classify("jenks");
-	for (i = 0; i < units.length; i++) {
-		var c = "transparent";
-		var m = units[i].feature.properties.money;
-		c = brew.getColorInRange(m);
-		units[i].setStyle({
-			fill: true,
-			fillColor: c
-			//fillColor: settings.choropleth.color(m)
-			//fillColor: settings.choropleth.color(units[i].feature.properties.money)
-			});
-		}
-	}
-
 function imgFromMarkerType(type) {
 	var img = document.createElement("img");
 	img.src = srcFromMarkerType(type);
@@ -379,9 +366,8 @@ function overlayChanged(e, show) {
 			wards[thisMarker.ward].feature.properties.money += moneyAdjustment;
 			}
 		});
-	// todo: will have to recompute breaks and color wards differently
-	colorUnits(wards);
-	colorUnits(neighborhoods);
+	mapInfo.updateHeading();
+	mapInfo.updateLegend();
 	}
 
 function polygonContainsMarker(marker, polygons) {
@@ -418,17 +404,17 @@ function pop(index) {
 	thisMarker.openPopup();
 	}
 
-function resetMapInfo(units) {
+function resetMapInfo() {
 	var layer;
-	if (units == "Wards") {layer = geojsonWards.layer;} else {layer = geojsonNeighborhoods.layer;}
+	if (activeBase == "Wards") {layer = geojsonWards.layer;} else {layer = geojsonNeighborhoods.layer;}
 	layer.getLayers()[0].setStyle(settings.polygons.style);
-	mapInfo.update(units);
+	mapInfo.updateHeading();
 	}
 
-function setMapInfo(units, e) {
-	resetMapInfo(units);
+function setMapInfo(e) {
+	resetMapInfo();
 	e.target.setStyle(settings.polygons.highlight);
-	mapInfo.update(units, e.target.feature.properties);
+	mapInfo.updateHeading(e.target.feature.properties);
 	}
 
 function srcFromMarkerType(type) {
