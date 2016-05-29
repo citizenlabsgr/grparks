@@ -68,8 +68,7 @@ def run(input_csv_path, output_csv_path, output_osm_json_path, debug=False):
     # Display the difference between both park lists
     for name in millage_parks.keys():
         if name not in osm_parks:
-            log.error("missing park on OSM: %s", name)
-            success = False
+            log.warning("missing park on OSM: %s", name)
     for name in osm_parks.keys():
         if name not in millage_parks:
             log.warning("missing park in CSV: %s", name)
