@@ -46,10 +46,10 @@ mapInfo.updateHeading = function(props) {
 mapInfo.updateLegend = function() {
 	var brew = new classyBrew();
 	var values = [];
-	var units = neighborhoods;
-	if (activeBase == "Wards") {units = wards;}
-	for (i = 0; i < units.length; i++) {
-		values.push(units[i].feature.properties.money);
+	var layers = neighborhoods;
+	if (activeBase == "Wards") {layers = wards;}
+	for (i = 0; i < layers.length; i++) {
+		values.push(layers[i].feature.properties.money);
 		}
 	brew.setSeries(values);
 	var numClasses = 5;
@@ -60,10 +60,10 @@ mapInfo.updateLegend = function() {
 	var colors = brew.getColors();
 	console.log(breaks);
 	console.log(colors);
-	for (i = 0; i < units.length; i++) {
-		units[i].setStyle({
+	for (i = 0; i < layers.length; i++) {
+		layers[i].setStyle({
 			fill: true,
-			fillColor: brew.getColorInRange(units[i].feature.properties.money)
+			fillColor: brew.getColorInRange(layers[i].feature.properties.money)
 			});
 		}
 	var	labels = [], from, to;
@@ -71,9 +71,9 @@ mapInfo.updateLegend = function() {
 	for (i = 0; i < breaks.length; i++) {
 		from = breaks[i];
 		to = breaks[i + 1] - 1;
-		labels.push(
-			'<i style="background:' + colors[i] + '"></i>$' +
-			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
+//		labels.push(
+//			'<i style="background:' + colors[i] + '"></i>$' +
+//			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
 		}	
 	this.legend.innerHTML = "<hr>" + labels.join('<br>');
 	}
@@ -166,8 +166,6 @@ var baseMap = {
 				activeBase = e.name;
 				try {
 					mapInfo.removeFrom(baseMap.map);
-					// todo: might not need the next statement
-//					resetMapInfo();
 					}
 				catch(err) {}
 				if (e.name == "Default") {
