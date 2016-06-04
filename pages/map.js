@@ -47,13 +47,17 @@ mapInfo.updateLegend = function() {
 	var brew = new classyBrew();
 	var values = [];
 	var layers = neighborhoods;
+	var nonzero = 0;
 	if (activeBase == "Wards") {layers = wards;}
 	for (i = 0; i < layers.length; i++) {
-		values.push(layers[i].feature.properties.money);
+		var m = layers[i].feature.properties.money;
+		values.push(m);
+		if (m != 0) {nonzero += 1;}
 		}
 	brew.setSeries(values);
 	var numClasses = 5;
 	if (activeBase == "Wards") {numClasses = 3;}
+	if (nonzero < numClasses) {numClasses = nonzero;}
 	brew.setNumClasses(numClasses);
 	brew.setColorCode("Blues");
 	var breaks = brew.classify("jenks");
@@ -61,6 +65,7 @@ mapInfo.updateLegend = function() {
 	console.log(breaks);
 	console.log(colors);
 	for (i = 0; i < layers.length; i++) {
+		console.log(layers[i].feature.properties.label + ": " + brew.getColorInRange(layers[i].feature.properties.money));
 		layers[i].setStyle({
 			fill: true,
 			fillColor: brew.getColorInRange(layers[i].feature.properties.money)
