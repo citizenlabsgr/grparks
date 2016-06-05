@@ -73,12 +73,12 @@ mapInfo.updateLegend = function() {
 		}
 	var	labels = [], from, to;
 	labels.push("<i style='background: transparent'></i>None");
-	for (i = 0; i < breaks.length; i++) {
-		from = breaks[i];
-		to = breaks[i + 1] - 1;
-//		labels.push(
-//			'<i style="background:' + colors[i] + '"></i>$' +
-//			from.toLocaleString("en-US") + (to ? '&ndash;' + to.toLocaleString("en-US") : '+'));
+	for (i = 0; i < breaks.length - 1; i++) {
+		from = breaks[i] + 1;
+		to = breaks[i + 1];
+		labels.push(
+			'<i style="background:' + colors[i] + '"></i>$' +
+			from.toLocaleString("en-US") + '&ndash;' + to.toLocaleString("en-US"));
 		}	
 	this.legend.innerHTML = "<hr>" + labels.join('<br>');
 	}
