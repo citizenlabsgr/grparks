@@ -47,7 +47,7 @@ mapInfo.updateHeading = function(props) {
 	};
 mapInfo.updateLegend = function() {
 	var brew = new classyBrew();
-	var values = [];
+	var values = [0];
 	var nonzero = 0;
 	var choropleth = settings.neighborhoods.choropleth;
 	var layers = neighborhoods;
@@ -94,7 +94,6 @@ geojsonCity.getData();
 var geojsonWards = new geojsonLayer(settings.wards.url, settings.polygons.style);
 geojsonWards.onEachFeature = function(feature, layer) {
 	layer.on({
-// todo: eliminate hover
 		click: function(e) {setMapInfo(e);},
 		mouseover: function(e) {setMapInfo(e);},
 		mouseout: function(e) {resetMapInfo();}
