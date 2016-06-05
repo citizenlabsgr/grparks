@@ -9,6 +9,7 @@ var settings = {
 	icons: "images/marker-icons/",
 	maps: {"Default": "mapbox.emerald", "Grayscale": "mapbox.light"},
 	neighborhoods: {
+		choropleth: {classes: 5, colors: "Blues"},
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
 		},
 	parks: {
@@ -21,6 +22,7 @@ var settings = {
 		style: {weight: 1, fill: true, fillOpacity: 0.65, clickable: true}
 		},
 	wards: {
+		choropleth: {classes: 3, colors: "Blues"},
 		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
 		}
 	};
@@ -46,20 +48,23 @@ mapInfo.updateHeading = function(props) {
 mapInfo.updateLegend = function() {
 	var brew = new classyBrew();
 	var values = [];
-	var layers = neighborhoods;
 	var nonzero = 0;
-	if (activeBase == "Wards") {layers = wards;}
+	var choropleth = settings.neighborhoods.choropleth;
+	var layers = neighborhoods;
+	if (activeBase == "Wards") {
+		choropleth = settings.wards.choropleth;
+		layers = wards;
+		}
 	for (i = 0; i < layers.length; i++) {
 		var m = layers[i].feature.properties.money;
 		values.push(m);
 		if (m != 0) {nonzero += 1;}
 		}
 	brew.setSeries(values);
-	var numClasses = 5;
-	if (activeBase == "Wards") {numClasses = 3;}
+	var numClasses = choropleth.classes;
 	if (nonzero < numClasses) {numClasses = nonzero;}
 	brew.setNumClasses(numClasses);
-	brew.setColorCode("Blues");
+	brew.setColorCode(choropleth.colors);
 	var breaks = brew.classify("jenks");
 	var colors = brew.getColors();
 	for (i = 0; i < layers.length; i++) {
@@ -89,6 +94,7 @@ geojsonCity.getData();
 var geojsonWards = new geojsonLayer(settings.wards.url, settings.polygons.style);
 geojsonWards.onEachFeature = function(feature, layer) {
 	layer.on({
+// todo: eliminate hover
 		click: function(e) {setMapInfo(e);},
 		mouseover: function(e) {setMapInfo(e);},
 		mouseout: function(e) {resetMapInfo();}
