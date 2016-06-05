@@ -62,14 +62,10 @@ mapInfo.updateLegend = function() {
 	brew.setColorCode("Blues");
 	var breaks = brew.classify("jenks");
 	var colors = brew.getColors();
-	console.log(breaks);
-	console.log(colors);
 	for (i = 0; i < layers.length; i++) {
-		console.log(layers[i].feature.properties.label + ": " + brew.getColorInRange(layers[i].feature.properties.money));
-		layers[i].setStyle({
-			fill: true,
-			fillColor: brew.getColorInRange(layers[i].feature.properties.money)
-			});
+		var c = "transparent";
+		if (colors !== undefined) {c = brew.getColorInRange(layers[i].feature.properties.money);}		
+		layers[i].setStyle({fill: true, fillColor: c});
 		}
 	var	labels = [], from, to;
 	labels.push("<i style='background: transparent'></i>None");
