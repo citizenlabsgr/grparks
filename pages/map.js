@@ -399,6 +399,12 @@ function polygonContainsMarker(marker, polygons) {
 	return -1;
 	}
 
+function toggle_list() {
+	list_on.classList.toggle("hide");
+	list_off.classList.toggle("hide");
+	parklist.classList.toggle("hide");
+	}
+
 function pop(index) {
 	thisMarker = markers[index];
 	var where = thisMarker.getLatLng(),

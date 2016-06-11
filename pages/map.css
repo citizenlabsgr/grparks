@@ -64,6 +64,11 @@ nav a {
 	padding: 0.5em 0.75em;
 }
 /*------------------------------------------------------------------------------*/
+/* hide or show */
+.hide {
+	display: none;
+}
+/*------------------------------------------------------------------------------*/
 /* sidebar list of parks */
 #parklist {
 	overflow: auto;
@@ -72,16 +77,29 @@ nav a {
 }
 #parklist li {
 	margin-bottom: 1px;
-	width: 12em;
-	height: 4.25em;
-	padding: 0.25em 0.375em 0.25em 0.375em;
+	width: 16.25em; /*12em;*/
+	height: 3em;/*4.25em;*/
+	padding: 0.25em 0.375em;/* 0.25em 0.375em;*/
 	position: relative;
 	opacity: 0.75;
 }
-@media only screen and (max-width: 767px) {
+/*@media only screen and (max-width: 767px) {
 	#parklist li {
 		height: 5.25em;
 		width: 8em;
+	}
+}*/
+@media only screen and (min-width: 1024px) {
+	nav > a {
+		display: none;
+	}
+	#parklist {
+		display: block;
+	}
+}
+@media only screen and (max-width: 1023px) {
+	#parklist.hide {
+		display: none;
 	}
 }
 #parklist li.highlight, #parklist li:hover {

@@ -5,7 +5,8 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">-->
+	<script src="https://use.fontawesome.com/eefb16f899.js"></script>
 	<script src="classybrew.js"></script>
 	<script src="map.js"></script>
 	<link rel="stylesheet" href="map.css" />
@@ -34,6 +35,8 @@
 		<h1>Parks and Recreation Investments</h1>
 	</header>
 	<nav>
+		<a href="javascript:toggle_list();" id="list_on"><i class="fa fa-bars fa-lg"></i></a>
+		<a href="javascript:toggle_list();" class="hide" id="list_off"><i class="fa fa-times fa-lg"></i></a>
 		<ul>
 			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
 			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
@@ -41,7 +44,7 @@
 		</ul>
 	</nav>
 	<section>
-		<ul id="parklist"></ul>
+		<ul id="parklist" class="hide"></ul>
 		<div id="map"></div>
 	</section>
 	<div id="overlay"><a href="#" class="close" title="close"><i class="fa fa-times fa-lg"></i></a><iframe src="about.html"></iframe></div>
