@@ -150,7 +150,7 @@ window.onload = function() {
 	isEverythingReady();
 	};
 window.onresize = function() {
-	if (screen.width >= 1024) {list_default();}
+	if (screen.width >= 1024) {listDefault();}
 	};
 
 var baseMap = {
@@ -350,6 +350,18 @@ function liPark(index) {
 	return (parklist.getElementsByTagName("li")[index]);
 	}
 
+function listToggle() {
+	listShow.classList.toggle("hide");
+	listHide.classList.toggle("hide");
+	parklist.classList.toggle("hide");
+	}
+
+function listDefault() {
+	listShow.classList.toggle("hide", false);
+	listHide.classList.toggle("hide", true);
+	parklist.classList.toggle("hide", true);	
+	}
+
 function overlayChanged(e, show) {
 	overlayLayers[e.name].eachLayer(function(thisMarker) {
 		liPark(thisMarker.index).style.display = show ? "block" : "none";
@@ -401,18 +413,6 @@ function polygonContainsMarker(marker, polygons) {
 	return -1;
 	}
 
-function toggle_list() {
-	list_on.classList.toggle("hide");
-	list_off.classList.toggle("hide");
-	parklist.classList.toggle("hide");
-	}
-
-function list_default() {
-	list_on.classList.toggle("hide", false);
-	list_off.classList.toggle("hide", true);
-	parklist.classList.toggle("hide", true);	
-	}
-
 function pop(index) {
 	thisMarker = markers[index];
 	var where = thisMarker.getLatLng(),
@@ -420,7 +420,7 @@ function pop(index) {
 	if (zoom < 15) {zoom = 15;}
 	baseMap.map.setView(where, zoom, {animation: true});
 	thisMarker.openPopup();
-	list_default();
+	listDefault();
 	}
 
 function resetMapInfo() {

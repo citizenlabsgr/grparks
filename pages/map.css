@@ -9,7 +9,7 @@ body {
 section {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
-	top: 5.4em;
+	top: 5.6em;
 	bottom: 0;
 }
 a {
@@ -51,7 +51,7 @@ h1 {
 /* navigation bar */
 nav {
 	line-height: 1;
-	height: 1.75em;
+	height: 2em;
 }
 nav ul {
 	float: right;
@@ -61,7 +61,7 @@ nav li {
 }
 nav a {
 	display: inline-block;
-	padding: 0.375em 0.5em;
+	padding: 0.5em 0.625em;
 }
 /*------------------------------------------------------------------------------*/
 /* hide or show */
@@ -83,12 +83,6 @@ nav a {
 	position: relative;
 	opacity: 0.75;
 }
-/*@media only screen and (max-width: 767px) {
-	#parklist li {
-		height: 5.25em;
-		width: 8em;
-	}
-}*/
 @media only screen and (min-width: 1024px) {
 	nav > a {
 		display: none;
