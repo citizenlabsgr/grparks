@@ -412,6 +412,9 @@ function pop(index) {
 	if (zoom < 15) {zoom = 15;}
 	baseMap.map.setView(where, zoom, {animation: true});
 	thisMarker.openPopup();
+	list_on.classList.toggle("hide", false);
+	list_off.classList.toggle("hide", true);
+	parklist.classList.toggle("hide", true);
 	}
 
 function resetMapInfo() {
