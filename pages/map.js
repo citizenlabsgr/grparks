@@ -149,7 +149,9 @@ window.onload = function() {
 	baseMap.init("map", settings.city.center);
 	isEverythingReady();
 	};
-
+window.onresize = function() {
+	if (screen.width >= 1024) {list_default();}
+	};
 
 var baseMap = {
 	ready: false,
@@ -405,6 +407,12 @@ function toggle_list() {
 	parklist.classList.toggle("hide");
 	}
 
+function list_default() {
+	list_on.classList.toggle("hide", false);
+	list_off.classList.toggle("hide", true);
+	parklist.classList.toggle("hide", true);	
+	}
+
 function pop(index) {
 	thisMarker = markers[index];
 	var where = thisMarker.getLatLng(),
@@ -412,9 +420,7 @@ function pop(index) {
 	if (zoom < 15) {zoom = 15;}
 	baseMap.map.setView(where, zoom, {animation: true});
 	thisMarker.openPopup();
-	list_on.classList.toggle("hide", false);
-	list_off.classList.toggle("hide", true);
-	parklist.classList.toggle("hide", true);
+	list_default();
 	}
 
 function resetMapInfo() {

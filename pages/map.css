@@ -9,7 +9,7 @@ body {
 section {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
-	top: 5.6em;
+	top: 5.4em;
 	bottom: 0;
 }
 a {
@@ -51,7 +51,7 @@ h1 {
 /* navigation bar */
 nav {
 	line-height: 1;
-	height: 2em;
+	height: 1.75em;
 }
 nav ul {
 	float: right;
@@ -61,7 +61,7 @@ nav li {
 }
 nav a {
 	display: inline-block;
-	padding: 0.5em 0.75em;
+	padding: 0.375em 0.5em;
 }
 /*------------------------------------------------------------------------------*/
 /* hide or show */
