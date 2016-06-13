@@ -33,6 +33,7 @@ BBOXES = (
 PARK_NAMES = (
     "Indian Trails Golf Course",
     "Riverwalk Trails",
+    "Covell Dog Park",
 )
 
 log = common.logger(__name__)
