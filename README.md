@@ -2,9 +2,9 @@
 
 This project generates maps to visualize the distribution of parks millage.
 
-[![Build Status](http://img.shields.io/travis/friendlycode/grparks/master.svg)](https://travis-ci.org/friendlycode/grparks)
-[![Coverage Status](https://coveralls.io/repos/friendlycode/grparks/badge.svg?branch=master&service=github)](https://coveralls.io/github/friendlycode/grparks?branch=master)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/friendlycode/grparks.svg)](https://scrutinizer-ci.com/g/friendlycode/grparks/?branch=master)
+[![Build Status](http://img.shields.io/travis/citizenlabsgr/grparks/master.svg)](https://travis-ci.org/citizenlabsgr/grparks)
+[![Coverage Status](https://coveralls.io/repos/citizenlabsgr/grparks/badge.svg?branch=master&service=github)](https://coveralls.io/github/citizenlabsgr/grparks?branch=master)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/citizenlabsgr/grparks.svg)](https://scrutinizer-ci.com/g/citizenlabsgr/grparks/?branch=master)
 
 ## Setup
 
@@ -24,8 +24,8 @@ This project generates maps to visualize the distribution of parks millage.
 ParkFinder can be installed from the source code:
 
 ```
-$ git clone https://github.com/friendlycode/grparks.git friendlycode-grparks
-$ cd friendlycode-grparks
+$ git clone https://github.com/citizenlabsgr/grparks.git citizenlabs-grparks
+$ cd citizenlabs-grparks
 $ make env
 ```
 
@@ -45,6 +45,4 @@ $ make ci
 
 ## Deployment
 
-Each [Travis CI](https://travis-ci.org/friendlycode/grparks) build deploys to the [gh-pages](https://github.com/friendlycode/grparks/tree/gh-pages) branch.
-
-
+Each [Travis CI](https://travis-ci.org/citizenlabsgr/grparks) build deploys to the [gh-pages](https://github.com/citizenlabsgr/grparks/tree/gh-pages) branch.

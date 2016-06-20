@@ -4,18 +4,18 @@ var settings = {
 	city: {
 		center: {lat: 42.9614844, lon: -85.6556833},
 		style: {color: "gray", weight: 3, fill: false, clickable: false},
-		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/gr.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/gr.geojson"
 		},
 	icons: "images/marker-icons/",
 	maps: {"Default": "mapbox.emerald", "Grayscale": "mapbox.light"},
 	neighborhoods: {
 		choropleth: {classes: 5, colors: "Blues"},
-		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/neighborhoods.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/neighborhoods.geojson"
 		},
 	parks: {
 		style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 		types: ["Community", "Mini", "Neighborhood", "Urban"],
-		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/parks.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/parks.geojson"
 		},
 	polygons: {
 		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
@@ -23,7 +23,7 @@ var settings = {
 		},
 	wards: {
 		choropleth: {classes: 3, colors: "Blues"},
-		url: "https://raw.githubusercontent.com/friendlycode/gr-parks/gh-pages/wards.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/wards.geojson"
 		}
 	};
 
@@ -69,7 +69,7 @@ mapInfo.updateLegend = function() {
 	var colors = brew.getColors();
 	for (i = 0; i < layers.length; i++) {
 		var c = "transparent";
-		if (colors !== undefined) {c = brew.getColorInRange(layers[i].feature.properties.money);}		
+		if (colors !== undefined) {c = brew.getColorInRange(layers[i].feature.properties.money);}
 		layers[i].setStyle({fill: true, fillColor: c});
 		}
 	var	labels = [], from, to;
@@ -80,7 +80,7 @@ mapInfo.updateLegend = function() {
 		labels.push(
 			'<i style="background:' + colors[i] + '"></i>$' +
 			from.toLocaleString("en-US") + '&ndash;' + to.toLocaleString("en-US"));
-		}	
+		}
 	this.legend.innerHTML = "<hr>" + labels.join('<br>');
 	}
 
@@ -359,7 +359,7 @@ function listToggle() {
 function listDefault() {
 	listShow.classList.toggle("hide", false);
 	listHide.classList.toggle("hide", true);
-	parklist.classList.toggle("hide", true);	
+	parklist.classList.toggle("hide", true);
 	}
 
 function overlayChanged(e, show) {
@@ -369,7 +369,7 @@ function overlayChanged(e, show) {
 		if (show) {
 			acresAdjustment = thisMarker.park.acreage;
 			moneyAdjustment = thisMarker.money;
-			} 
+			}
 		else {
 			acresAdjustment = -thisMarker.park.acreage;
 			moneyAdjustment = -thisMarker.money;

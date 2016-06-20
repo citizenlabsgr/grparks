@@ -21,7 +21,7 @@ setuptools.setup(
     version=__version__,
 
     description="Find and validate park data on OpenStreetMap.",
-    url='https://github.com/friendlycode/gr-parks',
+    url='https://github.com/citizenlabsgr/grparks',
     author='Jace Browning',
     author_email='jacebrowning@gmail.com',
 
@@ -35,7 +35,7 @@ setuptools.setup(
         'Development Status :: 1 - Planning',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
 
     install_requires=open('requirements.txt').readlines(),

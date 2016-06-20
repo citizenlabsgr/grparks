@@ -1,3 +1,3 @@
-This project grabs park data from OpenStreetMaps, adds [millage data](https://github.com/friendlycode/gr-parks/tree/master/data), and displays the results:
+This project grabs park data from OpenStreetMaps, adds [millage data](https://github.com/citizenlabsgr/grparks/tree/master/data), and displays the results:
 
-[friendlycode.github.io/grparks](http://friendlycode.github.io/grparks/)
+[citizenlabsgr.github.io/grparks](http://citizenlabsgr.github.io/grparks/)
