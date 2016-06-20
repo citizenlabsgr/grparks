@@ -4,18 +4,18 @@ var settings = {
 	city: {
 		center: {lat: 42.9614844, lon: -85.6556833},
 		style: {color: "gray", weight: 3, fill: false, clickable: false},
-		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/gr.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/gr.geojson"
 		},
 	icons: "images/marker-icons/",
 	maps: {"Default": "mapbox.emerald", "Grayscale": "mapbox.light"},
 	neighborhoods: {
 		choropleth: {classes: 5, colors: "Blues"},
-		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/neighborhoods.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/neighborhoods.geojson"
 		},
 	parks: {
 		style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
 		types: ["Community", "Mini", "Neighborhood", "Urban"],
-		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/parks.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/parks.geojson"
 		},
 	polygons: {
 		highlight: {weight: 5, fill: true, fillOpacity: 0.65, clickable: true},
@@ -23,7 +23,7 @@ var settings = {
 		},
 	wards: {
 		choropleth: {classes: 3, colors: "Blues"},
-		url: "https://raw.githubusercontent.com/citizenlabs/grparks/gh-pages/wards.geojson"
+		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/wards.geojson"
 		}
 	};
 
