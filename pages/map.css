@@ -52,6 +52,8 @@ h1 {
 nav {
 	line-height: 1;
 	height: 2em;
+	position: relative;
+	z-index: 1001;
 }
 nav ul {
 	float: right;
@@ -62,6 +64,36 @@ nav li {
 nav a {
 	display: inline-block;
 	padding: 0.5em 0.625em;
+}
+.dropdown {
+	position: relative;
+	padding-right: 1.25em;
+	display: inline-block;
+}
+.dropdown:after {
+	content: "\25BC";
+	font-size: 0.5em;
+	display: block;
+	position: absolute;
+	top: 38%;
+	right: 12%;
+}
+.dropdown i {
+	margin-right: 4px;
+}
+.dropdown-content {
+	position: absolute;
+	right: 0;
+	display: none;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 0.5em;
+}
+.dropdown-content a {
+	display: block;
+	white-space: nowrap;
+}
+.dropdown:hover > .dropdown-content {
+	display: block;
 }
 /*------------------------------------------------------------------------------*/
 /* hide or show */
@@ -149,7 +181,7 @@ h1, nav a:hover {
 #parklist li a p:nth-child(5) {
 	color: #048004;
 }
-nav, nav a {
+nav, nav a, .dropdown-content {
 	background-color: black;
 	color: silver;
 }

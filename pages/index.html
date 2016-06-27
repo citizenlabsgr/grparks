@@ -36,13 +36,23 @@
 	</header>
 	<nav>
 		<a href="javascript:listToggle();">
-			<span id="listShow"><i class="fa fa-bars fa-lg"></i></span>
+			<span id="listShow"><i class="fa fa-list fa-lg"></i></span>
 			<span id="listHide" class="hide"><i class="fa fa-times fa-lg"></i></span>
 		</a>
 		<ul>
-			<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Dept</a></li>
-			<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
-			<li><a href="#overlay" title="Help/About"><i class="fa fa-question-circle fa-lg"></i></a></li>
+			<li class="dropdown">
+				<a href="#" class="dropbtn" title="Links to other parks information"><i class="fa fa-link fa-lg"></i>Links</a>
+				<ul class="dropdown-content">
+					<li><a href="http://grcity.us/parks/Pages/Parks.aspx" target="_blank">Parks Department</a></li>
+					<li><a href="http://friendsofgrparks.org" target="_blank">Friends of GR Parks</a></li>
+				</ul>
+			<li class="dropdown">
+				<a href="#" class="dropbtn" title="About this page"><i class="fa fa-question-circle fa-lg"></i>About</a>
+				<ul class="dropdown-content">
+					<li><a href="#overlay">About&nbsp;this&nbsp;map</a></li>
+					<li><a href="https://github.com/citizenlabsgr/grparks" target="_blank">Open Source Project</a></li>
+				</ul>
+			</li>
 		</ul>
 	</nav>
 	<section>
