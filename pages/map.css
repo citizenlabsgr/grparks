@@ -240,7 +240,7 @@ img.small {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 1000;
+	z-index: 1002;
 	background: rgba(0, 0, 0, 0.6);
 	display: none;
 }
@@ -251,7 +251,7 @@ img.small {
 	top: 15%;
 	left: 50%;
 	margin-left: -15em;
-	z-index: 1001;
+	z-index: 1003;
 	display: none;
 }
 @media only screen and (max-width: 30em) {
