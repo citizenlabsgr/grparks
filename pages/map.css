@@ -303,3 +303,7 @@ iframe {
 #about p {
 	margin-left: 0.5em;
 }
+#about ul {
+	list-style-type: disc;
+	margin: 0.25em 2em;
+}
