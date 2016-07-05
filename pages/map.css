@@ -9,7 +9,7 @@ body {
 section {
 	width: 100%;
 	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
-	top: 5.6em;
+	top: calc(5.6em + 20px);
 	bottom: 0;
 }
 a {
@@ -21,7 +21,7 @@ ul {
 /*------------------------------------------------------------------------------*/
 /* page heading */
 header {
-	padding: 0.25em;
+	padding: calc(0.25em + 20px) 0.25em 0.25em;
 	position: relative;
 	height: 3.5em;
 }
