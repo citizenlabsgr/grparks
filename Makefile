@@ -119,11 +119,11 @@ $(PIP):
 depends: .depends-ci .depends-dev
 
 .PHONY: .depends-ci
-.depends-ci: env Makefile $(DEPENDS_CI)
+.depends-ci: env Makefile package.json $(DEPENDS_CI)
 $(DEPENDS_CI): Makefile
 	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8 pep257 $(TEST_RUNNER) coverage
-	npm install -g osmtogeojson geojson-minifier
+	npm install --global
 	touch $(DEPENDS_CI)  # flag to indicate dependencies are installed
 
 .PHONY: .depends-dev
