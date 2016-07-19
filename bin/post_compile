@@ -1,1 +1,14 @@
-make run
+#!/usr/bin/env bash
+
+set -o pipefail
+
+indent() {
+  sed "s/^/       /"
+}
+
+puts-step() {
+  echo "-----> $@"
+}
+
+put-step "Building website..."
+make run 2>&1 | indent
