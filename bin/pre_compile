@@ -12,8 +12,5 @@ puts-step() {
 
 put-step "Installing GEOS..."
 curl -O http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 2>&1 | indent
-tar -xjvf geos-3.4.2.tar.bz2 2>&1 | indent
-cd geos-3.4.2 2>&1 | indent
-./configure --prefix=/app/.heroku/vendor 2>&1 | indent
-make 2>&1 | indent
-make install 2>&1 | indent
+tar -xjf geos-3.4.2.tar.bz2 2>&1 | indent
+cd geos-3.4.2 && ./configure --prefix=/app/.heroku/vendor && make && make install 2>&1 | indent
