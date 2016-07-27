@@ -230,6 +230,8 @@ function addMarker(feature, layer) {
 		if (feature.properties.latitude && feature.properties.longitude) {
 			center = L.latLng(feature.properties.latitude, feature.properties.longitude);
 			}
+		var t = feature.properties.type;
+		feature.properties.type = t.charAt(0).toUpperCase() + t.slice(1);
 		thisMarker = L.marker(center, {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}),
 			riseOnHover: true
