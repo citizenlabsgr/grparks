@@ -14,7 +14,7 @@ var settings = {
 		},
 	parks: {
 		style: {color: "#ff7800", weight: 1, opacity: 0.65, clickable: false},
-		types: ["Community", "Mini", "Neighborhood", "Regional", "Urban"],
+		types: ["Community", "Mini", "Neighborhood", "Regional"],
 		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/parks.geojson"
 		},
 	polygons: {
