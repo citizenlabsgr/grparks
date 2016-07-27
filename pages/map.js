@@ -231,11 +231,14 @@ function addMarker(feature, layer) {
 			center = L.latLng(feature.properties.latitude, feature.properties.longitude);
 			}
 		var t = feature.properties.type;
-		feature.properties.type = t.charAt(0).toUpperCase() + t.slice(1);
+		t = t.charAt(0).toUpperCase() + t.slice(1);
+		feature.properties.type = t;
+		t = t.split(" ")[0]
+		if (settings.parks.types.indexOf(t) == -1) {t = settings.parks.types[0];}
 		thisMarker = L.marker(center, {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}),
 			riseOnHover: true
-			}).addTo(overlayLayers[labelMarker(feature.properties.type.split(" ")[0])]);
+			}).addTo(overlayLayers[labelMarker(t)]);
 		thisMarker.money = Number(
 			feature.properties.millage.replace(".00", "").replace("$", "").replace(",", "")
 			);
