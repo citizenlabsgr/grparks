@@ -101,6 +101,7 @@ ifdef TRAVIS
 endif
 data/millage.csv:
 	curl $(CKAN_URL) | grep -m 1 -o 'http:.*\.csv' | xargs curl > $@
+	curl $(CKAN_URL) | grep "revision timestamp" | sed -n 's:.*<td>\(.*\)</td>.*:\1:p' > data/timestamp.txt
 
 # Development Installation ###################################################
 
