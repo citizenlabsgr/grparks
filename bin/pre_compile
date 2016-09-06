@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+indent() {
+  sed "s/^/       /"
+}
+
+puts-step() {
+  echo "-----> $@"
+}
+
+put-step "Installing GEOS..."
+curl -O http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 2>&1 | indent
+tar -xjf geos-3.4.2.tar.bz2 2>&1 | indent
+cd geos-3.4.2 && ./configure --prefix=/app/.heroku/vendor && make && make install 2>&1 | indent

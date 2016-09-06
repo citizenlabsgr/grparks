@@ -1,0 +1,11 @@
+{
+  "name": "grparks",
+  "version": "0.1.0",
+  "engines" : {
+    "node" : "4.4.7"
+  },
+  "dependencies": {
+    "osmtogeojson": "2.2.11",
+    "geojson-minifier": "0.1.1"
+  }
+}

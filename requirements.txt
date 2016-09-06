@@ -1,4 +1,6 @@
 docopt == 0.6.2
 
 osmapi == 0.4.1
-shapely == 1.5.2
+shapely == 1.5.16
+
+sappy == 0.2.1

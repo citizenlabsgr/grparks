@@ -19,26 +19,32 @@ EGG_INFO := $(subst -,_,$(PROJECT)).egg-info
 # System paths
 PLATFORM := $(shell python -c 'import sys; print(sys.platform)')
 ifneq ($(findstring win32, $(PLATFORM)), )
+	WINDOWS := true
 	SYS_PYTHON_DIR := C:\\Python$(PYTHON_MAJOR)$(PYTHON_MINOR)
 	SYS_PYTHON := $(SYS_PYTHON_DIR)\\python.exe
-	SYS_VIRTUALENV := $(SYS_PYTHON_DIR)\\Scripts\\virtualenv.exe
 	# https://bugs.launchpad.net/virtualenv/+bug/449537
 	export TCL_LIBRARY=$(SYS_PYTHON_DIR)\\tcl\\tcl8.5
 else
+	ifneq ($(findstring darwin, $(PLATFORM)), )
+		MAC := true
+	else
+		LINUX := true
+	endif
 	SYS_PYTHON := python$(PYTHON_MAJOR)
 	ifdef PYTHON_MINOR
 		SYS_PYTHON := $(SYS_PYTHON).$(PYTHON_MINOR)
 	endif
-	SYS_VIRTUALENV := virtualenv
 endif
 
-# virtualenv paths
+# Virtual environment paths
 ENV := env
 ifneq ($(findstring win32, $(PLATFORM)), )
 	BIN := $(ENV)/Scripts
+	ACTIVATE := $(BIN)/activate.bat
 	OPEN := cmd /c start
 else
 	BIN := $(ENV)/bin
+	ACTIVATE := . $(BIN)/activate
 	ifneq ($(findstring cygwin, $(PLATFORM)), )
 		OPEN := cygstart
 	else
@@ -46,24 +52,32 @@ else
 	endif
 endif
 
-# virtualenv executables
-PYTHON := $(BIN)/python
-PIP := $(BIN)/pip
-EASY_INSTALL := $(BIN)/easy_install
-RST2HTML := $(PYTHON) $(BIN)/rst2html.py
-PDOC := $(PYTHON) $(BIN)/pdoc
-PEP8 := $(BIN)/pep8
-PEP8RADIUS := $(BIN)/pep8radius
-PEP257 := $(BIN)/pep257
-PYLINT := $(BIN)/pylint
-PYREVERSE := $(BIN)/pyreverse
-NOSE := $(BIN)/nosetests
-PYTEST := $(BIN)/py.test
-COVERAGE := $(BIN)/coverage
+# Virtual environment executables
+ifndef TRAVIS
+	BIN_ := $(BIN)/
+endif
+PYTHON := $(BIN_)python
+PIP := $(BIN_)pip
+EASY_INSTALL := $(BIN_)easy_install
+RST2HTML := $(PYTHON) $(BIN_)rst2html.py
+PDOC := $(PYTHON) $(BIN_)pdoc
+MKDOCS := $(BIN_)mkdocs
+PEP8 := $(BIN_)pep8
+PEP8RADIUS := $(BIN_)pep8radius
+PEP257 := $(BIN_)pep257
+PYLINT := $(BIN_)pylint
+PYREVERSE := $(BIN_)pyreverse
+NOSE := $(BIN_)nosetests
+PYTEST := $(BIN_)py.test
+COVERAGE := $(BIN_)coverage
+COVERAGE_SPACE := $(BIN_)coverage.space
+SNIFFER := $(BIN_)sniffer
+HONCHO := PYTHONPATH=$(PWD) $(ACTIVATE) && $(BIN_)honcho
 
 # Flags for PHONY targets
-DEPENDS_CI := $(ENV)/.depends-ci
-DEPENDS_DEV := $(ENV)/.depends-dev
+INSTALLED_FLAG := $(ENV)/.installed
+DEPENDS_CI_FLAG := $(ENV)/.depends-ci
+DEPENDS_DEV_FLAG := $(ENV)/.depends-dev
 ALL := $(ENV)/.all
 
 # Main Targets ###############################################################
@@ -75,7 +89,7 @@ CKAN_URL := http://data.grcity.us/dataset/grand-rapids-parks-millage/resource/$(
 all: depends doc $(ALL)
 $(ALL): $(SOURCES)
 	$(MAKE) check
-	touch $(ALL)  # flag to indicate all setup steps were successful
+	@ touch $@  # flag to indicate all setup steps were successful
 
 .PHONY: ci
 ci: check test tests
@@ -105,33 +119,35 @@ data/millage.csv:
 # Development Installation ###################################################
 
 .PHONY: env
-env: .virtualenv $(EGG_INFO)
-$(EGG_INFO): Makefile setup.py requirements.txt
+env: $(PIP) $(INSTALLED_FLAG)
+$(INSTALLED_FLAG): Makefile setup.py requirements.txt
 	VIRTUAL_ENV=$(ENV) $(PYTHON) setup.py develop
-	touch $(EGG_INFO)  # flag to indicate package is installed
+	@ touch $@  # flag to indicate package is installed
 
-.PHONY: .virtualenv
-.virtualenv: $(PIP)
 $(PIP):
-	$(SYS_VIRTUALENV) --python $(SYS_PYTHON) $(ENV)
+	$(SYS_PYTHON) -m venv --clear $(ENV)
+	$(PYTHON) -m pip install --upgrade pip setuptools
+
+
+# Tools Installation ###########################################################
 
 .PHONY: depends
 depends: .depends-ci .depends-dev
 
 .PHONY: .depends-ci
-.depends-ci: env Makefile $(DEPENDS_CI)
-$(DEPENDS_CI): Makefile
+.depends-ci: env Makefile package.json $(DEPENDS_CI_FLAG)
+$(DEPENDS_CI_FLAG): Makefile
 	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8 pep257 $(TEST_RUNNER) coverage
-	npm install -g osmtogeojson geojson-minifier
-	touch $(DEPENDS_CI)  # flag to indicate dependencies are installed
+	npm install --global
+	touch $(DEPENDS_CI_FLAG)  # flag to indicate dependencies are installed
 
 .PHONY: .depends-dev
-.depends-dev: env Makefile $(DEPENDS_DEV)
-$(DEPENDS_DEV): Makefile
+.depends-dev: env Makefile $(DEPENDS_DEV_FLAG)
+$(DEPENDS_DEV_FLAG): Makefile
 	$(PIP) install --upgrade pip
 	$(PIP) install --upgrade pep8radius pygments docutils pdoc pylint wheel
-	touch $(DEPENDS_DEV)  # flag to indicate dependencies are installed
+	touch $(DEPENDS_DEV_FLAG)  # flag to indicate dependencies are installed
 
 # Documentation ##############################################################
 
