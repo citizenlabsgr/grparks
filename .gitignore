@@ -5,6 +5,7 @@ __pycache__
 
 # Temporary OS files
 Icon*
+.DS_Store
 
 # Temporary virtualenv files
 .cache
@@ -42,3 +43,4 @@ dist
 /*.osm_json
 /*.geojson*
 /*.txt
+/pages/timestamp.txt
