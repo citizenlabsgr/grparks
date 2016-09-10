@@ -19,6 +19,7 @@ after_success: >
 
     # Copy the generated files
     cp *.csv pages/
+    cp *.txt pages/
     cp *.osm_json pages/
     cp *.geojson pages/
 
