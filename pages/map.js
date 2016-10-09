@@ -43,7 +43,7 @@ mapInfo.onAdd = function(map) {
 mapInfo.updateHeading = function(props) {
 	var singular = activeBase.slice(0, -1);
 	this.heading.innerHTML = '<h4>' + singular + ' Investment</h4>' +  (props ?
-		'<b>' + props.label + '</b>: $' + props.money.toLocaleString("en-US") + (singular == "Ward" ? ", " + props.acres.toFixed(1) + " acres" : "") : 'Hover over a ' + singular.toLowerCase());
+		'<b>' + props.label + '</b>: ' + (singular == "Ward" ? props.acres.toFixed(1) + " acres, " : "") + '$' + props.money.toLocaleString("en-US", {maximumFractionDigits: 0}) : 'Hover over a ' + singular.toLowerCase());
 	};
 mapInfo.updateLegend = function() {
 	var brew = new classyBrew();
@@ -79,7 +79,7 @@ mapInfo.updateLegend = function() {
 		to = breaks[i + 1];
 		labels.push(
 			'<i style="background:' + colors[i] + '"></i>$' +
-			from.toLocaleString("en-US") + '&ndash;' + to.toLocaleString("en-US"));
+			from.toLocaleString("en-US", {maximumFractionDigits: 0}) + '&ndash;' + to.toLocaleString("en-US", {maximumFractionDigits: 0}));
 		}
 	this.legend.innerHTML = "<hr>" + labels.join('<br>');
 	}
@@ -239,9 +239,10 @@ function addMarker(feature, layer) {
 			icon: new newIcon({iconUrl: srcFromMarkerType(feature.properties.type)}),
 			riseOnHover: true
 			}).addTo(overlayLayers[labelMarker(t)]);
-		thisMarker.money = Number(
-			feature.properties.millage.replace(".00", "").replace("$", "").replace(",", "")
+		thisMarker.money = parseFloat(
+			feature.properties.millage.replace("$", "").replace(",", "")
 			);
+		if (isNaN(thisMarker.money)) {thisMarker.money = 0}
 		thisMarker.on({
 			click: function(e) {markerClicked = true;},
 			popupopen: function(e) {clickPark(e, true);},
@@ -251,7 +252,7 @@ function addMarker(feature, layer) {
 			"name": feature.properties.name,
 			"acreage": Number(feature.properties.acreage),
 			"pool": feature.properties.pool,
-			"millage": feature.properties.millage
+			"millage": thisMarker.money //feature.properties.millage
 			};
 		thisMarker.type = feature.properties.type + " " + feature.properties.leisure;
 		var improvements = "";
@@ -297,7 +298,9 @@ function makeParkList() {
 						}
 					else {
 						p.innerHTML =
-							thisPark[feature].replace(".00", "") + "&nbsp;<i class='fa fa-info-circle fa-lg'></i>";
+							"$" + thisPark[feature].toLocaleString("en-US", {maximumFractionDigits: 0}) +
+							//thisPark[feature].replace(".00", "") + 
+							"&nbsp;<i class='fa fa-info-circle fa-lg'></i>";
 						}
 					break;
 				case "pool":

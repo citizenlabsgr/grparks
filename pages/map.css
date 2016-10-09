@@ -100,18 +100,23 @@ nav a {
 .hide {
 	display: none;
 }
+#parklist.hide {
+	display: block;
+}
 /*------------------------------------------------------------------------------*/
 /* sidebar list of parks */
 #parklist {
 	overflow: auto;
 	float: left;
 	margin-right: 1px;
+	width: 17em;
+	transition: 0.5s;
 }
 #parklist li {
 	margin-bottom: 1px;
 	width: 16.25em; /*12em;*/
 	height: 3em;/*4.25em;*/
-	padding: 0.25em 0.375em;/* 0.25em 0.375em;*/
+	padding: 0.25em 0.375em;
 	position: relative;
 	opacity: 0.75;
 }
@@ -119,13 +124,13 @@ nav a {
 	nav > a {
 		display: none;
 	}
-	#parklist {
-		display: block;
+	#parklist.hide {
+		width: 17em;
 	}
 }
 @media only screen and (max-width: 1023px) {
 	#parklist.hide {
-		display: none;
+		width: 0;
 	}
 }
 #parklist li.highlight, #parklist li:hover {
