@@ -43,3 +43,4 @@ dist
 /*.osm_json
 /*.geojson*
 /*.txt
+/pages/timestamp.txt
