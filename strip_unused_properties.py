@@ -1,4 +1,4 @@
-#!env/bin/python
+#!.venv/bin/python
 
 
 def run(path):

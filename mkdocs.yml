@@ -1,0 +1,13 @@
+site_name: grparks
+site_description: Generates maps to visualize the distribution of parks millage.
+site_author: Citizen Labs
+repo_url: https://github.com/citizenlabsgr/grparks
+
+theme: readthedocs
+
+pages:
+- Home: index.md
+- About:
+  - Release Notes: about/changelog.md
+  - Contributing: about/contributing.md
+  - License: about/license.md

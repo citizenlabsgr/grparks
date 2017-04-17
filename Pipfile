@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "~=1.7.0"
+pycodestyle = "*"
+pydocstyle = "*"
+nose = "*"
+nose-cov = "*"
+expecter = "*"
+coverage = "~=4.0"
+"coverage.space" = "~=0.8"
+mkdocs = "*"
+docutils = "*"
+wheel = "*"
+twine = "*"
+sniffer = "*"
+Pygments = "*"
+PyInstaller = "*"

@@ -2,21 +2,26 @@
 *.pyc
 *.egg-info
 __pycache__
+.ipynb_checkpoints
 
 # Temporary OS files
 Icon*
-.DS_Store
 
-# Temporary virtualenv files
-.cache
-env
+# Temporary virtual environment files
+/.cache/
+/.venv/
+
+# Temporary server files
+.env
+*.pid
 
 # Generated documentation
-docs/gen
-apidocs
-docs/*.html
-*.rst
-docs/*.png
+/docs/gen/
+/docs/apidocs/
+/site/
+/*.html
+/*.rst
+/docs/*.png
 
 # Google Drive
 *.gdoc
@@ -25,12 +30,19 @@ docs/*.png
 *.gdraw
 
 # Testing and coverage results
-.coverage
-pyunit.xml
+/.pytest/
+/.coverage
+/.coverage.*
+/htmlcov/
+/xmlreport/
+/pyunit.xml
+/tmp/
+*.tmp
 
 # Build and release directories
-build
-dist
+/build/
+/dist/
+*.spec
 
 # Sublime Text
 *.sublime-workspace
