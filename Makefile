@@ -52,10 +52,9 @@ endif
 PYTHON := $(BIN)/python
 PIP := $(BIN)/pip
 
-# MAIN TASKS ###################################################################
+# MAIN TASKS ##################################################################
 
-CKAN_ID := b4efaad7-2e38-4b9e-8bf6-a50113a589d1
-CKAN_URL := http://data.grcity.us/dataset/grand-rapids-parks-millage/resource/$(CKAN_ID)
+CSV_URL := https://docs.google.com/spreadsheets/d/1Uzitiy8zUpZ7DOO18ImPML6RnNgXf1TpMbCwOQK0Ul8/export?format=csv
 
 .PHONY: all
 all: install
@@ -87,21 +86,16 @@ ifdef TRAVIS
 .PHONY: data/millage.csv
 endif
 data/millage.csv:
-	curl $(CKAN_URL) | grep -m 1 -o 'http:.*\.csv' | xargs curl > $@
-	curl $(CKAN_URL) | grep "revision timestamp" | sed -n 's:.*<td>\(.*\)</td>.*:\1:p' > timestamp.txt
+	curl $(CSV_URL) > $@
+	date +"%B %d, %Y" > timestamp.txt
 
-# SYSTEM DEPENDENCIES ##########################################################
-
-.PHONY: setup
-setup:
-	pip install pipenv==3.5.6
-	touch Pipfile
+# SYSTEM DEPENDENCIES #########################################################
 
 .PHONY: doctor
 doctor:  ## Confirm system dependencies are available
 	bin/verchew
 
-# PROJECT DEPENDENCIES #########################################################
+# PROJECT DEPENDENCIES ########################################################
 
 export PIPENV_SHELL_COMPAT=true
 export PIPENV_VENV_IN_PROJECT=true
@@ -113,7 +107,7 @@ METADATA := *.egg-info
 install: $(DEPENDENCIES) $(METADATA)
 
 $(DEPENDENCIES): $(PIP) Pipfile*
-	pipenv install --dev --ignore-hashes
+	pipenv install --dev
 ifdef WINDOWS
 	@ echo "Manually install pywin32: https://sourceforge.net/projects/pywin32/files/pywin32"
 else ifdef MAC
@@ -131,7 +125,7 @@ $(METADATA): $(PIP) setup.py
 $(PIP):
 	pipenv --python=$(SYS_PYTHON)
 
-# CHECKS #######################################################################
+# CHECKS ######################################################################
 
 PYLINT := pipenv run pylint
 PYCODESTYLE := pipenv run pycodestyle
@@ -152,7 +146,7 @@ pycodestyle: install
 pydocstyle: install
 	$(PYDOCSTYLE) $(PACKAGES) $(CONFIG)
 
-# TESTS ########################################################################
+# TESTS #######################################################################
 
 NOSE := pipenv run nosetests
 COVERAGE := pipenv run coverage
@@ -187,7 +181,7 @@ test-all: install .clean-test
 read-coverage:
 	$(OPEN) htmlcov/index.html
 
-# DOCUMENTATION ################################################################
+# DOCUMENTATION ###############################################################
 
 PYREVERSE := pipenv run pyreverse
 MKDOCS := pipenv run mkdocs
@@ -218,7 +212,7 @@ mkdocs-live: mkdocs
 	eval "sleep 3; open http://127.0.0.1:8000" &
 	$(MKDOCS) serve
 
-# BUILD ########################################################################
+# BUILD #######################################################################
 
 PYINSTALLER := pipenv run pyinstaller
 PYINSTALLER_MAKESPEC := pipenv run pyi-makespec
@@ -246,7 +240,7 @@ $(EXE_FILES): $(MODULES) $(PROJECT).spec
 $(PROJECT).spec:
 	$(PYINSTALLER_MAKESPEC) $(PACKAGE)/__main__.py --onefile --windowed --name=$(PROJECT)
 
-# RELEASE ######################################################################
+# RELEASE #####################################################################
 
 TWINE := pipenv run twine
 
@@ -273,7 +267,7 @@ upload: .git-no-changes register ## Upload the current version to PyPI
 		exit -1;                                  \
 	fi;
 
-# CLEANUP ######################################################################
+# CLEANUP #####################################################################
 
 .PHONY: clean
 clean: .clean-dist .clean-test .clean-doc .clean-build ## Delete all generated and temporary files
@@ -307,7 +301,7 @@ clean-all: clean .clean-env .clean-workspace
 .clean-workspace:
 	rm -rf *.sublime-workspace
 
-# HELP #########################################################################
+# HELP ########################################################################
 
 .PHONY: help
 help: all
