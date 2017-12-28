@@ -8,53 +8,16 @@ PACKAGES := $(PACKAGE)
 CONFIG := $(wildcard *.py)
 MODULES := $(wildcard $(PACKAGE)/*.py)
 
-# Python settings
-ifndef TRAVIS
-	PYTHON_MAJOR ?= 3
-	PYTHON_MINOR ?= 6
-endif
-
-# System paths
-PLATFORM := $(shell python -c 'import sys; print(sys.platform)')
-ifneq ($(findstring win32, $(PLATFORM)), )
-	WINDOWS := true
-	SYS_PYTHON_DIR := C:\\Python$(PYTHON_MAJOR)$(PYTHON_MINOR)
-	SYS_PYTHON := $(SYS_PYTHON_DIR)\\python.exe
-	# https://bugs.launchpad.net/virtualenv/+bug/449537
-	export TCL_LIBRARY=$(SYS_PYTHON_DIR)\\tcl\\tcl8.5
-else
-	ifneq ($(findstring darwin, $(PLATFORM)), )
-		MAC := true
-	else
-		LINUX := true
-	endif
-	SYS_PYTHON := python$(PYTHON_MAJOR)
-	ifdef PYTHON_MINOR
-		SYS_PYTHON := $(SYS_PYTHON).$(PYTHON_MINOR)
-	endif
-endif
-
 # Virtual environment paths
+export PIPENV_SHELL_COMPAT=true
+export PIPENV_VENV_IN_PROJECT=true
+export PIPENV_IGNORE_VIRTUALENVS=true
 ENV := .venv
-ifneq ($(findstring win32, $(PLATFORM)), )
-	BIN := $(ENV)/Scripts
-	ACTIVATE := $(BIN)/activate.bat
-	OPEN := cmd /c start
-else
-	BIN := $(ENV)/bin
-	ACTIVATE := . $(BIN)/activate
-	ifneq ($(findstring cygwin, $(PLATFORM)), )
-		OPEN := cygstart
-	else
-		OPEN := open
-	endif
-endif
-PYTHON := $(BIN)/python
-PIP := $(BIN)/pip
 
 # MAIN TASKS ##################################################################
 
-CSV_URL := https://docs.google.com/spreadsheets/d/1Uzitiy8zUpZ7DOO18ImPML6RnNgXf1TpMbCwOQK0Ul8/export?format=csv
+SNIFFER := pipenv run sniffer
+
 
 .PHONY: all
 all: install
@@ -64,10 +27,37 @@ ci: check test ## Run all tasks that determine CI status
 
 .PHONY: watch
 watch: install .clean-test ## Continuously run all CI tasks when files chanage
-	pipenv run sniffer
+	$(SNIFFER)
 
 .PHONY: run
 run: geojson
+
+# SYSTEM DEPENDENCIES #########################################################
+
+.PHONY: doctor
+doctor:  ## Confirm system dependencies are available
+	bin/verchew
+
+# PROJECT DEPENDENCIES ########################################################
+
+DEPENDENCIES := $(ENV)/.pipenv-$(shell bin/checksum Pipfile*)
+METADATA := *.egg-info
+
+.PHONY: install
+install: $(DEPENDENCIES) $(METADATA)
+
+$(DEPENDENCIES):
+	pipenv install --dev
+	npm install -g osmtogeojson geojson-minifier
+	@ touch $@
+
+$(METADATA): setup.py
+	pipenv run python setup.py develop
+	@ touch $@
+
+# DATA PIPELINE ###############################################################
+
+CSV_URL := https://docs.google.com/spreadsheets/d/1Uzitiy8zUpZ7DOO18ImPML6RnNgXf1TpMbCwOQK0Ul8/export?format=csv
 
 .PHONY: geojson
 geojson: parks.geojson
@@ -80,7 +70,7 @@ parks.geojson: install parks.osm_json
 .PHONY: osm_json
 osm_json: parks.osm_json
 parks.osm_json: install data/millage.csv
-	$(PYTHON) $(PACKAGE)/main.py data/millage.csv
+	pipenv run python $(PACKAGE)/main.py data/millage.csv
 
 ifdef TRAVIS
 .PHONY: data/millage.csv
@@ -88,42 +78,6 @@ endif
 data/millage.csv:
 	curl $(CSV_URL) > $@
 	date +"%B %d, %Y" > timestamp.txt
-
-# SYSTEM DEPENDENCIES #########################################################
-
-.PHONY: doctor
-doctor:  ## Confirm system dependencies are available
-	bin/verchew
-
-# PROJECT DEPENDENCIES ########################################################
-
-export PIPENV_SHELL_COMPAT=true
-export PIPENV_VENV_IN_PROJECT=true
-
-DEPENDENCIES := $(ENV)/.installed
-METADATA := *.egg-info
-
-.PHONY: install
-install: $(DEPENDENCIES) $(METADATA)
-
-$(DEPENDENCIES): $(PIP) Pipfile*
-	pipenv install --dev
-ifdef WINDOWS
-	@ echo "Manually install pywin32: https://sourceforge.net/projects/pywin32/files/pywin32"
-else ifdef MAC
-	$(PIP) install pync MacFSEvents
-else ifdef LINUX
-	$(PIP) install pyinotify
-endif
-	npm install -g osmtogeojson geojson-minifier
-	@ touch $@
-
-$(METADATA): $(PIP) setup.py
-	$(PYTHON) setup.py develop
-	@ touch $@
-
-$(PIP):
-	pipenv --python=$(SYS_PYTHON)
 
 # CHECKS ######################################################################
 
@@ -156,7 +110,7 @@ RANDOM_SEED ?= $(shell date +%s)
 
 NOSE_OPTIONS := --with-doctest
 ifndef DISABLE_COVERAGE
-NOSE_OPTIONS += --with-cov --cov=$(PACKAGE) --cov-report=html --cov-report=term-missing
+NOSE_OPTIONS += --with-coverage --cover-package=$(PACKAGE) --cover-html --cover-html-dir=htmlcov --cover-branches
 endif
 
 .PHONY: test
@@ -179,7 +133,7 @@ test-all: install .clean-test
 
 .PHONY: read-coverage
 read-coverage:
-	$(OPEN) htmlcov/index.html
+	bin/open htmlcov/index.html
 
 # DOCUMENTATION ###############################################################
 
@@ -188,8 +142,8 @@ MKDOCS := pipenv run mkdocs
 
 MKDOCS_INDEX := site/index.html
 
-.PHONY: doc
-doc: uml mkdocs ## Generate documentation
+.PHONY: docs
+docs: uml mkdocs ## Generate documentation
 
 .PHONY: uml
 uml: install docs/*.png
@@ -209,7 +163,7 @@ $(MKDOCS_INDEX): mkdocs.yml docs/*.md
 
 .PHONY: mkdocs-live
 mkdocs-live: mkdocs
-	eval "sleep 3; open http://127.0.0.1:8000" &
+	eval "sleep 3; bin/open http://127.0.0.1:8000" &
 	$(MKDOCS) serve
 
 # BUILD #######################################################################
@@ -220,13 +174,16 @@ PYINSTALLER_MAKESPEC := pipenv run pyi-makespec
 DIST_FILES := dist/*.tar.gz dist/*.whl
 EXE_FILES := dist/$(PROJECT).*
 
+.PHONY: build
+build: dist
+
 .PHONY: dist
 dist: install $(DIST_FILES)
 $(DIST_FILES): $(MODULES) README.rst CHANGELOG.rst
 	rm -f $(DIST_FILES)
-	$(PYTHON) setup.py check --restructuredtext --strict --metadata
-	$(PYTHON) setup.py sdist
-	$(PYTHON) setup.py bdist_wheel
+	pipenv run python setup.py check --restructuredtext --strict --metadata
+	pipenv run python setup.py sdist
+	pipenv run python setup.py bdist_wheel
 
 %.rst: %.md
 	pandoc -f markdown_github -t rst -o $@ $<
@@ -244,67 +201,43 @@ $(PROJECT).spec:
 
 TWINE := pipenv run twine
 
-.PHONY: register
-register: dist ## Register the project on PyPI
-	@ echo NOTE: your project must be registered manually
-	@ echo https://github.com/pypa/python-packaging-user-guide/issues/263
-	# TODO: switch to twine when the above issue is resolved
-	# $(TWINE) register dist/*.whl
-
 .PHONY: upload
-upload: .git-no-changes register ## Upload the current version to PyPI
+upload: dist ## Upload the current version to PyPI
+	git diff --name-only --exit-code
 	$(TWINE) upload dist/*.*
-	$(OPEN) https://pypi.python.org/pypi/$(PROJECT)
-
-.PHONY: .git-no-changes
-.git-no-changes:
-	@ if git diff --name-only --exit-code;        \
-	then                                          \
-		echo Git working copy is clean...;        \
-	else                                          \
-		echo ERROR: Git working copy is dirty!;   \
-		echo Commit your changes and try again.;  \
-		exit -1;                                  \
-	fi;
+	bin/open https://pypi.python.org/pypi/$(PROJECT)
 
 # CLEANUP #####################################################################
 
 .PHONY: clean
-clean: .clean-dist .clean-test .clean-doc .clean-build ## Delete all generated and temporary files
+clean: .clean-build .clean-docs .clean-test .clean-install ## Delete all generated and temporary files
 
 .PHONY: clean-all
-clean-all: clean .clean-env .clean-workspace
+clean-all: clean
+	rm -rf $(ENV)
 
-.PHONY: .clean-build
-.clean-build:
+.PHONY: .clean-install
+.clean-install:
 	find $(PACKAGES) -name '*.pyc' -delete
 	find $(PACKAGES) -name '__pycache__' -delete
 	rm -rf *.egg-info
-
-.PHONY: .clean-doc
-.clean-doc:
-	rm -rf README.rst docs/apidocs *.html docs/*.png site
 
 .PHONY: .clean-test
 .clean-test:
 	rm -rf .cache .pytest .coverage htmlcov xmlreport
 
-.PHONY: .clean-dist
-.clean-dist:
+.PHONY: .clean-docs
+.clean-docs:
+	rm -rf *.rst docs/apidocs *.html docs/*.png site
+
+.PHONY: .clean-build
+.clean-build:
 	rm -rf *.spec dist build
-
-.PHONY: .clean-env
-.clean-env: clean
-	rm -rf $(ENV)
-
-.PHONY: .clean-workspace
-.clean-workspace:
-	rm -rf *.sublime-workspace
 
 # HELP ########################################################################
 
 .PHONY: help
 help: all
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@ grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .DEFAULT_GOAL := help
