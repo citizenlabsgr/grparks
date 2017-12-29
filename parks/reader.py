@@ -20,6 +20,8 @@ def read(path):
 
         header = None
         for row in rows:
+            if not row:
+                continue
 
             if header is None:
                 header = row

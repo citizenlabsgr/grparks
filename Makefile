@@ -57,7 +57,7 @@ $(METADATA): setup.py
 
 # DATA PIPELINE ###############################################################
 
-CSV_URL := https://docs.google.com/spreadsheets/d/1Uzitiy8zUpZ7DOO18ImPML6RnNgXf1TpMbCwOQK0Ul8/export?format=csv
+CSV_URL := https://doc-04-3o-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/gp0cbq1br0rgr2nahva0odgnjsep7joi/1514548800000/04305437294454585726/*/0B0wk6vmRLkMjX1dGc1I0LTNDMElXMUdpcXBaUncxWEpuWXI0?e=download
 
 .PHONY: geojson
 geojson: parks.geojson
@@ -76,7 +76,7 @@ ifdef TRAVIS
 .PHONY: data/millage.csv
 endif
 data/millage.csv:
-	curl $(CSV_URL) > $@
+	curl "$(CSV_URL)" > $@
 	date +"%B %d, %Y" > timestamp.txt
 
 # CHECKS ######################################################################
