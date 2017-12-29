@@ -40,14 +40,18 @@ doctor:  ## Confirm system dependencies are available
 
 # PROJECT DEPENDENCIES ########################################################
 
-DEPENDENCIES := $(ENV)/.pipenv-$(shell bin/checksum Pipfile*)
+PYTHON_DEPENDENCIES := $(ENV)/.pipenv-$(shell bin/checksum Pipfile*)
+NODE_DEPENDENCIES := $(ENV)/.npm-0
 METADATA := *.egg-info
 
 .PHONY: install
-install: $(DEPENDENCIES) $(METADATA)
+install: $(PYTHON_DEPENDENCIES) $(NODE_DEPENDENCIES) $(METADATA)
 
-$(DEPENDENCIES):
+$(PYTHON_DEPENDENCIES):
 	pipenv install --dev
+	@ touch $@
+
+$(NODE_DEPENDENCIES):
 	npm install -g osmtogeojson geojson-minifier
 	@ touch $@
 
