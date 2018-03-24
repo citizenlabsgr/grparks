@@ -4,24 +4,32 @@ verify_ssl = true
 
 [dev-packages]
 
+# Linters
 pylint = "*"
 pycodestyle = "*"
 pydocstyle = "*"
 
+# Testing
 nose = "~=1.3"
 nose-cov = "*"
-
 expecter = "*"
-"coverage.space" = "*"
 
+# Reports
+coverage-space = "*"
+
+# Documentation
 mkdocs = "*"
 docutils = "*"
 pygments = "*"
 
+# Build
 wheel = "*"
 pyinstaller = "*"
 
+# Release
 twine = "*"
 
+# Tooling
 sniffer = "*"
-pync = "*"
+pync = { version = "<2.0", sys_platform = "== 'darwin'" }
+MacFSEvents = { version = "*", sys_platform = "== 'darwin'" }
