@@ -6,6 +6,7 @@ cache:
   pip: true
   directories:
     - .venv
+    - node_modules
 
 env:
   global:

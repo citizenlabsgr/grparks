@@ -8,11 +8,12 @@ PACKAGES := $(PACKAGE)
 CONFIG := $(wildcard *.py)
 MODULES := $(wildcard $(PACKAGE)/*.py)
 
-# Virtual environment paths
+# Environment paths
 export PIPENV_SHELL_COMPAT=true
 export PIPENV_VENV_IN_PROJECT=true
 export PIPENV_IGNORE_VIRTUALENVS=true
-ENV := .venv
+VENV := .venv
+NODE_MODULES := node_modules
 
 # MAIN TASKS ##################################################################
 
@@ -40,23 +41,19 @@ doctor:  ## Confirm system dependencies are available
 
 # PROJECT DEPENDENCIES ########################################################
 
-PYTHON_DEPENDENCIES := $(ENV)/.pipenv-$(shell bin/checksum Pipfile*)
-NODE_DEPENDENCIES := $(ENV)/.npm-0
-METADATA := *.egg-info
+PYTHON_DEPENDENCIES := $(VENV)/.pipenv-$(shell bin/checksum Pipfile* setup.py)
+NODE_DEPENDENCIES := $(VENV)/.npm-$(shell bin/checksum package*.json)
 
 .PHONY: install
-install: $(PYTHON_DEPENDENCIES) $(NODE_DEPENDENCIES) $(METADATA)
+install: $(PYTHON_DEPENDENCIES) $(NODE_DEPENDENCIES)
 
 $(PYTHON_DEPENDENCIES):
+	pipenv run python setup.py develop
 	pipenv install --dev
 	@ touch $@
 
 $(NODE_DEPENDENCIES):
-	npm install -g osmtogeojson geojson-minifier
-	@ touch $@
-
-$(METADATA): setup.py
-	pipenv run python setup.py develop
+	npm install
 	@ touch $@
 
 # DATA PIPELINE ###############################################################
@@ -66,10 +63,10 @@ CSV_URL := https://doc-04-3o-docs.googleusercontent.com/docs/securesc/ha0ro937gc
 .PHONY: geojson
 geojson: parks.geojson
 parks.geojson: install parks.osm_json
-	osmtogeojson -v parks.osm_json -f json > parks.geojson
+	$(NODE_MODULES)/.bin/osmtogeojson -v parks.osm_json -f json > parks.geojson
 	./strip_unused_points.sh
 	./strip_unused_properties.py parks.geojson
-	geojson-minifier -o pack -f parks.geojson -p 6
+	$(NODE_MODULES)/.bin/geojson-minifier -o pack -f parks.geojson -p 6
 
 .PHONY: osm_json
 osm_json: parks.osm_json
@@ -218,7 +215,8 @@ clean: .clean-build .clean-docs .clean-test .clean-install ## Delete all generat
 
 .PHONY: clean-all
 clean-all: clean
-	rm -rf $(ENV)
+	rm -rf $(VENV)
+	rm -rf $(NODE_MODULES)
 
 .PHONY: .clean-install
 .clean-install:

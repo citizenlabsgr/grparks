@@ -10,6 +10,7 @@ Icon*
 # Temporary virtual environment files
 /.cache/
 /.venv/
+/node_modules/
 
 # Temporary server files
 .env
