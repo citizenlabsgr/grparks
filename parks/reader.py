@@ -3,9 +3,9 @@
 import csv
 import collections
 
-from parks import common
+import log
 
-log = common.logger(__name__)
+from .common import AttributeDictionary
 
 
 def read(path):
@@ -28,7 +28,7 @@ def read(path):
                 log.debug("header: %s", header)
             else:
                 log.debug("row: %s", row)
-                data = common.AttributeDictionary()
+                data = AttributeDictionary()
                 name = row[0]
                 for index, key in enumerate(header):
                     data[key] = row[index]

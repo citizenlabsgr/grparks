@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-"""Setup script for the package."""
-
 import os
 import sys
 import logging
@@ -70,5 +68,6 @@ setuptools.setup(
         "docopt ~= 0.6.2",
         "osmapi ~= 0.4.1",
         "shapely ~= 1.5.2",
+        "minilog ~= 0.3.1",
     ]
 )

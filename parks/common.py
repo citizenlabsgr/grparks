@@ -1,9 +1,5 @@
 """Shared types."""
 
-import logging
-
-logger = logging.getLogger
-
 
 class AttributeDictionary(dict):
     """A `dict` with keys available as attributes."""

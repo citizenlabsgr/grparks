@@ -14,18 +14,14 @@ Options:
 import sys
 import csv
 import json
-import logging
 
 from docopt import docopt
+import log
 
-from parks import common
-from parks import reader
-from parks import finder
+from . import reader, finder
 
 OUTPUT_CSV = "parks.csv"
 OUTPUT_OSM_JSON = "parks.osm_json"
-
-log = common.logger(__name__)
 
 
 def main(argv=None):
@@ -38,8 +34,7 @@ def main(argv=None):
     input_csv_path = arguments['<path>']
 
     # Configure logging
-    logging.basicConfig(level=logging.DEBUG if verbose else logging.INFO,
-                        format="%(levelname)s: %(name)s: %(message)s")
+    log.init(debug=verbose)
 
     # Run the program
     success = run(input_csv_path, OUTPUT_CSV, OUTPUT_OSM_JSON, debug=debug)

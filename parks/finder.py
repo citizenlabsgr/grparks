@@ -1,11 +1,11 @@
 """Finds parks using OpenStreetMap."""
 
+import log
 import osmapi
 
-from parks import common
-from parks.grboundary import POLYGON
+from .grboundary import POLYGON
 
-# list of bounding boxes and the number of slices to split the box into
+# List of bounding boxes and the number of slices to split the box into
 # bounding boxes must stay within the API limits:
 # http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities
 BBOXES = (
@@ -35,8 +35,6 @@ PARK_NAMES = (
     "Riverwalk Trails",
     "Covell Dog Park",
 )
-
-log = common.logger(__name__)
 
 
 def find(debug=False):
