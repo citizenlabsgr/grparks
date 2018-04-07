@@ -19,7 +19,6 @@ NODE_MODULES := node_modules
 
 SNIFFER := pipenv run sniffer
 
-
 .PHONY: all
 all: install
 

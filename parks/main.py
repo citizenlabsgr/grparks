@@ -18,7 +18,7 @@ import json
 from docopt import docopt
 import log
 
-from . import reader, finder
+from parks import reader, finder
 
 OUTPUT_CSV = "parks.csv"
 OUTPUT_OSM_JSON = "parks.osm_json"
