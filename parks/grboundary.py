@@ -4,6 +4,7 @@ import json
 
 from shapely.geometry import shape
 
+
 # http://data.grcity.us/dataset/city-limits/resource/4f2ad2ce-c0fb-4de1-b02d-774405a0cf7d
 GEOJSON = """
 {

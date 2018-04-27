@@ -41,7 +41,7 @@ doctor:  ## Confirm system dependencies are available
 # PROJECT DEPENDENCIES ########################################################
 
 PYTHON_DEPENDENCIES := $(VENV)/.pipenv-$(shell bin/checksum Pipfile* setup.py)
-NODE_DEPENDENCIES := $(VENV)/.npm-$(shell bin/checksum package*.json)
+NODE_DEPENDENCIES := $(NODE_MODULES)/.npm-$(shell bin/checksum package*.json)
 
 .PHONY: install
 install: $(PYTHON_DEPENDENCIES) $(NODE_DEPENDENCIES)
@@ -57,7 +57,7 @@ $(NODE_DEPENDENCIES):
 
 # DATA PIPELINE ###############################################################
 
-CSV_URL := https://doc-04-3o-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/gp0cbq1br0rgr2nahva0odgnjsep7joi/1514548800000/04305437294454585726/*/0B0wk6vmRLkMjX1dGc1I0LTNDMElXMUdpcXBaUncxWEpuWXI0?e=download
+CSV_URL := https://query.data.world/s/2yhz5pjgn773e6iyzucaccg7bmlsww
 
 .PHONY: geojson
 geojson: parks.geojson
@@ -76,7 +76,7 @@ ifdef TRAVIS
 .PHONY: data/millage.csv
 endif
 data/millage.csv:
-	curl "$(CSV_URL)" > $@
+	wget -O $@ "$(CSV_URL)"
 	date +"%B %d, %Y" > timestamp.txt
 
 # CHECKS ######################################################################
@@ -205,7 +205,7 @@ TWINE := pipenv run twine
 upload: dist ## Upload the current version to PyPI
 	git diff --name-only --exit-code
 	$(TWINE) upload dist/*.*
-	bin/open https://pypi.python.org/pypi/$(PROJECT)
+	bin/open https://pypi.org/project/$(PROJECT)
 
 # CLEANUP #####################################################################
 

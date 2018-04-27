@@ -15,10 +15,11 @@ import sys
 import csv
 import json
 
-from docopt import docopt
 import log
+from docopt import docopt
 
 from parks import reader, finder
+
 
 OUTPUT_CSV = "parks.csv"
 OUTPUT_OSM_JSON = "parks.osm_json"
