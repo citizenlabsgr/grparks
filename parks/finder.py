@@ -5,6 +5,7 @@ import osmapi
 
 from .grboundary import POLYGON
 
+
 # List of bounding boxes and the number of slices to split the box into
 # bounding boxes must stay within the API limits:
 # http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities

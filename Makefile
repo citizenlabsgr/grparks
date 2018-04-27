@@ -41,7 +41,7 @@ doctor:  ## Confirm system dependencies are available
 # PROJECT DEPENDENCIES ########################################################
 
 PYTHON_DEPENDENCIES := $(VENV)/.pipenv-$(shell bin/checksum Pipfile* setup.py)
-NODE_DEPENDENCIES := $(VENV)/.npm-$(shell bin/checksum package*.json)
+NODE_DEPENDENCIES := $(NODE_MODULES)/.npm-$(shell bin/checksum package*.json)
 
 .PHONY: install
 install: $(PYTHON_DEPENDENCIES) $(NODE_DEPENDENCIES)
@@ -205,7 +205,7 @@ TWINE := pipenv run twine
 upload: dist ## Upload the current version to PyPI
 	git diff --name-only --exit-code
 	$(TWINE) upload dist/*.*
-	bin/open https://pypi.python.org/pypi/$(PROJECT)
+	bin/open https://pypi.org/project/$(PROJECT)
 
 # CLEANUP #####################################################################
 
