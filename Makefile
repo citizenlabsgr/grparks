@@ -57,7 +57,7 @@ $(NODE_DEPENDENCIES):
 
 # DATA PIPELINE ###############################################################
 
-CSV_URL := https://doc-04-3o-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/gp0cbq1br0rgr2nahva0odgnjsep7joi/1514548800000/04305437294454585726/*/0B0wk6vmRLkMjX1dGc1I0LTNDMElXMUdpcXBaUncxWEpuWXI0?e=download
+CSV_URL := https://query.data.world/s/2yhz5pjgn773e6iyzucaccg7bmlsww
 
 .PHONY: geojson
 geojson: parks.geojson
@@ -76,7 +76,7 @@ ifdef TRAVIS
 .PHONY: data/millage.csv
 endif
 data/millage.csv:
-	curl "$(CSV_URL)" > $@
+	wget -O $@ "$(CSV_URL)"
 	date +"%B %d, %Y" > timestamp.txt
 
 # CHECKS ######################################################################
