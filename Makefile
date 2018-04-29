@@ -57,7 +57,7 @@ $(NODE_DEPENDENCIES):
 
 # DATA PIPELINE ###############################################################
 
-CSV_URL := https://query.data.world/s/2yhz5pjgn773e6iyzucaccg7bmlsww
+CSV_URL := https://query.data.world/s/xifpjbctrxul7gwmsm6rgv6wdgjcek
 
 .PHONY: geojson
 geojson: parks.geojson
