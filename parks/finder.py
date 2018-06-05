@@ -77,8 +77,12 @@ def find(debug=False):
 
                 # find all parks in the list of points
                 for point in points:
+
+                    point['data']['timestamp'] = point['data']['timestamp'].timestamp()
+
                     if point['type'] == 'node':
                         data.append(point)
+
                     if point['type'] in ('way', 'relation'):
                         if any(((point['data']['tag'].get('leisure') == 'park'),
                                 (point['data']['tag'].get('name') in PARK_NAMES))):

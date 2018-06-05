@@ -65,9 +65,9 @@ setuptools.setup(
     ],
 
     install_requires=[
-        "docopt ~= 0.6.2",
-        "osmapi ~= 0.4.1",
-        "shapely ~= 1.5.2",
-        "minilog ~= 0.3.1",
+        "docopt~=0.6.2",
+        "osmapi~=1.1.0",
+        "shapely~=1.5.2",
+        "minilog~=0.3.1",
     ]
 )
