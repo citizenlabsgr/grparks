@@ -163,7 +163,7 @@ var baseMap = {
 				"http://www.openstreetmap.org/copyright'>&copy; OpenStreetMap</a> " +
 			"<a target='_blank' href='" +
 				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
-			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA"
+			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9lbDY2NTMiLCJhIjoiY2lqcmloaHk3MGIxOHUya29hb2FxcHU5MyJ9.sS8PeKvsVFJHQWbft6aw_A"
 		baseLayers.Default = new L.tileLayer(u, {id: settings.maps.Default, attribution: a, minZoom: 11, maxZoom: 17});
 		grayscale = L.tileLayer(u, {id: settings.maps.Grayscale, attribution: a, minZoom: 11, maxZoom: 17});
 		baseLayers.Wards = new L.layerGroup();
