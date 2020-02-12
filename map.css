@@ -1,0 +1,316 @@
+* {
+	margin: 0;
+	padding: 0;	
+}
+body {
+	font-family: Tahoma, Verdana, Segoe, sans-serif;	
+	font-size: 100%;
+}
+section {
+	width: 100%;
+	position: absolute; /* this and the following 2 lines are what makes it take up the rest of the page */
+	top: calc(5.6em + 20px);
+	bottom: 0;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+/*------------------------------------------------------------------------------*/
+/* page heading */
+header {
+	padding: calc(0.25em + 20px) 0.25em 0.25em;
+	position: relative;
+	height: 3.5em;
+}
+h1 {
+	font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
+	font-size: 1.5em;
+	line-height: 1;
+	font-style: normal;
+	font-variant: small-caps;
+	font-weight: 500;
+	position: absolute;
+	right: 0.33em;
+	bottom: 0.17em;
+}
+@media only screen and (max-width: 479px) {
+	h1 {
+		font-size: 1.2em;
+	}
+}
+@media only screen and (max-width: 397px) {
+	header img {
+		height: 45px;
+		width: 104px;
+	}
+}
+/*------------------------------------------------------------------------------*/
+/* navigation bar */
+nav {
+	line-height: 1;
+	height: 2em;
+	position: relative;
+	z-index: 1001;
+}
+nav ul {
+	float: right;
+}
+nav li {
+	float: left;
+}
+nav a {
+	display: inline-block;
+	padding: 0.5em 0.625em;
+}
+.dropdown {
+	position: relative;
+	padding-right: 1.25em;
+	display: inline-block;
+}
+.dropdown:after {
+	content: "\25BC";
+	font-size: 0.5em;
+	display: block;
+	position: absolute;
+	top: 38%;
+	right: 12%;
+}
+.dropdown i {
+	margin-right: 4px;
+}
+.dropdown-content {
+	position: absolute;
+	right: 0;
+	display: none;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 0.5em;
+}
+.dropdown-content a {
+	display: block;
+	white-space: nowrap;
+}
+.dropdown:hover > .dropdown-content {
+	display: block;
+}
+/*------------------------------------------------------------------------------*/
+/* hide or show */
+.hide {
+	display: none;
+}
+#parklist.hide {
+	display: block;
+}
+/*------------------------------------------------------------------------------*/
+/* sidebar list of parks */
+#parklist {
+	overflow: auto;
+	float: left;
+	margin-right: 1px;
+	width: 17em;
+	transition: 0.5s;
+}
+#parklist li {
+	margin-bottom: 1px;
+	width: 16.25em; /*12em;*/
+	height: 3em;/*4.25em;*/
+	padding: 0.25em 0.375em;
+	position: relative;
+	opacity: 0.75;
+}
+@media only screen and (min-width: 1024px) {
+	nav > a {
+		display: none;
+	}
+	#parklist.hide {
+		width: 17em;
+	}
+}
+@media only screen and (max-width: 1023px) {
+	#parklist.hide {
+		width: 0;
+	}
+}
+#parklist li.highlight, #parklist li:hover {
+	opacity: 1;
+}
+#parklist li > a {
+	display: block;
+}
+#parklist img {
+    width: 12px;
+    height: 20px;
+    float: left;
+    margin-right: 8px;
+}
+#parklist p {
+	margin-left: 20px;
+	text-shadow: 1px 1px white;	
+}
+#parklist li p:nth-child(2) {
+	font-size: 0.875em !important;
+	font-weight: 600;
+}
+#parklist li p:nth-child(5) {
+	font-size: 0.875em !important;
+	font-weight: 500;
+	text-align: right;
+	position: absolute;
+	bottom: calc(0.25em / 0.875);
+	right: calc(0.375em / 0.875);
+}
+/*------------------------------------------------------------------------------*/
+/* "shared" properties of mixed items */
+#parklist, #map {
+	height: 100%;
+}
+nav, #parklist p {
+	font-size: 0.8em;
+}
+/*------------------------------------------------------------------------------*/
+/* just colors */
+body {
+	background-color: darkgray;
+}
+#parklist li {
+	background-color: #f0fff0;
+}
+h1, nav a:hover {
+	color: white;
+}
+#parklist li a {
+	color: black;
+}
+#parklist li a p:nth-child(5) {
+	color: #048004;
+}
+nav, nav a, .dropdown-content {
+	background-color: black;
+	color: silver;
+}
+header {
+	background: linear-gradient(to bottom right, #048004, #044004);
+	background: -webkit-linear-gradient(left top, #048004, #044004);
+	background: -moz-linear-gradient(bottom right, #048004, #044004);
+}
+/*------------------------------------------------------------------------------*/
+/* map */
+img.small {
+	width:  10px;
+	height: 16px;
+	margin: 0 4px;
+}
+.leaflet-popup-content p {
+	margin: 4px 0;
+}
+.leaflet-control-layers-base:before {
+	content: "Views";
+	color: black;
+	font-weight: bold;
+}
+.leaflet-control-layers-overlays::before {
+	content: "Parks";
+	color: black;
+	font-weight: bold;
+}
+.info {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	text-align: left;
+	line-height: 18px;
+	color: #555;
+}
+.info h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+.info i {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.65;
+}
+/*------------------------------------------------------------------------------*/
+/* about */
+#mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1002;
+	background: rgba(0, 0, 0, 0.6);
+	display: none;
+}
+#overlay {
+	height: 70%;
+	width: 30em;
+	position: fixed;
+	top: 15%;
+	left: 50%;
+	margin-left: -15em;
+	z-index: 1003;
+	display: none;
+}
+@media only screen and (max-width: 30em) {
+	#overlay {
+		width: 80%;
+		margin-left: -40%;
+	}
+}
+#overlay:target, #overlay:target + #mask {
+	display: block;
+}
+.close {
+    display:block;
+    position:absolute;
+    top:-12px;
+    right:-12px;
+    background:red;
+    color:white;
+    height:24px;
+    width:24px;
+    line-height:20px;
+    text-align:center;
+    border-radius:12px;
+}
+iframe {
+	border: none;
+	border-radius: 10px;
+	width: 100%;
+	height: 100%;
+}
+#about {
+	background: white;
+}
+#about header {
+	height: 1.7em;
+	padding-top: 0.25em;
+}
+#about section {
+	top: 2.2em;
+	width: calc(100% - 1em);
+	padding: 0.5em;
+	overflow: scroll;
+}
+#about h2 {
+	font-size: 1em;
+	line-height: 1;
+	font-weight: bold;
+	margin: 0.5em 0 0.25em;	
+}
+#about p {
+	margin-left: 0.5em;
+	margin-bottom: 0.5em;
+}
+#about ul {
+	list-style-type: disc;
+	margin: 0.25em 2em;
+}

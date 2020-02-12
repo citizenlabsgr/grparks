@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="map.css" />
+	<script>
+	    var xhr = new XMLHttpRequest();
+	    xhr.onload = function () {
+	        document.getElementById('updated').textContent = this.responseText.trim();
+	    	};
+	    xhr.open('GET', "timestamp.txt");
+	    xhr.send();
+	</script>
+</head>
+<body id="about">
+	<header><h1>About This Map</h1></header>
+	<section>
+		<p><i>Investment data last updated <span id="updated"></span>.</i></p>
+		<p>On November 5, 2013, residents of Grand Rapids voted in favor of a dedicated property millage for capital and pool operations, and major repair and rehabilitation of parks and playgrounds. The 7-year millage runs from July 1, 2014 through June 30, 2021. This map show the parks of the City of Grand Rapids and the tax dollars invested in each one thus far.</p>
+		<h2>Types of parks</h2>
+			<p>Notice by the layer gadget in the upper-right corner that there are four types of parks: Community, Mini, Neighborhood, and Regional. These are color-coordinated with the markers on the map, as well as with the list of parks on the left side. The definition of each type of park is as follows:
+ 				<ul>
+					<li><b>Mini Park</b>: Less than 1 acre, mini parks are used to address isolated or unique recreational needs.</li>
+					<li><b>Neighborhood Park</b>: Serving as the recreation and social focus of the neighborhood, this remains the basic unit of the park system. It is between 1 and 10 acres, and typically found in a secluded residential areas.</li>
+					<li><b>Community Park</b>: Serving a broader community than neighborhood parks, the focus of community parks is on meeting community-based recreation needs as well as preserving unique landscapes and open spaces. These parks are anywhere between 10 and 50 acres.</li> 
+					<li><b>Regional Park</b>: Serves a broader purpose than community parks, with focus on meeting regional-based recreational needs and preserving unique landscapes and open spaces. Between 50 and 75 acres.</li>
+				</ul>
+			</p>
+		<h2>Neighborhoods</h2>
+			<p>The upper-right layer gadget also allows you to view neighborhood boundaries. When you select Neighborhoods, you will see a legend in the lower-left corner explaining the meaning of the various colors of the neighborhoods. Additionally, when you hover over (or "touch" on mobile devices) any neighborhood, that neighborhood's details will show in this legend.</p>
+		<h2>Wards</h2>
+			<p>The City of Grand Rapids has 3 wards (representational boundaries created by City government), that will show when this layer is selected. This layer works much like the neighborhood layer, explained above.</p>
+	</section>
+</body>
+</html>
