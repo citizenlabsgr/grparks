@@ -7,7 +7,7 @@ var settings = {
 		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/gr.geojson"
 		},
 	icons: "images/marker-icons/",
-	maps: {"Default": "mapbox.emerald", "Grayscale": "mapbox.light"},
+	maps: {"Default": "mapbox/outdoors-v11", "Grayscale": "mapbox/light-v10"},
 	neighborhoods: {
 		choropleth: {classes: 5, colors: "Blues"},
 		url: "https://raw.githubusercontent.com/citizenlabsgr/grparks/gh-pages/neighborhoods.geojson"
@@ -163,9 +163,9 @@ var baseMap = {
 				"http://www.openstreetmap.org/copyright'>&copy; OpenStreetMap</a> " +
 			"<a target='_blank' href='" +
 				"https://www.mapbox.com/map-feedback/#/-85.596/42.997/14'><b>Improve this map</b></a>",
-			u = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9lbDY2NTMiLCJhIjoiY2lqcmloaHk3MGIxOHUya29hb2FxcHU5MyJ9.sS8PeKvsVFJHQWbft6aw_A"
-		baseLayers.Default = new L.tileLayer(u, {id: settings.maps.Default, attribution: a, minZoom: 11, maxZoom: 17});
-		grayscale = L.tileLayer(u, {id: settings.maps.Grayscale, attribution: a, minZoom: 11, maxZoom: 17});
+			u = "https://api.mapbox.com/styles/v1/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9lbDY2NTMiLCJhIjoiY2lqcmloaHk3MGIxOHUya29hb2FxcHU5MyJ9.sS8PeKvsVFJHQWbft6aw_A"
+		baseLayers.Default = new L.tileLayer(u, {id: settings.maps.Default, attribution: a, minZoom: 11, maxZoom: 17, tileSize: 512, zoomOffset: -1});
+		grayscale = L.tileLayer(u, {id: settings.maps.Grayscale, attribution: a, minZoom: 11, maxZoom: 17, tileSize: 512, zoomOffset: -1});
 		baseLayers.Wards = new L.layerGroup();
 		baseLayers.Neighborhoods = new L.layerGroup();
 		this.map = L.map(div, {center: center, zoom: 12, layers: baseLayers.Default});
